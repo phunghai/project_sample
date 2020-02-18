@@ -1,65 +1,24 @@
-CREATE DATABASE IF NOT EXISTS petclinic;
+CREATE TABLE IF NOT EXISTS users (
+  id bigint(11) unsigned NOT NULL AUTO_INCREMENT,
+  name VARCHAR(50) NOT NULL,
+  email VARCHAR(50) NOT NULL,
+  password VARCHAR(100) NOT NULL,
+  enabled TINYINT NOT NULL DEFAULT 1,
+  PRIMARY KEY (id),
+  UNIQUE KEY email_unique (email)
+) ENGINE = InnoDB
+  DEFAULT CHARSET = utf8mb4;
 
-ALTER DATABASE petclinic
-  DEFAULT CHARACTER SET utf8
-  DEFAULT COLLATE utf8_general_ci;
-
-GRANT ALL PRIVILEGES ON petclinic.* TO pc@localhost IDENTIFIED BY 'pc';
-
-USE petclinic;
-
-CREATE TABLE IF NOT EXISTS vets (
-  id INT(4) UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
-  first_name VARCHAR(30),
-  last_name VARCHAR(30),
-  INDEX(last_name)
-) engine=InnoDB;
-
-CREATE TABLE IF NOT EXISTS specialties (
-  id INT(4) UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
-  name VARCHAR(80),
-  INDEX(name)
-) engine=InnoDB;
-
-CREATE TABLE IF NOT EXISTS vet_specialties (
-  vet_id INT(4) UNSIGNED NOT NULL,
-  specialty_id INT(4) UNSIGNED NOT NULL,
-  FOREIGN KEY (vet_id) REFERENCES vets(id),
-  FOREIGN KEY (specialty_id) REFERENCES specialties(id),
-  UNIQUE (vet_id,specialty_id)
-) engine=InnoDB;
-
-CREATE TABLE IF NOT EXISTS types (
-  id INT(4) UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
-  name VARCHAR(80),
-  INDEX(name)
-) engine=InnoDB;
-
-CREATE TABLE IF NOT EXISTS owners (
-  id INT(4) UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
-  first_name VARCHAR(30),
-  last_name VARCHAR(30),
-  address VARCHAR(255),
-  city VARCHAR(80),
-  telephone VARCHAR(20),
-  INDEX(last_name)
-) engine=InnoDB;
-
-CREATE TABLE IF NOT EXISTS pets (
-  id INT(4) UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
-  name VARCHAR(30),
-  birth_date DATE,
-  type_id INT(4) UNSIGNED NOT NULL,
-  owner_id INT(4) UNSIGNED NOT NULL,
-  INDEX(name),
-  FOREIGN KEY (owner_id) REFERENCES owners(id),
-  FOREIGN KEY (type_id) REFERENCES types(id)
-) engine=InnoDB;
-
-CREATE TABLE IF NOT EXISTS visits (
-  id INT(4) UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
-  pet_id INT(4) UNSIGNED NOT NULL,
-  visit_date DATE,
-  description VARCHAR(255),
-  FOREIGN KEY (pet_id) REFERENCES pets(id)
-) engine=InnoDB;
+CREATE TABLE IF NOT EXISTS authorities (
+  id bigint(11) unsigned NOT NULL AUTO_INCREMENT,
+  authority VARCHAR(50) NOT NULL,
+  PRIMARY KEY (id)
+) ENGINE = InnoDB
+  DEFAULT CHARSET = utf8mb4;
+   
+CREATE TABLE IF NOT EXISTS authorities_users (
+  user_id bigint(11) unsigned NOT NULL,
+  authority_id bigint(11) unsigned NOT NULL,
+  UNIQUE KEY authorities_unique (user_id, authority_id)
+) ENGINE = InnoDB 
+  DEFAULT CHARSET = utf8mb4;
