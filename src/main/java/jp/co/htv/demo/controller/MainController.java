@@ -36,7 +36,7 @@ public class MainController {
     public String userIndex() {
         return "user/index";
     }
-
+    
     /** Administration zone index. */
     @RequestMapping("/admin/index.html")
     public String adminIndex() {

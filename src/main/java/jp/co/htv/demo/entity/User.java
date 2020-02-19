@@ -2,6 +2,7 @@ package jp.co.htv.demo.entity;
 
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -22,7 +23,7 @@ import javax.persistence.Table;
 @Table(name="users")
 public class User {
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
 	@Column
@@ -38,7 +39,10 @@ public class User {
 	private boolean enabled;
 	
 	
-	@ManyToMany(fetch = FetchType.EAGER)
+	@ManyToMany(fetch = FetchType.EAGER, cascade = {
+                    CascadeType.PERSIST,
+                    CascadeType.MERGE
+                })
 	@JoinTable(name = "authorities_users", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "authority_id"))
 	private Set<Authority> authority;
 

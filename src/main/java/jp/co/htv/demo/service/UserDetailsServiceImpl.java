@@ -28,7 +28,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		
-		jp.co.htv.demo.entity.User appUser = userRepository.findByEmail(username).orElseThrow(() -> new UsernameNotFoundException("User is not exist"));
+		jp.co.htv.demo.entity.User appUser = userRepository.findByEmail(username);
 		
 	    List<GrantedAuthority> grantList = new ArrayList<GrantedAuthority>();
 	    for (Authority authority: appUser.getAuthority()) {

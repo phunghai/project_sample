@@ -3,62 +3,32 @@
     <head>
         <title>Login page</title>
         <meta charset="utf-8" />
-        <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/3.3.6/css/bootstrap.min.css}" />
-        <link rel="stylesheet" href="static/css/main.css" th:href="@{/css/main.css}" />
+        <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/4.3.1/css/bootstrap.min.css}" />
+        <link rel="stylesheet" href="static/css/login.css" th:href="@{/css/login.css}" />
         <script type="text/javascript" th:src="@{/webjars/jquery/2.2.4/jquery.min.js/}"></script>
- 		<script type="text/javascript" th:src="@{/webjars/bootstrap/3.3.6/js/bootstrap.min.js}"></script>
+        <script type="text/javascript" th:src="@{/webjars/jquery-ui/1.11.4/jquery-ui.min.js}"></script>
+ 		<script type="text/javascript" th:src="@{/webjars/bootstrap/4.3.1/js/bootstrap.min.js}"></script>
 	</head>
     <body>
-        <h1>Login page</h1>
-        <p th:if="${loginError}" class="error">Wrong user or password</p>
-<!--         <form th:action="@{/login.html}" method="post">
-            <label for="username">Username</label>:
-            <input type="text" id="username" name="username" autofocus="autofocus" /> <br />
-            <label for="password">Password</label>:
-            <input type="password" id="password" name="password" /> <br />
-            <input type="submit" value="Log in" />
-        </form>
-        <p><a href="../index.html" th:href="@{/index.html}">Back to home page</a></p> -->
-        
-        <form class="form-narrow form-horizontal" action="#" method="post" th:action="@{/login.html}">
-<!-- 		    <th:block th:if="${param.error != null}">
-		        <div th:replace="fragments/alert :: alert (type='danger', message='Sign in error. Please try again.')">Alert</div>
-		    </th:block> -->
-		    <fieldset>
-		        <legend>Please Sign In</legend>
+		<div class="login-form">
+		    <form action="#" th:action="@{/login.html}" method="post" autocomplete="off">
+		        <h2 class="text-center">Log in</h2>
+		        <div th:if="${loginError}" class="alert alert-danger" role="alert" >Wrong user or password</div>       
 		        <div class="form-group">
-		            <label for="inputEmail" class="col-lg-2 control-label">Email</label>
-		            <div class="col-lg-10">
-		                <input type="text" class="form-control" id="inputEmail" placeholder="Email" name="username" />
-		            </div>
+		            <input type="text" class="form-control" id="inputEmail" placeholder="Email" required="required" name="username">
 		        </div>
 		        <div class="form-group">
-		            <label for="inputPassword" class="col-lg-2 control-label">Password</label>
-		            <div class="col-lg-10">
-		                <input type="password" class="form-control" id="inputPassword" placeholder="Password" name="password" />
-		            </div>
+		            <input type="password" class="form-control"  id="inputPassword" placeholder="Password" required="required" name="password">
 		        </div>
 		        <div class="form-group">
-		            <div class="col-lg-offset-2 col-lg-10">
-		                <div class="checkbox">
-		                    <label>
-		                        <input type="checkbox" name="_spring_security_remember_me" /> Remember me
-		                    </label>
-		                </div>
-		            </div>
+		            <button type="submit" class="btn btn-primary btn-block">Log in</button>
 		        </div>
-		        <div class="form-group">
-		            <div class="col-lg-offset-2 col-lg-10">
-		                <button type="submit" class="btn btn-default">Sign in</button>
-		            </div>
-		        </div>
-		        <div class="form-group">
-		            <div class="col-lg-offset-2 col-lg-10">
-		                <p>New here? <a href="signup" th:href="@{/signup}">Sign Up</a></p>
-		            </div>
-		        </div>
-		    </fieldset>
-		</form>
+		    </form>
+		    <p><a href="../index.html" th:href="@{/index.html}">Back to home page</a></p>
+		</div>
+		
+<!--         <h1>Login page</h1>
 		<p><a href="../index.html" th:href="@{/index.html}">Back to home page</a></p>
+ -->
     </body>
 </html>
