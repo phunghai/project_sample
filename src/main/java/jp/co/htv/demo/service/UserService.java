@@ -1,5 +1,8 @@
 package jp.co.htv.demo.service;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+
 import jp.co.htv.demo.entity.User;
 
 /**
@@ -39,4 +42,20 @@ public interface UserService {
 	 * @param user User
 	 */
 	void deleteUser(User user);
+	
+	/**
+	 * Update user info
+	 * @param id user id
+	 * @param name user name
+	 * @return
+	 */
+	int updateUser(Long id, String name);
+	
+	/**
+	 * Paging user by name
+	 * @param name user name
+	 * @param pageable Pageable
+	 * @return number of user on one page
+	 */
+	Page<User> findPaginatedByName(String name, Pageable pageable);
 }
