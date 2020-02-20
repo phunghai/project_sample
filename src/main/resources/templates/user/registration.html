@@ -36,7 +36,7 @@
                          <div class="form-group col-md-6">
                              <label for="password" class="col-form-label">Password</label>
                              <input type="password" th:field="*{password}" class="form-control" id="password" placeholder="Password">
-                             <span th:if="${#fields.hasErrors('password')}" th:errors="*{email}" class="text-danger"></span>
+                             <span th:if="${#fields.hasErrors('password')}" th:errors="*{password}" class="text-danger"></span>
                          </div>
                      </div>
                      

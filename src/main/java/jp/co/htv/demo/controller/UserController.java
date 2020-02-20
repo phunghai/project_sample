@@ -1,12 +1,11 @@
 package jp.co.htv.demo.controller;
 
-import java.util.List;
+import java.lang.reflect.InvocationTargetException;
 import java.util.Optional;
-import java.util.stream.Collectors;
-import java.util.stream.IntStream;
 
 import javax.validation.Valid;
 
+import org.apache.commons.beanutils.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -14,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import jp.co.htv.demo.entity.User;
+import jp.co.htv.demo.form.UserForm;
 import jp.co.htv.demo.form.UserSearchForm;
 import jp.co.htv.demo.service.UserService;
 
@@ -62,59 +63,49 @@ public class UserController {
     	
     	model.addObject("userSearchForm", form);
 	    
-        // calulate total page
-	    int totalPages = userPage.getTotalPages();
-        if (totalPages > 0) {
-            List<Integer> pageNumbers = IntStream.rangeClosed(1, totalPages)
-                .boxed()
-                .collect(Collectors.toList());
-            model.addObject("pageNumbers", pageNumbers);
-        }
-        
 	    model.setViewName("user/search");
 	    return model;
     }
 	
-	/**
-	 * Get all users
-	 * @return ModelAndView mv
-	 */
-    @RequestMapping("/user/search")
-    public ModelAndView userSearch() {
-    	ModelAndView model = new ModelAndView();
-	    model.addObject("users", userService.findAll());
-	    model.setViewName("user/search");
-	    return model;
-    }
-
 	@GetMapping("/user/registration")
 	public ModelAndView showCreateForm() {
 		ModelAndView model = new ModelAndView();
-		User user = new User();
+		UserForm user = new UserForm();
 		model.addObject("user", user);
 		model.setViewName("/user/registration");
 
 		return model;
 	}
 
-	@PostMapping("/user")
-	public ModelAndView registerUser(@Valid User user, BindingResult bindingResult) {
+	@PostMapping("/user/registration")
+	public ModelAndView registerUser(@Valid @ModelAttribute("user") UserForm userForm, BindingResult bindingResult) {
 		ModelAndView model = new ModelAndView();
-		User userExists = userService.findUserByEmail(user.getEmail());
-
+		
+		// validation
+		if (bindingResult.hasErrors()) {
+			model.addObject("user", userForm);
+			model.setViewName("/user/registration");
+			return model;
+		}
+		
+		User userExists = userService.findUserByEmail(userForm.getEmail());
 		if (userExists != null) {
 			bindingResult.rejectValue("email", "error.user", "This email already exists!");
 		}
 
-		if (bindingResult.hasErrors()) {
-			model.setViewName("/user/registration");
-		} else {
-			userService.saveUser(user);
-			model.addObject("users", userService.findAll());
-			model.setViewName("user/search");
-			return model;
+		User user = new User();
+		// copy form to entity
+		try {
+			BeanUtils.copyProperties(userForm, user);
+		} catch (IllegalAccessException e) {
+			e.printStackTrace();
+		} catch (InvocationTargetException e) {
+			e.printStackTrace();
 		}
 
+		userService.saveUser(user);
+		model.addObject("users", userService.findAll());
+		model.setViewName("user/search");
 		return model;
 	}
 
