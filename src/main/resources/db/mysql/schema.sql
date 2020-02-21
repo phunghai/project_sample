@@ -24,15 +24,14 @@ CREATE TABLE IF NOT EXISTS authorities_users (
   DEFAULT CHARSET = utf8mb4;
 
 # table for vehicle registration palates  
-  
- CREATE TABLE `demo_db`.`m_province_type` (
+ CREATE TABLE IF NOT EXISTS `demo_db`.`m_province_type` (
   `cd` VARCHAR(10) NOT NULL,
   `name` VARCHAR(100) NULL,
   `created_at` DATETIME NULL,
   `updated_at` DATETIME NULL,
   PRIMARY KEY (`cd`));
 
-CREATE TABLE `demo_db`.`m_province` (
+CREATE TABLE IF NOT EXISTS `demo_db`.`m_province` (
   `cd` VARCHAR(10) NOT NULL,
   `type_cd` VARCHAR(10) NULL,
   `name` VARCHAR(150) NULL,
@@ -42,14 +41,13 @@ CREATE TABLE `demo_db`.`m_province` (
   PRIMARY KEY (`cd`),
   UNIQUE INDEX `cd_UNIQUE` (`cd` ASC) VISIBLE);
 
-CREATE TABLE `demo_db`.`province_plates` (
-  `id` INT GENERATED ALWAYS AS () VIRTUAL,
+CREATE TABLE IF NOT EXISTS `demo_db`.`province_plates` (
   `cd` VARCHAR(10) NOT NULL,
   `value` VARCHAR(20) NOT NULL,
-  PRIMARY KEY (`id`));
+  PRIMARY KEY (`cd`));
 
 
-CREATE TABLE `demo_db`.`province_plates` (
+CREATE TABLE IF NOT EXISTS `demo_db`.`province_plates` (
   `id` BIGINT(11) UNSIGNED NOT NULL AUTO_INCREMENT,
   `cd` VARCHAR(10) NOT NULL,
   `value` VARCHAR(20) NOT NULL,
@@ -64,10 +62,4 @@ CREATE TABLE `demo_db`.`vehicle_registration_plates` (
   PRIMARY KEY (`id`));
 
 
-CREATE TABLE `demo_db`.`vehicle_registration_plates` (
-  `id` BIGINT(11) UNSIGNED NOT NULL AUTO_INCREMENT,
-  `province_cd` VARCHAR(10) NOT NULL,
-  `palate_cd` VARCHAR(10) NOT NULL,
-  `published` SMALLINT(1) NULL,
-  PRIMARY KEY (`id`));
   

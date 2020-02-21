@@ -96,7 +96,7 @@ public class UserController {
 		User user = new User();
 		// copy form to entity
 		try {
-			BeanUtils.copyProperties(userForm, user);
+			BeanUtils.copyProperties(user, userForm);
 		} catch (IllegalAccessException e) {
 			e.printStackTrace();
 		} catch (InvocationTargetException e) {
@@ -104,6 +104,17 @@ public class UserController {
 		}
 
 		userService.saveUser(user);
+		
+		// redirect to search user
+    	Page<User> userPage = userService.findPaginatedByName("", PageRequest.of(0, 5));
+    	
+    	// Form contain search condition and search result
+    	UserSearchForm form = new UserSearchForm();
+    	form.setResult(userPage);
+    	
+    	model.addObject("userSearchForm", form);
+	    
+	    model.setViewName("user/search");
 		model.addObject("users", userService.findAll());
 		model.setViewName("user/search");
 		return model;
@@ -144,9 +155,19 @@ public class UserController {
 	    }
 	         
 	    userService.updateUser(id, user.getName());
-	    model.addObject("users", userService.findAll());
+		// redirect to search user
+    	Page<User> userPage = userService.findPaginatedByName("", PageRequest.of(0, 5));
+    	
+    	// Form contain search condition and search result
+    	UserSearchForm form = new UserSearchForm();
+    	form.setResult(userPage);
+    	
+    	model.addObject("userSearchForm", form);
+	    
 	    model.setViewName("user/search");
-	    return model;
+		model.addObject("users", userService.findAll());
+		model.setViewName("user/search");
+		return model;
 	}
 
 	/**
@@ -162,8 +183,18 @@ public class UserController {
 		
 		
 	    userService.deleteUser(user);
-	    model.addObject("users", userService.findAll());
+		// redirect to search user
+    	Page<User> userPage = userService.findPaginatedByName("", PageRequest.of(0, 5));
+    	
+    	// Form contain search condition and search result
+    	UserSearchForm form = new UserSearchForm();
+    	form.setResult(userPage);
+    	
+    	model.addObject("userSearchForm", form);
+	    
 	    model.setViewName("user/search");
-	    return model;
+		model.addObject("users", userService.findAll());
+		model.setViewName("user/search");
+		return model;
 	}
 }
