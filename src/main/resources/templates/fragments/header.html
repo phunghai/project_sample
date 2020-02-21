@@ -23,12 +23,13 @@
 			<ul class="navbar-nav">
                 <li th:if="${#authorization.expression('!isAuthenticated()')}" class="nav-item">
                     <a href="#" th:href="@{/login.html}" class="nav-link">
-                        <span class="glyphicon glyphicon-log-in" aria-hidden="true"></span>&nbsp;Sign in
+                    	<i class="fas fa-sign-in-alt"></i>
+                        &nbsp;Sign in
                     </a>
                 </li>
                 <li th:if="${#authorization.expression('isAuthenticated()')}" class="nav-item">
                     <a href="/logout" th:href="@{#}" onclick="$('#form').submit();" class="nav-link">
-                        <span class="glyphicon glyphicon-log-out" aria-hidden="true"></span>&nbsp;Logout
+                    	<i class="fas fa-sign-out-alt"></i>&nbsp;Logout
                     </a>
                     <form style="visibility: hidden" id="form" method="post" action="#" th:action="@{/logout}"></form>
                 </li>
