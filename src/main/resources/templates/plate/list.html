@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title th:text="#{plate.title}"></title>
+	    <meta charset="utf-8">
+	    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/4.3.1/css/bootstrap.min.css}" />
+        <link rel="stylesheet" type="text/css" th:href="@{/webjars/font-awesome/5.12.0/css/all.css}" />
+		<link rel="stylesheet" href="https://unpkg.com/shards-ui@latest/dist/css/shards.min.css">
+		<link rel="stylesheet" type="text/css" href="/static/css/plate.css" th:href="@{css/plate.css}">
+    </head>
+    <body>
+    <div th:replace="fragments/header :: header">&nbsp;</div>
+    <div th:switch="${platesListForm}" class="container py-5">
+        <div class="row">
+            <div class="col-lg-7 mx-auto bg-white rounded shadow">
+            	<div class="float-right mb-2 mt-2">
+					<a href="/plate/create" class="btn btn-primary"><i class="fas fa-plus"></i>&nbsp;Add</a>
+				</div>
+                <!-- Fixed header table-->
+                <div class="table-responsive">
+                    <table class="table table-fixed table-striped table-hover">
+                        <thead>
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Province</th>
+                                <th scope="col">Plates</th>
+                                <th scope="col">Published</th>
+                                <th scope="col">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr th:each="plate : ${platesListForm.platesList}">
+                                <th scope="row" th:text="${plate.id}"></th>
+                                <td th:text="${plate.province.name}"></td>
+                                <td>
+                                	<dl th:each="provincePlate : ${plate.provincePlatesList}">
+                                		<dt th:text="${provincePlate.value}"></dt>
+                                	</dl>
+                                </td>
+                                <td th:text="${plate.published} ? 'PUBLISHED' : 'UNPUBLISHED'">@mdo</td>
+                                <td><a href="#"><i class="fas fa-edit mr-3"></i></a><a href="#"><i class="fas fa-trash" style="color:red"></i></a></td>
+                            </tr>
+                          
+                        </tbody>
+                    </table>
+                </div><!-- End -->
+             </div>
+          </div>
+      </div>
+
+	<!-- Java script -->
+    <script type="text/javascript" th:src="@{/webjars/jquery/2.2.4/jquery.min.js/}"></script>
+    <script type="text/javascript" th:src="@{/webjars/jquery-ui/1.11.4/jquery-ui.min.js}"></script>
+	<script type="text/javascript" th:src="@{/webjars/bootstrap/4.3.1/js/bootstrap.min.js}"></script>
+	<script src="https://unpkg.com/shards-ui@latest/dist/js/shards.min.js"></script>
+	
+    </body>
+</html>

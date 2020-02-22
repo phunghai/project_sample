@@ -29,6 +29,7 @@ public class VehicleRegistrationPlates {
 	
 	@Column(name = "province_cd")
 	private String provinceCode;
+
 	
 	@Column(name = "published")
 	private Boolean published = true;
@@ -156,5 +157,4 @@ public class VehicleRegistrationPlates {
 		this.provincePlates = provincePlates;
 	}
 
-	
 }
