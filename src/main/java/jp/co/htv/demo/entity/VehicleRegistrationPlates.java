@@ -1,17 +1,15 @@
 package jp.co.htv.demo.entity;
 
 import java.time.LocalDateTime;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -40,12 +38,8 @@ public class VehicleRegistrationPlates {
 	@Column(name = "updated_at", columnDefinition = "TIMESTAMP")
 	private LocalDateTime updatedAt;
 	
-	@OneToMany(fetch = FetchType.LAZY,  cascade = {
-            CascadeType.PERSIST,
-            CascadeType.MERGE
-        })
-	@JoinTable(name="provice_plates", joinColumns = @JoinColumn(name = "id"), inverseJoinColumns = @JoinColumn(name = "vehicle_plates_id"))
-	private Set<ProvincePlates> provincePlates;
+	@OneToMany(mappedBy = "vehicleRegistrationPlates", cascade = {CascadeType.ALL})
+	private List<ProvincePlates> provincePlates = new ArrayList<ProvincePlates>();
 
 	
 
@@ -146,14 +140,14 @@ public class VehicleRegistrationPlates {
 	/**
 	 * @return the provincePlates
 	 */
-	public Set<ProvincePlates> getProvincePlates() {
+	public List<ProvincePlates> getProvincePlates() {
 		return provincePlates;
 	}
 
 	/**
 	 * @param provincePlates the provincePlates to set
 	 */
-	public void setProvincePlates(Set<ProvincePlates> provincePlates) {
+	public void setProvincePlates(List<ProvincePlates> provincePlates) {
 		this.provincePlates = provincePlates;
 	}
 

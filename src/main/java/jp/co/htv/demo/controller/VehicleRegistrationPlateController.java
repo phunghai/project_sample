@@ -3,19 +3,26 @@ package jp.co.htv.demo.controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import jp.co.htv.demo.dto.VehicleRegistrationPlateCreateDto;
 import jp.co.htv.demo.dto.VehicleRegistrationPlatesDto;
 import jp.co.htv.demo.entity.Province;
 import jp.co.htv.demo.entity.ProvincePlates;
+import jp.co.htv.demo.entity.VehicleRegistrationPlates;
 import jp.co.htv.demo.form.plate.PlateForm;
 import jp.co.htv.demo.form.plate.PlateListForm;
+import jp.co.htv.demo.service.ProvinceService;
 import jp.co.htv.demo.service.VehicleRegistrationPlatesService;
 
 /**
@@ -26,42 +33,25 @@ import jp.co.htv.demo.service.VehicleRegistrationPlatesService;
 @Controller
 public class VehicleRegistrationPlateController {
 
+	/** Vehicle Registration Plates Service */
 	@Autowired
 	private VehicleRegistrationPlatesService plateService;
 	
-	@RequestMapping("/plate/list")
+	/** Province service  */
+	@Autowired
+	private ProvinceService provinceService;
+	
+	/**
+	 * Search Plates Action
+	 * @return
+	 */
+	@GetMapping("/plate/list")
 	public ModelAndView searchPlates() {
 		ModelAndView model = new ModelAndView();
 		
-		PlateListForm form = new PlateListForm();
-		// get vehicle registration plates list
-		List<VehicleRegistrationPlatesDto> platesList = new ArrayList<VehicleRegistrationPlatesDto>();
-		VehicleRegistrationPlatesDto plate = new VehicleRegistrationPlatesDto();
-		plate.setId(Long.valueOf(1));
-		
-		Province province = new Province();
-		province.setCode("01");
-		province.setName("Province Name");
-		plate.setProvince(province);
-		
-		// province plate
-		List<ProvincePlates> provincePlateList = new ArrayList<ProvincePlates>();
-		ProvincePlates provincePlate = new ProvincePlates();
-		provincePlate.setValue("29");
-		provincePlateList.add(provincePlate);
-		
-		provincePlate = new ProvincePlates();
-		provincePlate.setValue("30");
-		provincePlateList.add(provincePlate);
-		
-		plate.setProvincePlatesList(provincePlateList);
-		
-		
-		plate.setPublished(true);
-		
-		platesList.add(plate);
-		
-		form.setPlatesList(platesList);
+		PlateListForm form = new PlateListForm();		
+		List<VehicleRegistrationPlatesDto> platesDtoList = plateService.findAllByOrderByProvinceCodeAsc();
+		form.setPlatesList(platesDtoList);
 		model.addObject("platesListForm", form);
 		model.setViewName("/plate/list");
 		
@@ -72,24 +62,13 @@ public class VehicleRegistrationPlateController {
 	 * Action for initialize create plate form
 	 * @return
 	 */
-	@RequestMapping("/plate/create")
+	@GetMapping("/plate/create")
 	public ModelAndView showCreateForm() {
 		ModelAndView model = new ModelAndView();
 		PlateForm plateForm = new PlateForm();
 		
-		List<Province> provinceList = new ArrayList<Province>();
-		Province province = new Province();
-		province.setCode("01");
-		province.setName("name 01");
-		provinceList.add(province);
-		
-		province = new Province();
-		province.setCode("02");
-		province.setName("name 02");
-		provinceList.add(province);
-		
-		plateForm.setPublished(true);
-		plateForm.setProvinceCode("02");
+		// Get all province list
+		List<Province> provinceList = provinceService.findAllByOrderByCodeAsc();
 		plateForm.setProvinceList(provinceList);
 		model.addObject("plateForm", plateForm);
 		model.setViewName("/plate/create");
@@ -97,10 +76,54 @@ public class VehicleRegistrationPlateController {
 		
 	}
 	
-
+	/**
+	 * Create new province plate
+	 * @param plateForm
+	 * @param bindingResult
+	 * @return
+	 */
 	@PostMapping("/plate/create")
-	public ModelAndView createPlate() {
-		return null;
+	public ModelAndView createPlate(@Valid @ModelAttribute("plateForm") PlateForm plateForm, BindingResult bindingResult) {
+		ModelAndView model = new ModelAndView();
+		// validation
+		if (bindingResult.hasErrors()) {
+			plateForm.setProvinceList(provinceService.findAllByOrderByCodeAsc());
+			model.addObject("plateForm", plateForm);
+			model.setViewName("/plate/create");
+			return model;
+		}
+		
+		// check exist before add new
+		VehicleRegistrationPlates plateExists = plateService.findByProvinceCode(plateForm.getProvinceCode());
+		if (plateExists != null) {
+			bindingResult.rejectValue("provinceCode", "error.province.plate.exist", "Province plates is exist!");
+			plateForm.setProvinceList(provinceService.findAllByOrderByCodeAsc());
+			model.addObject("plateForm", plateForm);
+			model.setViewName("/plate/create");
+			return model;
+		}
+		
+		// save object into database
+		VehicleRegistrationPlateCreateDto plateDto = new VehicleRegistrationPlateCreateDto();
+		plateDto.setProvinceCode(plateForm.getProvinceCode());
+		
+		// convert form plates to list of provice plates object
+		List<ProvincePlates> provincePlatesList = new ArrayList<ProvincePlates>();
+		String[] provincePlatesArray = plateForm.getPlates().split("\\r\\n");
+		for (String provincePlate : provincePlatesArray) {
+			ProvincePlates provincePlateObj = new ProvincePlates();
+			provincePlateObj.setValue(provincePlate);
+			provincePlatesList.add(provincePlateObj);
+		}
+		plateDto.setProvincePlatesList(provincePlatesList);
+		plateDto.setPublished(plateForm.isPublished());
+	
+		plateService.save(plateDto);
+		
+		// go to search screen
+		model.setViewName("redirect:/plate/list");
+		
+		return model;
 	}
 
 	@PutMapping("/plate/update/{id}")
@@ -108,9 +131,21 @@ public class VehicleRegistrationPlateController {
 		return null;
 	}
 
-	@DeleteMapping("/plate/delete/{id}")
-	public ModelAndView deletePlate() {
-		return null;
+	@GetMapping("/plate/delete/{id}")
+	public ModelAndView deletePlate(@PathVariable("id") long id) {
+		ModelAndView model = new ModelAndView();
+		VehicleRegistrationPlates plate = plateService.findById(id);
+		
+		// delete plate
+		plateService.delete(plate);
+		
+//		// go to search screen
+//		PlateListForm plateListForm = new PlateListForm();		
+//		List<VehicleRegistrationPlatesDto> platesDtoList = plateService.findAllByOrderByProvinceCodeAsc();
+//		plateListForm.setPlatesList(platesDtoList);
+//		model.addObject("platesListForm", plateListForm);
+		model.setViewName("redirect:/plate/list");
+		return model;
 	}
 
 }

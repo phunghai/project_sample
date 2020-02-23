@@ -10,8 +10,8 @@
     </head>
     <body>
     <div th:replace="fragments/header :: header">&nbsp;</div>
-    <div class="example col-lg-8 col-md-10 ml-auto mr-auto">
-		<h5>Vehicle Registration Plate</h5>
+    <div class="col-lg-7 mx-auto bg-white rounded shadow">
+		<h5 class="mt-2">Vehicle Registration Plate</h5>
 
         <!-- Form Controls: Simple Forms -->
         <div class="row mb-5">
@@ -24,12 +24,14 @@
 	                      <option th:each="province : ${plateForm.provinceList}" th:value="${province.code}" th:text="${province.name}"
       th:selected="${province.code==provinceCode}"></option>
 	                    </select>
+	                    <span th:if="${#fields.hasErrors('provinceCode')}" th:errors="*{provinceCode}" class="text-danger"></span>
                   </div>
                  </div>
                  <div class="row">
                    <div class="col-md-5 mb-3">
     					<label for="exampleFormControlTextarea1">Plates</label>
     					<textarea th:field="*{plates}" class="form-control" id="exampleFormControlTextarea1" rows="4"></textarea>
+    					<span th:if="${#fields.hasErrors('plates')}" th:errors="*{plates}" class="text-danger"></span>
   					</div>
                  </div>
                  <div class="row">
@@ -41,7 +43,7 @@
                  	</div>
                  </div>
                    <div class="row">
-                       <div class="col-md-5">
+                       <div class="col-md-5 mb-2">
                            <input type="submit" class="btn btn-primary" value="Add">
                        </div>
                    </div>    

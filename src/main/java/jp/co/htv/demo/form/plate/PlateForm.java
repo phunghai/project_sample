@@ -2,6 +2,8 @@ package jp.co.htv.demo.form.plate;
 
 import java.util.List;
 
+import javax.validation.constraints.NotBlank;
+
 import jp.co.htv.demo.entity.Province;
 
 /**
@@ -14,6 +16,7 @@ public class PlateForm {
 	private String provinceCode;
 	
 	/** Plates property */
+	@NotBlank
 	private String plates;
 	
 	/** Publised property **/

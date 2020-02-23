@@ -25,4 +25,9 @@ public class ProvinceServiceImpl implements ProvinceService {
 		return provinceRepository.findAll();
 	}
 
+	@Override
+	public List<Province> findAllByOrderByCodeAsc() {
+		return provinceRepository.findAllByOrderByCodeAsc();
+	}
+
 }

@@ -2,11 +2,14 @@ package jp.co.htv.demo.entity;
 
 import java.time.LocalDateTime;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 /**
@@ -25,40 +28,18 @@ public class ProvincePlates {
 	@Column(name = "value")
 	private String value;
 	
-	@Column(name = "vehicle_plates_id")
-	private Long vehiclePlatesId;
+//	@Column(name = "vehicle_plates_id")
+//	private Long vehiclePlatesId;
+	
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "vehicle_plates_id")
+	private VehicleRegistrationPlates vehicleRegistrationPlates;
 	
 	@Column(name = "created_at", columnDefinition = "TIMESTAMP")
 	private LocalDateTime createdAt;
 	
 	@Column(name = "updated_at", columnDefinition = "TIMESTAMP")
 	private LocalDateTime updatedAt;
-
-	
-
-	/**
-	 * @param id
-	 * @param value
-	 * @param vehiclePlatesId
-	 * @param createdAt
-	 * @param updatedAt
-	 */
-	public ProvincePlates(Long id, String value, Long vehiclePlatesId, LocalDateTime createdAt,
-			LocalDateTime updatedAt) {
-		super();
-		this.id = id;
-		this.value = value;
-		this.vehiclePlatesId = vehiclePlatesId;
-		this.createdAt = createdAt;
-		this.updatedAt = updatedAt;
-	}
-
-	/**
-	 * 
-	 */
-	public ProvincePlates() {
-		super();
-	}
 
 	/**
 	 * @return the id
@@ -89,17 +70,17 @@ public class ProvincePlates {
 	}
 
 	/**
-	 * @return the vehiclePlatesId
+	 * @return the vehicleRegistrationPlates
 	 */
-	public Long getVehiclePlatesId() {
-		return vehiclePlatesId;
+	public VehicleRegistrationPlates getVehicleRegistrationPlates() {
+		return vehicleRegistrationPlates;
 	}
 
 	/**
-	 * @param vehiclePlatesId the vehiclePlatesId to set
+	 * @param vehicleRegistrationPlates the vehicleRegistrationPlates to set
 	 */
-	public void setVehiclePlatesId(Long vehiclePlatesId) {
-		this.vehiclePlatesId = vehiclePlatesId;
+	public void setVehicleRegistrationPlates(VehicleRegistrationPlates vehicleRegistrationPlates) {
+		this.vehicleRegistrationPlates = vehicleRegistrationPlates;
 	}
 
 	/**
@@ -129,5 +110,6 @@ public class ProvincePlates {
 	public void setUpdatedAt(LocalDateTime updatedAt) {
 		this.updatedAt = updatedAt;
 	}
+
 		
 }

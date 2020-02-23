@@ -91,6 +91,9 @@ public class UserController {
 		User userExists = userService.findUserByEmail(userForm.getEmail());
 		if (userExists != null) {
 			bindingResult.rejectValue("email", "error.user", "This email already exists!");
+			model.addObject("user", userForm);
+			model.setViewName("/user/registration");
+			return model;
 		}
 
 		User user = new User();
