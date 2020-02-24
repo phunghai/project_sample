@@ -11,12 +11,10 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
@@ -109,17 +107,7 @@ public class UserController {
 		userService.saveUser(user);
 		
 		// redirect to search user
-    	Page<User> userPage = userService.findPaginatedByName("", PageRequest.of(0, 5));
-    	
-    	// Form contain search condition and search result
-    	UserSearchForm form = new UserSearchForm();
-    	form.setResult(userPage);
-    	
-    	model.addObject("userSearchForm", form);
-	    
-	    model.setViewName("user/search");
-		model.addObject("users", userService.findAll());
-		model.setViewName("user/search");
+		model.setViewName("redirect:/users");
 		return model;
 	}
 
@@ -146,7 +134,7 @@ public class UserController {
 	 * @param result Binding
 	 * @return
 	 */
-	@PutMapping("/user/update/{id}")
+	@PostMapping("/user/update/{id}")
 	public ModelAndView updateUser(@PathVariable("id") long id, @Valid User user, BindingResult result) {
 		ModelAndView model = new ModelAndView();
 	    if (result.hasErrors()) {
@@ -159,17 +147,7 @@ public class UserController {
 	         
 	    userService.updateUser(id, user.getName());
 		// redirect to search user
-    	Page<User> userPage = userService.findPaginatedByName("", PageRequest.of(0, 5));
-    	
-    	// Form contain search condition and search result
-    	UserSearchForm form = new UserSearchForm();
-    	form.setResult(userPage);
-    	
-    	model.addObject("userSearchForm", form);
-	    
-	    model.setViewName("user/search");
-		model.addObject("users", userService.findAll());
-		model.setViewName("user/search");
+		model.setViewName("redirect:/users");
 		return model;
 	}
 
@@ -178,7 +156,7 @@ public class UserController {
 	 * @param id
 	 * @return
 	 */
-	@DeleteMapping("/user/delete/{id}")
+	@GetMapping("/user/delete/{id}")
 	public ModelAndView deleteUser(@PathVariable("id") long id) {
 		ModelAndView model = new ModelAndView();
 	    // Get user information
@@ -187,17 +165,7 @@ public class UserController {
 		
 	    userService.deleteUser(user);
 		// redirect to search user
-    	Page<User> userPage = userService.findPaginatedByName("", PageRequest.of(0, 5));
-    	
-    	// Form contain search condition and search result
-    	UserSearchForm form = new UserSearchForm();
-    	form.setResult(userPage);
-    	
-    	model.addObject("userSearchForm", form);
-	    
-	    model.setViewName("user/search");
-		model.addObject("users", userService.findAll());
-		model.setViewName("user/search");
+	    model.setViewName("redirect:/users");
 		return model;
 	}
 }
