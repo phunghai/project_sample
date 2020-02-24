@@ -29,203 +29,213 @@ import jp.co.htv.demo.service.ProvinceService;
 import jp.co.htv.demo.service.VehicleRegistrationPlatesService;
 
 /**
- * Vehicle Registration Plate Controller
+ * Vehicle Registration Plate Controller.
+ * 
  * @author hainp
  *
  */
 @Controller
 public class VehicleRegistrationPlateController {
 
-	/** Vehicle Registration Plates Service */
-	@Autowired
-	private VehicleRegistrationPlatesService plateService;
-	
-	/** Province service  */
-	@Autowired
-	private ProvinceService provinceService;
-	
-	/**
-	 * Search Plates Action
-	 * @return
-	 */
-	@GetMapping("/plate/list")
-	public ModelAndView searchPlates() {
-		ModelAndView model = new ModelAndView();
-		
-		PlateListForm form = new PlateListForm();		
-		List<VehicleRegistrationPlatesDto> platesDtoList = plateService.findAllByOrderByProvinceCodeAsc();
-		form.setPlatesList(platesDtoList);
-		model.addObject("platesListForm", form);
-		model.setViewName("/plate/list");
-		
-		return model;
-	}
-	
-	/**
-	 * Action for initialize create plate form
-	 * @return
-	 */
-	@GetMapping("/plate/create")
-	public ModelAndView showCreateForm() {
-		ModelAndView model = new ModelAndView();
-		PlateForm plateForm = new PlateForm();
-		
-		// Get all province list
-		List<Province> provinceList = provinceService.findAllByOrderByCodeAsc();
-		plateForm.setProvinceList(provinceList);
-		model.addObject("plateForm", plateForm);
-		model.setViewName("/plate/create");
-		return model;
-		
-	}
-	
-	/**
-	 * Create new province plate
-	 * @param plateForm
-	 * @param bindingResult
-	 * @return
-	 */
-	@PostMapping("/plate/create")
-	public ModelAndView createPlate(@Valid @ModelAttribute("plateForm") PlateForm plateForm, BindingResult bindingResult) {
-		ModelAndView model = new ModelAndView();
-		// validation
-		if (bindingResult.hasErrors()) {
-			plateForm.setProvinceList(provinceService.findAllByOrderByCodeAsc());
-			model.addObject("plateForm", plateForm);
-			model.setViewName("/plate/create");
-			return model;
-		}
-		
-		// check exist before add new
-		VehicleRegistrationPlates plateExists = plateService.findByProvinceCode(plateForm.getProvinceCode());
-		if (plateExists != null) {
-			bindingResult.rejectValue("provinceCode", "error.province.plate.exist", "Province plates is exist!");
-			plateForm.setProvinceList(provinceService.findAllByOrderByCodeAsc());
-			model.addObject("plateForm", plateForm);
-			model.setViewName("/plate/create");
-			return model;
-		}
-		
-		// save object into database
-		VehicleRegistrationPlateCreateDto plateDto = new VehicleRegistrationPlateCreateDto();
-		plateDto.setProvinceCode(plateForm.getProvinceCode());
-		
-		// convert form plates to list of provice plates object
-		List<ProvincePlates> provincePlatesList = new ArrayList<ProvincePlates>();
-		String[] provincePlatesArray = plateForm.getPlates().split(System.lineSeparator());
-		for (String provincePlate : provincePlatesArray) {
-			ProvincePlates provincePlateObj = new ProvincePlates();
-			provincePlateObj.setValue(provincePlate);
-			provincePlatesList.add(provincePlateObj);
-		}
-		plateDto.setProvincePlatesList(provincePlatesList);
-		plateDto.setPublished(plateForm.isPublished());
-	
-		plateService.save(plateDto);
-		
-		// go to search screen
-		model.setViewName("redirect:/plate/list");
-		
-		return model;
-	}
+    /** Vehicle Registration Plates Service. */
+    @Autowired
+    private VehicleRegistrationPlatesService plateService;
 
-	/**
-	 * Show update form
-	 * @param id plate id
-	 * @return
-	 */
-	@GetMapping("/plate/update/{id}")
-	public ModelAndView showUpdateForm(@PathVariable("id") long id) {
-		ModelAndView model = new ModelAndView();
-		VehicleRegistrationPlateUpdateDto plateDto = plateService.getUpdateInfo(id);
-		
-		PlateUpdateForm updateForm = new PlateUpdateForm();
-		String plates = this.convertPlatesDisplay(plateDto.getProvincePlatesList());
-		updateForm.setId(plateDto.getId());
-		updateForm.setProvinceName(plateDto.getProvinceName());
-		updateForm.setPlates(plates);
-		updateForm.setPublished(plateDto.isPublished());
-		
-		model.addObject("updateForm", updateForm);
-		model.setViewName("/plate/update");
-		return model;
-	}
-	
-	/**
-	 * Update plate
-	 * @param id
-	 * @return
-	 */
-	@PostMapping("/plate/update/{id}")
-	public ModelAndView updatePlate(@PathVariable("id") long id, @Valid PlateUpdateForm updateForm, BindingResult result) {
-		ModelAndView model = new ModelAndView();
-	    
-		// validation
-		if (result.hasErrors()) {
-	        updateForm.setId(id);
-	        
-		    model.addObject("updateForm", updateForm);
-		    model.setViewName("/plate/update");
-		    return model;
-	    }
-		
-		// convert form to update data transfer object
-		VehicleRegistrationPlates plate = plateService.findById(id);
-		
-		VehicleRegistrationPlateUpdateDto updateDto = new VehicleRegistrationPlateUpdateDto();
-		updateDto.setId(updateForm.getId());
-		updateDto.setPublished(updateForm.isPublished());
-		
-		List<ProvincePlates> provincePlatesList = new ArrayList<ProvincePlates>();
-		String[] provincePlatesArray = updateForm.getPlates().split(System.lineSeparator());
-		for (String provincePlate : provincePlatesArray) {
-			ProvincePlates provincePlateObj = new ProvincePlates();
-			provincePlateObj.setVehicleRegistrationPlates(plate);
-			provincePlateObj.setValue(provincePlate);
-			provincePlateObj.setCreatedAt(LocalDateTime.now());
-			provincePlateObj.setUpdatedAt(LocalDateTime.now());
-			
-			provincePlatesList.add(provincePlateObj);
-		}
-		
-		updateDto.setProvincePlatesList(provincePlatesList);
-		plateService.update(updateDto);
-		
-		// go to search screen
-		model.setViewName("redirect:/plate/list");
-		return model;
-	}
+    /** Province service. */
+    @Autowired
+    private ProvinceService provinceService;
 
-	/**
-	 * Delete plate
-	 * @param id
-	 * @return
-	 */
-	@GetMapping("/plate/delete/{id}")
-	public ModelAndView deletePlate(@PathVariable("id") long id) {
-		ModelAndView model = new ModelAndView();
-		VehicleRegistrationPlates plate = plateService.findById(id);
-		
-		// delete plate
-		plateService.delete(plate);
-		
-		// go to search screen
-		model.setViewName("redirect:/plate/list");
-		return model;
-	}
+    /**
+     * Search Plates Action.
+     * 
+     * @return
+     */
+    @GetMapping("/plate/list")
+    public ModelAndView searchPlates() {
+        ModelAndView model = new ModelAndView();
 
-	/**
-	 * Convert plate list to String
-	 * @param provincePlateList
-	 * @return
-	 */
-	private String convertPlatesDisplay(List<ProvincePlates> provincePlateList) {
-		List<String> platesValueList = new ArrayList<String>();
-		
-		for (ProvincePlates plate : provincePlateList) {
-			platesValueList.add(plate.getValue());
-		}
-		
-		return StringUtils.join(platesValueList, System.lineSeparator());
-	}
+        PlateListForm form = new PlateListForm();
+        List<VehicleRegistrationPlatesDto> platesDtoList = plateService.findAllByOrderByProvinceCodeAsc();
+        form.setPlatesList(platesDtoList);
+        model.addObject("platesListForm", form);
+        model.setViewName("/plate/list");
+
+        return model;
+    }
+
+    /**
+     * Action for initialize create plate form.
+     * 
+     * @return
+     */
+    @GetMapping("/plate/create")
+    public ModelAndView showCreateForm() {
+        ModelAndView model = new ModelAndView();
+        PlateForm plateForm = new PlateForm();
+
+        // Get all province list
+        List<Province> provinceList = provinceService.findAllByOrderByCodeAsc();
+        plateForm.setProvinceList(provinceList);
+        model.addObject("plateForm", plateForm);
+        model.setViewName("/plate/create");
+        return model;
+
+    }
+
+    /**
+     * Create new province plate.
+     * 
+     * @param plateForm PlateForm
+     * @param bindingResult BindingResult
+     * @return
+     */
+    @PostMapping("/plate/create")
+    public ModelAndView createPlate(@Valid @ModelAttribute("plateForm") PlateForm plateForm,
+            BindingResult bindingResult) {
+        ModelAndView model = new ModelAndView();
+        // validation
+        if (bindingResult.hasErrors()) {
+            plateForm.setProvinceList(provinceService.findAllByOrderByCodeAsc());
+            model.addObject("plateForm", plateForm);
+            model.setViewName("/plate/create");
+            return model;
+        }
+
+        // check exist before add new
+        VehicleRegistrationPlates plateExists = plateService.findByProvinceCode(plateForm.getProvinceCode());
+        if (plateExists != null) {
+            bindingResult.rejectValue("provinceCode", "error.province.plate.exist", "Province plates is exist!");
+            plateForm.setProvinceList(provinceService.findAllByOrderByCodeAsc());
+            model.addObject("plateForm", plateForm);
+            model.setViewName("/plate/create");
+            return model;
+        }
+
+        // save object into database
+        VehicleRegistrationPlateCreateDto plateDto = new VehicleRegistrationPlateCreateDto();
+        plateDto.setProvinceCode(plateForm.getProvinceCode());
+
+        // convert form plates to list of provice plates object
+        List<ProvincePlates> provincePlatesList = new ArrayList<ProvincePlates>();
+        String[] provincePlatesArray = plateForm.getPlates().split(System.lineSeparator());
+        for (String provincePlate : provincePlatesArray) {
+            ProvincePlates provincePlateObj = new ProvincePlates();
+            provincePlateObj.setValue(provincePlate);
+            provincePlatesList.add(provincePlateObj);
+        }
+        plateDto.setProvincePlatesList(provincePlatesList);
+        plateDto.setPublished(plateForm.isPublished());
+
+        plateService.save(plateDto);
+
+        // go to search screen
+        model.setViewName("redirect:/plate/list");
+
+        return model;
+    }
+
+    /**
+     * Show update form
+     * 
+     * @param id plate id
+     * @return
+     */
+    @GetMapping("/plate/update/{id}")
+    public ModelAndView showUpdateForm(@PathVariable("id") long id) {
+        ModelAndView model = new ModelAndView();
+        VehicleRegistrationPlateUpdateDto plateDto = plateService.getUpdateInfo(id);
+
+        PlateUpdateForm updateForm = new PlateUpdateForm();
+        String plates = this.convertPlatesDisplay(plateDto.getProvincePlatesList());
+        updateForm.setId(plateDto.getId());
+        updateForm.setProvinceName(plateDto.getProvinceName());
+        updateForm.setPlates(plates);
+        updateForm.setPublished(plateDto.isPublished());
+
+        model.addObject("updateForm", updateForm);
+        model.setViewName("/plate/update");
+        return model;
+    }
+
+    /**
+     * Update plate
+     * 
+     * @param id
+     * @return
+     */
+    @PostMapping("/plate/update/{id}")
+    public ModelAndView updatePlate(@PathVariable("id") long id, @Valid PlateUpdateForm updateForm,
+            BindingResult result) {
+        ModelAndView model = new ModelAndView();
+
+        // validation
+        if (result.hasErrors()) {
+            updateForm.setId(id);
+
+            model.addObject("updateForm", updateForm);
+            model.setViewName("/plate/update");
+            return model;
+        }
+
+        // convert form to update data transfer object
+        VehicleRegistrationPlates plate = plateService.findById(id);
+
+        VehicleRegistrationPlateUpdateDto updateDto = new VehicleRegistrationPlateUpdateDto();
+        updateDto.setId(updateForm.getId());
+        updateDto.setPublished(updateForm.isPublished());
+
+        List<ProvincePlates> provincePlatesList = new ArrayList<ProvincePlates>();
+        String[] provincePlatesArray = updateForm.getPlates().split(System.lineSeparator());
+        for (String provincePlate : provincePlatesArray) {
+            ProvincePlates provincePlateObj = new ProvincePlates();
+            provincePlateObj.setVehicleRegistrationPlates(plate);
+            provincePlateObj.setValue(provincePlate);
+            provincePlateObj.setCreatedAt(LocalDateTime.now());
+            provincePlateObj.setUpdatedAt(LocalDateTime.now());
+
+            provincePlatesList.add(provincePlateObj);
+        }
+
+        updateDto.setProvincePlatesList(provincePlatesList);
+        plateService.update(updateDto);
+
+        // go to search screen
+        model.setViewName("redirect:/plate/list");
+        return model;
+    }
+
+    /**
+     * Delete plate
+     * 
+     * @param id plate id
+     * @return
+     */
+    @GetMapping("/plate/delete/{id}")
+    public ModelAndView deletePlate(@PathVariable("id") long id) {
+        ModelAndView model = new ModelAndView();
+        VehicleRegistrationPlates plate = plateService.findById(id);
+
+        // delete plate
+        plateService.delete(plate);
+
+        // go to search screen
+        model.setViewName("redirect:/plate/list");
+        return model;
+    }
+
+    /**
+     * Convert plate list to String.
+     * 
+     * @param provincePlateList List of ProvincePlates
+     * @return
+     */
+    private String convertPlatesDisplay(List<ProvincePlates> provincePlateList) {
+        List<String> platesValueList = new ArrayList<String>();
+
+        for (ProvincePlates plate : provincePlateList) {
+            platesValueList.add(plate.getValue());
+        }
+
+        return StringUtils.join(platesValueList, System.lineSeparator());
+    }
 }

@@ -6,59 +6,60 @@ import jp.co.htv.demo.entity.ProvincePlates;
 
 /**
  * Vehicle Registration Plate Create DTO Class
+ * 
  * @author hainp
  *
  */
 public class VehicleRegistrationPlateCreateDto {
-	/** Province Code property */
-	private String provinceCode;
-	
-	/** Published property */
-	private boolean published;
-	
-	/** Province Plates property */
-	private List<ProvincePlates> provincePlatesList;
+    /** Province Code property */
+    private String provinceCode;
 
-	/**
-	 * @return the provinceCode
-	 */
-	public String getProvinceCode() {
-		return provinceCode;
-	}
+    /** Published property */
+    private boolean published;
 
-	/**
-	 * @param provinceCode the provinceCode to set
-	 */
-	public void setProvinceCode(String provinceCode) {
-		this.provinceCode = provinceCode;
-	}
+    /** Province Plates property */
+    private List<ProvincePlates> provincePlatesList;
 
-	/**
-	 * @return the published
-	 */
-	public boolean isPublished() {
-		return published;
-	}
+    /**
+     * @return the provinceCode
+     */
+    public String getProvinceCode() {
+        return provinceCode;
+    }
 
-	/**
-	 * @param published the published to set
-	 */
-	public void setPublished(boolean published) {
-		this.published = published;
-	}
+    /**
+     * @param provinceCode the provinceCode to set
+     */
+    public void setProvinceCode(String provinceCode) {
+        this.provinceCode = provinceCode;
+    }
 
-	/**
-	 * @return the provincePlatesList
-	 */
-	public List<ProvincePlates> getProvincePlatesList() {
-		return provincePlatesList;
-	}
+    /**
+     * @return the published
+     */
+    public boolean isPublished() {
+        return published;
+    }
 
-	/**
-	 * @param provincePlatesList the provincePlatesList to set
-	 */
-	public void setProvincePlatesList(List<ProvincePlates> provincePlatesList) {
-		this.provincePlatesList = provincePlatesList;
-	}
+    /**
+     * @param published the published to set
+     */
+    public void setPublished(boolean published) {
+        this.published = published;
+    }
+
+    /**
+     * @return the provincePlatesList
+     */
+    public List<ProvincePlates> getProvincePlatesList() {
+        return provincePlatesList;
+    }
+
+    /**
+     * @param provincePlatesList the provincePlatesList to set
+     */
+    public void setProvincePlatesList(List<ProvincePlates> provincePlatesList) {
+        this.provincePlatesList = provincePlatesList;
+    }
 
 }

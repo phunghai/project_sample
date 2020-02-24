@@ -14,99 +14,99 @@ import javax.persistence.Table;
 
 /**
  * Province palates entity
+ * 
  * @author hainp
  *
  */
 @Entity
-@Table(name="province_plates")
+@Table(name = "province_plates")
 public class ProvincePlates {
-	
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
-	
-	@Column(name = "value")
-	private String value;
-		
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @Column(name = "value")
+    private String value;
+
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "vehicle_plates_id")
-	private VehicleRegistrationPlates vehicleRegistrationPlates;
-	
-	@Column(name = "created_at", columnDefinition = "TIMESTAMP")
-	private LocalDateTime createdAt;
-	
-	@Column(name = "updated_at", columnDefinition = "TIMESTAMP")
-	private LocalDateTime updatedAt;
+    private VehicleRegistrationPlates vehicleRegistrationPlates;
 
-	/**
-	 * @return the id
-	 */
-	public Long getId() {
-		return id;
-	}
+    @Column(name = "created_at", columnDefinition = "TIMESTAMP")
+    private LocalDateTime createdAt;
 
-	/**
-	 * @param id the id to set
-	 */
-	public void setId(Long id) {
-		this.id = id;
-	}
+    @Column(name = "updated_at", columnDefinition = "TIMESTAMP")
+    private LocalDateTime updatedAt;
 
-	/**
-	 * @return the value
-	 */
-	public String getValue() {
-		return value;
-	}
+    /**
+     * @return the id
+     */
+    public Long getId() {
+        return id;
+    }
 
-	/**
-	 * @param value the value to set
-	 */
-	public void setValue(String value) {
-		this.value = value;
-	}
+    /**
+     * @param id the id to set
+     */
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-	/**
-	 * @return the vehicleRegistrationPlates
-	 */
-	public VehicleRegistrationPlates getVehicleRegistrationPlates() {
-		return vehicleRegistrationPlates;
-	}
+    /**
+     * @return the value
+     */
+    public String getValue() {
+        return value;
+    }
 
-	/**
-	 * @param vehicleRegistrationPlates the vehicleRegistrationPlates to set
-	 */
-	public void setVehicleRegistrationPlates(VehicleRegistrationPlates vehicleRegistrationPlates) {
-		this.vehicleRegistrationPlates = vehicleRegistrationPlates;
-	}
+    /**
+     * @param value the value to set
+     */
+    public void setValue(String value) {
+        this.value = value;
+    }
 
-	/**
-	 * @return the createdAt
-	 */
-	public LocalDateTime getCreatedAt() {
-		return createdAt;
-	}
+    /**
+     * @return the vehicleRegistrationPlates
+     */
+    public VehicleRegistrationPlates getVehicleRegistrationPlates() {
+        return vehicleRegistrationPlates;
+    }
 
-	/**
-	 * @param createdAt the createdAt to set
-	 */
-	public void setCreatedAt(LocalDateTime createdAt) {
-		this.createdAt = createdAt;
-	}
+    /**
+     * @param vehicleRegistrationPlates the vehicleRegistrationPlates to set
+     */
+    public void setVehicleRegistrationPlates(VehicleRegistrationPlates vehicleRegistrationPlates) {
+        this.vehicleRegistrationPlates = vehicleRegistrationPlates;
+    }
 
-	/**
-	 * @return the updatedAt
-	 */
-	public LocalDateTime getUpdatedAt() {
-		return updatedAt;
-	}
+    /**
+     * @return the createdAt
+     */
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
+    }
 
-	/**
-	 * @param updatedAt the updatedAt to set
-	 */
-	public void setUpdatedAt(LocalDateTime updatedAt) {
-		this.updatedAt = updatedAt;
-	}
+    /**
+     * @param createdAt the createdAt to set
+     */
+    public void setCreatedAt(LocalDateTime createdAt) {
+        this.createdAt = createdAt;
+    }
 
-		
+    /**
+     * @return the updatedAt
+     */
+    public LocalDateTime getUpdatedAt() {
+        return updatedAt;
+    }
+
+    /**
+     * @param updatedAt the updatedAt to set
+     */
+    public void setUpdatedAt(LocalDateTime updatedAt) {
+        this.updatedAt = updatedAt;
+    }
+
 }

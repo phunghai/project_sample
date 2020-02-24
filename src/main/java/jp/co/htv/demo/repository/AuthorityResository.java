@@ -7,5 +7,5 @@ import jp.co.htv.demo.entity.Authority;
 
 @Repository
 public interface AuthorityResository extends CrudRepository<Authority, Long> {
-	Authority findByAuthority(String authority);
+    Authority findByAuthority(String authority);
 }

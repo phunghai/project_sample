@@ -8,94 +8,95 @@ import jp.co.htv.demo.entity.Province;
 
 /**
  * Plate Form Class
+ * 
  * @author hainp
  *
  */
 public class PlateForm {
-	/** Province Code **/
-	private String provinceCode;
-	
-	/** Province Name */
-	private String provinceName;
-	
-	/** Plates property */
-	@NotBlank
-	private String plates;
-	
-	/** Published property **/
-	private boolean published;
-	
-	/** Province Display List **/
-	private List<Province> provinceList;
+    /** Province Code **/
+    private String provinceCode;
 
-	/**
-	 * @return the provinceCode
-	 */
-	public String getProvinceCode() {
-		return provinceCode;
-	}
+    /** Province Name */
+    private String provinceName;
 
-	/**
-	 * @param provinceCode the provinceCode to set
-	 */
-	public void setProvinceCode(String provinceCode) {
-		this.provinceCode = provinceCode;
-	}
+    /** Plates property */
+    @NotBlank
+    private String plates;
 
-	/**
-	 * @return the plates
-	 */
-	public String getPlates() {
-		return plates;
-	}
+    /** Published property **/
+    private boolean published;
 
-	/**
-	 * @param plates the plates to set
-	 */
-	public void setPlates(String plates) {
-		this.plates = plates;
-	}
+    /** Province Display List **/
+    private List<Province> provinceList;
 
-	/**
-	 * @return the published
-	 */
-	public boolean isPublished() {
-		return published;
-	}
+    /**
+     * @return the provinceCode
+     */
+    public String getProvinceCode() {
+        return provinceCode;
+    }
 
-	/**
-	 * @param published the published to set
-	 */
-	public void setPublished(boolean published) {
-		this.published = published;
-	}
+    /**
+     * @param provinceCode the provinceCode to set
+     */
+    public void setProvinceCode(String provinceCode) {
+        this.provinceCode = provinceCode;
+    }
 
-	/**
-	 * @return the provinceList
-	 */
-	public List<Province> getProvinceList() {
-		return provinceList;
-	}
+    /**
+     * @return the plates
+     */
+    public String getPlates() {
+        return plates;
+    }
 
-	/**
-	 * @param provinceList the provinceList to set
-	 */
-	public void setProvinceList(List<Province> provinceList) {
-		this.provinceList = provinceList;
-	}
+    /**
+     * @param plates the plates to set
+     */
+    public void setPlates(String plates) {
+        this.plates = plates;
+    }
 
-	/**
-	 * @return the provinceName
-	 */
-	public String getProvinceName() {
-		return provinceName;
-	}
+    /**
+     * @return the published
+     */
+    public boolean isPublished() {
+        return published;
+    }
 
-	/**
-	 * @param provinceName the provinceName to set
-	 */
-	public void setProvinceName(String provinceName) {
-		this.provinceName = provinceName;
-	}
-	
+    /**
+     * @param published the published to set
+     */
+    public void setPublished(boolean published) {
+        this.published = published;
+    }
+
+    /**
+     * @return the provinceList
+     */
+    public List<Province> getProvinceList() {
+        return provinceList;
+    }
+
+    /**
+     * @param provinceList the provinceList to set
+     */
+    public void setProvinceList(List<Province> provinceList) {
+        this.provinceList = provinceList;
+    }
+
+    /**
+     * @return the provinceName
+     */
+    public String getProvinceName() {
+        return provinceName;
+    }
+
+    /**
+     * @param provinceName the provinceName to set
+     */
+    public void setProvinceName(String provinceName) {
+        this.provinceName = provinceName;
+    }
+
 }

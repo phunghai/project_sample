@@ -10,13 +10,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.unbescape.html.HtmlEscape;
 
 /**
- * Controller for home page and login
+ * Controller for home page and login.
+ * 
  * @author Nguyen Phung Hai
  *
  */
 @Controller
 public class MainController {
-	
+
     @RequestMapping("/")
     public String root(Locale locale) {
         return "redirect:/index.html";
@@ -24,6 +25,7 @@ public class MainController {
 
     /**
      * Home page
+     * 
      * @return
      */
     @RequestMapping("/index.html")
@@ -36,7 +38,7 @@ public class MainController {
     public String userIndex() {
         return "user/index";
     }
-    
+
     /** Administration zone index. */
     @RequestMapping("/admin/index.html")
     public String adminIndex() {

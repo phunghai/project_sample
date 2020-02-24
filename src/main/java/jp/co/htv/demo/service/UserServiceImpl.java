@@ -17,60 +17,60 @@ import jp.co.htv.demo.repository.UserRepository;
 
 @Service
 public class UserServiceImpl implements UserService {
-	@Autowired
-	private UserRepository userRepository;
+    @Autowired
+    private UserRepository userRepository;
 
-	@Autowired
-	private AuthorityResository authorityRespository;
+    @Autowired
+    private AuthorityResository authorityRespository;
 
-	@Autowired
-	private BCryptPasswordEncoder bCryptPasswordEncoder;
+    @Autowired
+    private BCryptPasswordEncoder bCryptPasswordEncoder;
 
-	@Override
-	public User findUserByEmail(String email) {
-		return userRepository.findByEmail(email);
-	}
+    @Override
+    public User findUserByEmail(String email) {
+        return userRepository.findByEmail(email);
+    }
 
-	@Override
-	public void saveUser(User user) {
-		user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
-		user.setEnabled(true);
+    @Override
+    public void saveUser(User user) {
+        user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
+        user.setEnabled(true);
 
-		Authority userAuthority = authorityRespository.findByAuthority("ROLE_ADMIN");
-		user.setAuthority(new HashSet<Authority>(Arrays.asList(userAuthority)));
-		userRepository.save(user);
-	}
+        Authority userAuthority = authorityRespository.findByAuthority("ROLE_ADMIN");
+        user.setAuthority(new HashSet<Authority>(Arrays.asList(userAuthority)));
+        userRepository.save(user);
+    }
 
-	@Override
-	public Iterable<User> findAll() {
-		// TODO convert from entity to dto
-		return userRepository.findAll();
-	}
+    @Override
+    public Iterable<User> findAll() {
+        // TODO convert from entity to dto
+        return userRepository.findAll();
+    }
 
-	@Override
-	public User findUserById(Long id) {
-		return userRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Invalid user Id:" + id));
-	}
+    @Override
+    public User findUserById(Long id) {
+        return userRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Invalid user Id:" + id));
+    }
 
-	@Override
-	public void deleteUser(User user) {
-		userRepository.delete(user);
-	}
+    @Override
+    public void deleteUser(User user) {
+        userRepository.delete(user);
+    }
 
-	@Override
-	public int updateUser(Long id, String name) {
-		userRepository.updateUserName(id, name);
-		return 0;
-	}
+    @Override
+    public int updateUser(Long id, String name) {
+        userRepository.updateUserName(id, name);
+        return 0;
+    }
 
-	// -------------- improve area -----------
-	@Override
-	public Page<User> findPaginatedByName(String name, Pageable pageable) {
-		if (StringUtils.isEmpty(name)) {
-			return userRepository.findAll(pageable);
-		}
-		
-		return userRepository.findAllByName(name, pageable);
-	}
-	
+    // -------------- improve area -----------
+    @Override
+    public Page<User> findPaginatedByName(String name, Pageable pageable) {
+        if (StringUtils.isEmpty(name)) {
+            return userRepository.findAll(pageable);
+        }
+
+        return userRepository.findAllByName(name, pageable);
+    }
+
 }

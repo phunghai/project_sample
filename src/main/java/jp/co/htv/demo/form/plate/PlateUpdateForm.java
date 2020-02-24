@@ -4,77 +4,78 @@ import javax.validation.constraints.NotBlank;
 
 /**
  * Plate Update Form Class
+ * 
  * @author hainp
  *
  */
 public class PlateUpdateForm {
-	/** plate id */
-	private Long id;
-	
-	/** Province Name */
-	private String provinceName;
-	
-	/** Plates property */
-	@NotBlank
-	private String plates;
-	
-	/** Published property **/
-	private boolean published;
+    /** plate id */
+    private Long id;
 
-	/**
-	 * @return the id
-	 */
-	public Long getId() {
-		return id;
-	}
+    /** Province Name */
+    private String provinceName;
 
-	/**
-	 * @param id the id to set
-	 */
-	public void setId(Long id) {
-		this.id = id;
-	}
+    /** Plates property */
+    @NotBlank
+    private String plates;
 
-	/**
-	 * @return the provinceName
-	 */
-	public String getProvinceName() {
-		return provinceName;
-	}
+    /** Published property **/
+    private boolean published;
 
-	/**
-	 * @param provinceName the provinceName to set
-	 */
-	public void setProvinceName(String provinceName) {
-		this.provinceName = provinceName;
-	}
+    /**
+     * @return the id
+     */
+    public Long getId() {
+        return id;
+    }
 
-	/**
-	 * @return the plates
-	 */
-	public String getPlates() {
-		return plates;
-	}
+    /**
+     * @param id the id to set
+     */
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-	/**
-	 * @param plates the plates to set
-	 */
-	public void setPlates(String plates) {
-		this.plates = plates;
-	}
+    /**
+     * @return the provinceName
+     */
+    public String getProvinceName() {
+        return provinceName;
+    }
 
-	/**
-	 * @return the published
-	 */
-	public boolean isPublished() {
-		return published;
-	}
+    /**
+     * @param provinceName the provinceName to set
+     */
+    public void setProvinceName(String provinceName) {
+        this.provinceName = provinceName;
+    }
 
-	/**
-	 * @param published the published to set
-	 */
-	public void setPublished(boolean published) {
-		this.published = published;
-	}
-	
+    /**
+     * @return the plates
+     */
+    public String getPlates() {
+        return plates;
+    }
+
+    /**
+     * @param plates the plates to set
+     */
+    public void setPlates(String plates) {
+        this.plates = plates;
+    }
+
+    /**
+     * @return the published
+     */
+    public boolean isPublished() {
+        return published;
+    }
+
+    /**
+     * @param published the published to set
+     */
+    public void setPublished(boolean published) {
+        this.published = published;
+    }
+
 }

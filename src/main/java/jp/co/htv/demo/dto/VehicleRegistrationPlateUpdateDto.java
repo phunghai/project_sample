@@ -5,94 +5,95 @@ import java.util.List;
 import jp.co.htv.demo.entity.ProvincePlates;
 
 /**
- * Vehicle Registration Plate Update Dto
+ * Vehicle Registration Plate Update Dto.
+ * 
  * @author hainp
  *
  */
 public class VehicleRegistrationPlateUpdateDto {
-	/** id property */
-	private Long id;
-	
-	/** province code property */
-	private String provinceCode;
-	
-	/** province name property */
-	private String provinceName;
-	
-	/** published property */
-	private boolean published;
-	
-	/** province plates list */
-	private List<ProvincePlates> provincePlatesList;
+    /** id property */
+    private Long id;
 
-	/**
-	 * @return the id
-	 */
-	public Long getId() {
-		return id;
-	}
+    /** province code property */
+    private String provinceCode;
 
-	/**
-	 * @param id the id to set
-	 */
-	public void setId(Long id) {
-		this.id = id;
-	}
+    /** province name property */
+    private String provinceName;
 
-	/**
-	 * @return the provinceCode
-	 */
-	public String getProvinceCode() {
-		return provinceCode;
-	}
+    /** published property */
+    private boolean published;
 
-	/**
-	 * @param provinceCode the provinceCode to set
-	 */
-	public void setProvinceCode(String provinceCode) {
-		this.provinceCode = provinceCode;
-	}
+    /** province plates list */
+    private List<ProvincePlates> provincePlatesList;
 
-	/**
-	 * @return the provinceName
-	 */
-	public String getProvinceName() {
-		return provinceName;
-	}
+    /**
+     * @return the id
+     */
+    public Long getId() {
+        return id;
+    }
 
-	/**
-	 * @param provinceName the provinceName to set
-	 */
-	public void setProvinceName(String provinceName) {
-		this.provinceName = provinceName;
-	}
+    /**
+     * @param id the id to set
+     */
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-	/**
-	 * @return the published
-	 */
-	public boolean isPublished() {
-		return published;
-	}
+    /**
+     * @return the provinceCode
+     */
+    public String getProvinceCode() {
+        return provinceCode;
+    }
 
-	/**
-	 * @param published the published to set
-	 */
-	public void setPublished(boolean published) {
-		this.published = published;
-	}
+    /**
+     * @param provinceCode the provinceCode to set
+     */
+    public void setProvinceCode(String provinceCode) {
+        this.provinceCode = provinceCode;
+    }
 
-	/**
-	 * @return the provincePlatesList
-	 */
-	public List<ProvincePlates> getProvincePlatesList() {
-		return provincePlatesList;
-	}
+    /**
+     * @return the provinceName
+     */
+    public String getProvinceName() {
+        return provinceName;
+    }
 
-	/**
-	 * @param provincePlatesList the provincePlatesList to set
-	 */
-	public void setProvincePlatesList(List<ProvincePlates> provincePlatesList) {
-		this.provincePlatesList = provincePlatesList;
-	}
-	
+    /**
+     * @param provinceName the provinceName to set
+     */
+    public void setProvinceName(String provinceName) {
+        this.provinceName = provinceName;
+    }
+
+    /**
+     * @return the published
+     */
+    public boolean isPublished() {
+        return published;
+    }
+
+    /**
+     * @param published the published to set
+     */
+    public void setPublished(boolean published) {
+        this.published = published;
+    }
+
+    /**
+     * @return the provincePlatesList
+     */
+    public List<ProvincePlates> getProvincePlatesList() {
+        return provincePlatesList;
+    }
+
+    /**
+     * @param provincePlatesList the provincePlatesList to set
+     */
+    public void setProvincePlatesList(List<ProvincePlates> provincePlatesList) {
+        this.provincePlatesList = provincePlatesList;
+    }
+
 }

@@ -11,23 +11,24 @@ import jp.co.htv.demo.repository.ProvinceRepository;
 
 /**
  * Province Service Implement
+ * 
  * @author hainp
  *
  */
 @Service
 public class ProvinceServiceImpl implements ProvinceService {
-	/** Province Repository **/
-	@Autowired
-	private ProvinceRepository provinceRepository;
+    /** Province Repository **/
+    @Autowired
+    private ProvinceRepository provinceRepository;
 
-	@Override
-	public List<Province> findAll(Sort sort) {
-		return provinceRepository.findAll();
-	}
+    @Override
+    public List<Province> findAll(Sort sort) {
+        return provinceRepository.findAll();
+    }
 
-	@Override
-	public List<Province> findAllByOrderByCodeAsc() {
-		return provinceRepository.findAllByOrderByCodeAsc();
-	}
+    @Override
+    public List<Province> findAllByOrderByCodeAsc() {
+        return provinceRepository.findAllByOrderByCodeAsc();
+    }
 
 }

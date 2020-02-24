@@ -10,16 +10,18 @@ import jp.co.htv.demo.entity.Province;
 
 /**
  * Province Repository Class
+ * 
  * @author hainp
  *
  */
 @Repository
 public interface ProvinceRepository extends JpaRepository<Province, String> {
-	List<Province> findAll(Sort sort);
-	
-	/**
-	 * Find all province by order by code asc
-	 * @return
-	 */
-	List<Province> findAllByOrderByCodeAsc();
+    List<Province> findAll(Sort sort);
+
+    /**
+     * Find all province by order by code asc
+     * 
+     * @return
+     */
+    List<Province> findAllByOrderByCodeAsc();
 }

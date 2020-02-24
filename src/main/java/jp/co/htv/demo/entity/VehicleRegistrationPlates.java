@@ -14,141 +14,139 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /**
- * Vehicle Registration Plates Entity
+ * Vehicle Registration Plates Entity.
+ * 
  * @author hainp
  *
  */
 @Entity
-@Table(name="vehicle_registration_plates")
+@Table(name = "vehicle_registration_plates")
 public class VehicleRegistrationPlates {
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
-	
-	@Column(name = "province_cd")
-	private String provinceCode;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-	
-	@Column(name = "published")
-	private Boolean published = true;
-	
-	@Column(name = "created_at", columnDefinition = "TIMESTAMP")
-	private LocalDateTime createdAt;
-	
-	@Column(name = "updated_at", columnDefinition = "TIMESTAMP")
-	private LocalDateTime updatedAt;
-	
-	@OneToMany(mappedBy = "vehicleRegistrationPlates", cascade = {CascadeType.ALL})
-	private List<ProvincePlates> provincePlates = new ArrayList<ProvincePlates>();
+    @Column(name = "province_cd")
+    private String provinceCode;
 
-	
+    @Column(name = "published")
+    private Boolean published = true;
 
-	/**
-	 * @param id
-	 * @param provinceCode
-	 * @param published
-	 * @param createdAt
-	 * @param updatedAt
-	 */
-	public VehicleRegistrationPlates(Long id, String provinceCode, Boolean published, LocalDateTime createdAt,
-			LocalDateTime updatedAt) {
-		super();
-		this.id = id;
-		this.provinceCode = provinceCode;
-		this.published = published;
-		this.createdAt = createdAt;
-		this.updatedAt = updatedAt;
-	}
+    @Column(name = "created_at", columnDefinition = "TIMESTAMP")
+    private LocalDateTime createdAt;
 
-	/**
-	 * 
-	 */
-	public VehicleRegistrationPlates() {
-		super();
-	}
+    @Column(name = "updated_at", columnDefinition = "TIMESTAMP")
+    private LocalDateTime updatedAt;
 
-	/**
-	 * @return the id
-	 */
-	public Long getId() {
-		return id;
-	}
+    @OneToMany(mappedBy = "vehicleRegistrationPlates", cascade = { CascadeType.ALL })
+    private List<ProvincePlates> provincePlates = new ArrayList<ProvincePlates>();
 
-	/**
-	 * @param id the id to set
-	 */
-	public void setId(Long id) {
-		this.id = id;
-	}
+    /**
+     * @param id
+     * @param provinceCode
+     * @param published
+     * @param createdAt
+     * @param updatedAt
+     */
+    public VehicleRegistrationPlates(Long id, String provinceCode, Boolean published, LocalDateTime createdAt,
+            LocalDateTime updatedAt) {
+        super();
+        this.id = id;
+        this.provinceCode = provinceCode;
+        this.published = published;
+        this.createdAt = createdAt;
+        this.updatedAt = updatedAt;
+    }
 
-	/**
-	 * @return the provinceCode
-	 */
-	public String getProvinceCode() {
-		return provinceCode;
-	}
+    /**
+     * 
+     */
+    public VehicleRegistrationPlates() {
+        super();
+    }
 
-	/**
-	 * @param provinceCode the provinceCode to set
-	 */
-	public void setProvinceCode(String provinceCode) {
-		this.provinceCode = provinceCode;
-	}
+    /**
+     * @return the id
+     */
+    public Long getId() {
+        return id;
+    }
 
-	/**
-	 * @return the published
-	 */
-	public Boolean getPublished() {
-		return published;
-	}
+    /**
+     * @param id the id to set
+     */
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-	/**
-	 * @param published the published to set
-	 */
-	public void setPublished(Boolean published) {
-		this.published = published;
-	}
+    /**
+     * @return the provinceCode
+     */
+    public String getProvinceCode() {
+        return provinceCode;
+    }
 
-	/**
-	 * @return the createdAt
-	 */
-	public LocalDateTime getCreatedAt() {
-		return createdAt;
-	}
+    /**
+     * @param provinceCode the provinceCode to set
+     */
+    public void setProvinceCode(String provinceCode) {
+        this.provinceCode = provinceCode;
+    }
 
-	/**
-	 * @param createdAt the createdAt to set
-	 */
-	public void setCreatedAt(LocalDateTime createdAt) {
-		this.createdAt = createdAt;
-	}
+    /**
+     * @return the published
+     */
+    public Boolean getPublished() {
+        return published;
+    }
 
-	/**
-	 * @return the updatedAt
-	 */
-	public LocalDateTime getUpdatedAt() {
-		return updatedAt;
-	}
+    /**
+     * @param published the published to set
+     */
+    public void setPublished(Boolean published) {
+        this.published = published;
+    }
 
-	/**
-	 * @param updatedAt the updatedAt to set
-	 */
-	public void setUpdatedAt(LocalDateTime updatedAt) {
-		this.updatedAt = updatedAt;
-	}
+    /**
+     * @return the createdAt
+     */
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
+    }
 
-	/**
-	 * @return the provincePlates
-	 */
-	public List<ProvincePlates> getProvincePlates() {
-		return provincePlates;
-	}
+    /**
+     * @param createdAt the createdAt to set
+     */
+    public void setCreatedAt(LocalDateTime createdAt) {
+        this.createdAt = createdAt;
+    }
 
-	/**
-	 * @param provincePlates the provincePlates to set
-	 */
-	public void setProvincePlates(List<ProvincePlates> provincePlates) {
-		this.provincePlates = provincePlates;
-	}
+    /**
+     * @return the updatedAt
+     */
+    public LocalDateTime getUpdatedAt() {
+        return updatedAt;
+    }
+
+    /**
+     * @param updatedAt the updatedAt to set
+     */
+    public void setUpdatedAt(LocalDateTime updatedAt) {
+        this.updatedAt = updatedAt;
+    }
+
+    /**
+     * @return the provincePlates
+     */
+    public List<ProvincePlates> getProvincePlates() {
+        return provincePlates;
+    }
+
+    /**
+     * @param provincePlates the provincePlates to set
+     */
+    public void setProvincePlates(List<ProvincePlates> provincePlates) {
+        this.provincePlates = provincePlates;
+    }
 
 }

@@ -13,25 +13,26 @@ import jp.co.htv.demo.entity.User;
 
 @Repository
 public interface UserRepository extends JpaRepository<User, Long> {
-	User findByEmail(String email);
-	
-	/**
-	 * Using jsql for update user info 
-	 * @param id user id
-	 * @param name user name
-	 * @return
-	 */
-	@Transactional
-	@Modifying
-	@Query(value = "update User u set u.name = :name where u.id = :user_id ")
-	int updateUserName(@Param("user_id") Long id, @Param("name") String name);
-	
-	
-	/**
-	 * Paging with search name
-	 * @param name user name
-	 * @param pageable
-	 * @return List of User
-	 */
-	Page<User> findAllByName(String name, Pageable pageable);
+    User findByEmail(String email);
+
+    /**
+     * Using jsql for update user info
+     * 
+     * @param id   user id
+     * @param name user name
+     * @return
+     */
+    @Transactional
+    @Modifying
+    @Query(value = "update User u set u.name = :name where u.id = :user_id ")
+    int updateUserName(@Param("user_id") Long id, @Param("name") String name);
+
+    /**
+     * Paging with search name
+     * 
+     * @param name     user name
+     * @param pageable
+     * @return List of User
+     */
+    Page<User> findAllByName(String name, Pageable pageable);
 }

@@ -12,14 +12,15 @@ import jp.co.htv.demo.entity.ProvincePlates;
 
 /**
  * Province Plate Repository Class
+ * 
  * @author hainp
  *
  */
 @Repository
-public interface ProvincePlatesRepository extends JpaRepository<ProvincePlates, Long>{
-	List<ProvincePlates> findByVehicleRegistrationPlatesId(Long id);
-	
-	@Modifying
-	@Query(value = "delete from ProvincePlates p where p.vehicleRegistrationPlates.id = :id ")
-	void deleteByVehicleRegistrationPlatesId(@Param("id") Long id);
+public interface ProvincePlatesRepository extends JpaRepository<ProvincePlates, Long> {
+    List<ProvincePlates> findByVehicleRegistrationPlatesId(Long id);
+
+    @Modifying
+    @Query(value = "delete from ProvincePlates p where p.vehicleRegistrationPlates.id = :id ")
+    void deleteByVehicleRegistrationPlatesId(@Param("id") Long id);
 }

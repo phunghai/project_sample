@@ -17,6 +17,7 @@ import jp.co.htv.demo.repository.UserRepository;
 
 /**
  * A custom service for spring security
+ * 
  * @author Nguyen Phung Hai
  *
  */
@@ -25,19 +26,19 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     @Autowired
     UserRepository userRepository;
 
-	@Override
-	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		
-		jp.co.htv.demo.entity.User appUser = userRepository.findByEmail(username);
-		
-	    List<GrantedAuthority> grantList = new ArrayList<GrantedAuthority>();
-	    for (Authority authority: appUser.getAuthority()) {
-	    	GrantedAuthority grantedAuthority = new SimpleGrantedAuthority(authority.getAuthority());
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+
+        jp.co.htv.demo.entity.User appUser = userRepository.findByEmail(username);
+
+        List<GrantedAuthority> grantList = new ArrayList<GrantedAuthority>();
+        for (Authority authority : appUser.getAuthority()) {
+            GrantedAuthority grantedAuthority = new SimpleGrantedAuthority(authority.getAuthority());
             grantList.add(grantedAuthority);
-	    }
-	    
-	    UserDetails user = (UserDetails) new User(appUser.getEmail(), appUser.getPassword(), grantList);
-		return user;
-	}
+        }
+
+        UserDetails user = (UserDetails) new User(appUser.getEmail(), appUser.getPassword(), grantList);
+        return user;
+    }
 
 }

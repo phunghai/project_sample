@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 /**
- * Error Controller
+ * Error Controller.
  * @author Nguyen Phung Hai
  *
  */
@@ -17,6 +17,12 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 public class ErrorController {
     private static Logger logger = LoggerFactory.getLogger(ErrorController.class);
 
+    /**
+     * Exception handler.
+     * @param throwable Throwable
+     * @param model Model
+     * @return error view
+     */
     @ExceptionHandler(Throwable.class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     public String exception(final Throwable throwable, final Model model) {

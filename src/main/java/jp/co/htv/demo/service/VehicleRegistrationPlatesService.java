@@ -11,60 +11,69 @@ import jp.co.htv.demo.entity.VehicleRegistrationPlates;
 
 /**
  * Vehicle Registration Plates Service
+ * 
  * @author hainp
  *
  */
 public interface VehicleRegistrationPlatesService {
-	
-	/**
-	 * Find object by id
-	 * @param id
-	 * @return
-	 */
-	VehicleRegistrationPlates findById(Long id);
 
-	/**
-	 * Find all
-	 * @param sort Sort
-	 * @return
-	 */
-	List<VehicleRegistrationPlates> findAll(Sort sort);
-	
-	/**
-	 * Find all by province code asc
-	 * @return List of VehicleRegistrationPlates
-	 */
-	List<VehicleRegistrationPlatesDto> findAllByOrderByProvinceCodeAsc();
-	
-	/**
-	 * Find by province code
-	 * @param provinceCode Province Code
-	 * @return
-	 */
-	VehicleRegistrationPlates findByProvinceCode(String provinceCode);
-	
-	/**
-	 * Save new plate
-	 * @param plateDto
-	 */
-	void save(VehicleRegistrationPlateCreateDto plateDto);
-	
-	/**
-	 * Delete plate
-	 * @param plate
-	 */
-	void delete(VehicleRegistrationPlates plate);
-	
-	/**
-	 * Get plate information for update
-	 * @param id province plate id
-	 * @return
-	 */
-	VehicleRegistrationPlateUpdateDto getUpdateInfo(Long id);
-	
-	/**
-	 * Update plate
-	 * @param plateUpdateDto
-	 */
-	void update(VehicleRegistrationPlateUpdateDto plateUpdateDto);
+    /**
+     * Find object by id
+     * 
+     * @param id
+     * @return
+     */
+    VehicleRegistrationPlates findById(Long id);
+
+    /**
+     * Find all
+     * 
+     * @param sort Sort
+     * @return
+     */
+    List<VehicleRegistrationPlates> findAll(Sort sort);
+
+    /**
+     * Find all by province code asc
+     * 
+     * @return List of VehicleRegistrationPlates
+     */
+    List<VehicleRegistrationPlatesDto> findAllByOrderByProvinceCodeAsc();
+
+    /**
+     * Find by province code
+     * 
+     * @param provinceCode Province Code
+     * @return
+     */
+    VehicleRegistrationPlates findByProvinceCode(String provinceCode);
+
+    /**
+     * Save new plate
+     * 
+     * @param plateDto
+     */
+    void save(VehicleRegistrationPlateCreateDto plateDto);
+
+    /**
+     * Delete plate
+     * 
+     * @param plate
+     */
+    void delete(VehicleRegistrationPlates plate);
+
+    /**
+     * Get plate information for update
+     * 
+     * @param id province plate id
+     * @return
+     */
+    VehicleRegistrationPlateUpdateDto getUpdateInfo(Long id);
+
+    /**
+     * Update plate
+     * 
+     * @param plateUpdateDto
+     */
+    void update(VehicleRegistrationPlateUpdateDto plateUpdateDto);
 }

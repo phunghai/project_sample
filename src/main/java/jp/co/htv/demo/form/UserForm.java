@@ -5,83 +5,83 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 /**
- * User Form class
+ * User Form class.
+ * 
  * @author Nguyen Phung Hai
  *
  */
 public class UserForm {
-	@NotBlank
-	private String name;
-	
-	@NotBlank
-	@Email
-	private String email;
-	
-	@NotBlank
-	private String password;
-	
-	/**
-	 * Default constructor 
-	 */
-	public UserForm() {
-		super();
-	}
-	
-	/**
-	 * Custom constructor
-	 * @param name
-	 * @param email
-	 * @param password
-	 */
-	public UserForm(@NotNull String name, @NotNull String email, @NotNull String password) {
-		super();
-		this.name = name;
-		this.email = email;
-		this.password = password;
-	}
+    @NotBlank
+    private String name;
 
+    @NotBlank
+    @Email
+    private String email;
 
+    @NotBlank
+    private String password;
 
-	/**
-	 * @return the name
-	 */
-	public String getName() {
-		return name;
-	}
+    /**
+     * Default constructor
+     */
+    public UserForm() {
+        super();
+    }
 
-	/**
-	 * @param name the name to set
-	 */
-	public void setName(String name) {
-		this.name = name;
-	}
+    /**
+     * Custom constructor
+     * 
+     * @param name
+     * @param email
+     * @param password
+     */
+    public UserForm(@NotNull String name, @NotNull String email, @NotNull String password) {
+        super();
+        this.name = name;
+        this.email = email;
+        this.password = password;
+    }
 
-	/**
-	 * @return the email
-	 */
-	public String getEmail() {
-		return email;
-	}
+    /**
+     * @return the name
+     */
+    public String getName() {
+        return name;
+    }
 
-	/**
-	 * @param email the email to set
-	 */
-	public void setEmail(String email) {
-		this.email = email;
-	}
+    /**
+     * @param name the name to set
+     */
+    public void setName(String name) {
+        this.name = name;
+    }
 
-	/**
-	 * @return the password
-	 */
-	public String getPassword() {
-		return password;
-	}
+    /**
+     * @return the email
+     */
+    public String getEmail() {
+        return email;
+    }
 
-	/**
-	 * @param password the password to set
-	 */
-	public void setPassword(String password) {
-		this.password = password;
-	}
-	
+    /**
+     * @param email the email to set
+     */
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    /**
+     * @return the password
+     */
+    public String getPassword() {
+        return password;
+    }
+
+    /**
+     * @param password the password to set
+     */
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
 }

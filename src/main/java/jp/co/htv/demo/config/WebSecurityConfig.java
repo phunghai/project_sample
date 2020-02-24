@@ -13,6 +13,7 @@ import jp.co.htv.demo.service.UserDetailsServiceImpl;
 
 /**
  * Web security configuration class
+ * 
  * @author Nguyen Phung Hai
  *
  */
@@ -21,45 +22,32 @@ import jp.co.htv.demo.service.UserDetailsServiceImpl;
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     UserDetailsServiceImpl userDetailsService;
-	
-	/**
-	 * default constructor
-	 */
+
+    /**
+     * default constructor
+     */
     public WebSecurityConfig() {
         super();
     }
 
-
     @Override
     protected void configure(final HttpSecurity http) throws Exception {
-        http
-                .formLogin()
-                .loginPage("/login.html")
-                .failureUrl("/login-error.html")
-            .and()
-                .logout()
-                .logoutSuccessUrl("/index.html")
-            .and()
-                .authorizeRequests()
-//                .antMatchers("/users").hasRole("ADMIN") // users list
-                .antMatchers("/admin/**").hasRole("ADMIN")
-//                .antMatchers("/user/**").hasAnyRole("USER","ADMIN")
-                .antMatchers("/shared/**").hasAnyRole("USER","ADMIN")
-            .and()
-                .exceptionHandling()
+        http.formLogin().loginPage("/login.html").failureUrl("/login-error.html").and().logout()
+                .logoutSuccessUrl("/index.html").and().authorizeRequests()
+                .antMatchers("/users").hasRole("ADMIN") // users list
+                .antMatchers("/user/**").hasRole("ADMIN").and().exceptionHandling()
                 .accessDeniedPage("/403.html");
 
     }
 
-
     @Override
     protected void configure(final AuthenticationManagerBuilder auth) throws Exception {
-    	auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder()); 
+        auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
     }
-    
-	@Bean
-	public BCryptPasswordEncoder passwordEncoder() {
-		BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
-		return bCryptPasswordEncoder;
-	}
+
+    @Bean
+    public BCryptPasswordEncoder passwordEncoder() {
+        BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
+        return bCryptPasswordEncoder;
+    }
 }
