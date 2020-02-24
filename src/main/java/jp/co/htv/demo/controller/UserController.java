@@ -58,6 +58,7 @@ public class UserController {
     	// Form contain search condition and search result
     	UserSearchForm form = new UserSearchForm();
     	form.setResult(userPage);
+    	form.setName(searchName);
     	
     	model.addObject("userSearchForm", form);
 	    
