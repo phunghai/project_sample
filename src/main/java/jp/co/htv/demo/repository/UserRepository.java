@@ -16,7 +16,7 @@ public interface UserRepository extends JpaRepository<User, Long> {
 	User findByEmail(String email);
 	
 	/**
-	 * DEMO: Using jsql for update user info 
+	 * Using jsql for update user info 
 	 * @param id user id
 	 * @param name user name
 	 * @return

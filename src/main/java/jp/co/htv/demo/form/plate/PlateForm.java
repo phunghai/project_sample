@@ -15,11 +15,14 @@ public class PlateForm {
 	/** Province Code **/
 	private String provinceCode;
 	
+	/** Province Name */
+	private String provinceName;
+	
 	/** Plates property */
 	@NotBlank
 	private String plates;
 	
-	/** Publised property **/
+	/** Published property **/
 	private boolean published;
 	
 	/** Province Display List **/
@@ -79,6 +82,20 @@ public class PlateForm {
 	 */
 	public void setProvinceList(List<Province> provinceList) {
 		this.provinceList = provinceList;
+	}
+
+	/**
+	 * @return the provinceName
+	 */
+	public String getProvinceName() {
+		return provinceName;
+	}
+
+	/**
+	 * @param provinceName the provinceName to set
+	 */
+	public void setProvinceName(String provinceName) {
+		this.provinceName = provinceName;
 	}
 	
 }

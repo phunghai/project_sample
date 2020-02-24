@@ -16,36 +16,32 @@
         <!-- Form Controls: Simple Forms -->
         <div class="row mb-5">
 			<div class="col-md-12">
-                 <form action="#" th:action="@{/plate/create}" th:object="${plateForm}" method="post">
+                 <form action="#" th:action="@{/plate/update/{id}(id=${updateForm.id})}" th:object="${updateForm}" method="post">
                  <div class="row">
                  	<div class="col-md-5 mb-3">
-	                    <label for="form1-state">Province</label>
-	                    <select th:field="*{provinceCode}" class="custom-select" id="form1-state">
-	                      <option th:each="province : ${plateForm.provinceList}" th:value="${province.code}" th:text="${province.name}"
-      th:selected="${province.code==provinceCode}"></option>
-	                    </select>
-	                    <span th:if="${#fields.hasErrors('provinceCode')}" th:errors="*{provinceCode}" class="text-danger"></span>
+	                    <label>Province</label>
+	                    <p th:text="${updateForm.provinceName}"></p>
                   </div>
                  </div>
                  <div class="row">
                    <div class="col-md-5 mb-3">
     					<label for="exampleFormControlTextarea1">Plates</label>
-    					<textarea th:field="*{plates}" class="form-control" id="exampleFormControlTextarea1" rows="4"></textarea>
+    					<textarea th:field="*{plates}" class="form-control" id="plates" rows="4"></textarea>
     					<span th:if="${#fields.hasErrors('plates')}" th:errors="*{plates}" class="text-danger"></span>
   					</div>
                  </div>
                  <div class="row">
                  	<div class="col-md-5 mb-3">
                  		<div class="custom-control custom-checkbox d-block my-2">
-                    		<input name="published" th:field="*{published}" type="checkbox" class="custom-control-input" id="customCheck1">
-                    		<label class="custom-control-label" for="customCheck1">Published</label>
+                    		<input name="published" th:field="*{published}" type="checkbox" class="custom-control-input" id="inputPublised">
+                    		<label class="custom-control-label" for="inputPublised">Published</label>
                   		</div>
                  	</div>
                  </div>
                    <div class="row">
                        <div class="col-md-5 mb-2">
-                       		<a th:href="@{/plate/list}" class="btn btn-secondary" href="#">Back</a>
-                           <input type="submit" class="btn btn-primary" value="Add">
+							<a th:href="@{/plate/list}" class="btn btn-secondary" href="#">Back</a>
+                           <input type="submit" class="btn btn-primary" value="Update">
                        </div>
                    </div>    
                  </form>

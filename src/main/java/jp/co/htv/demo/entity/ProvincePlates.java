@@ -13,7 +13,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 /**
- * Province palates enntity
+ * Province palates entity
  * @author hainp
  *
  */
@@ -27,10 +27,7 @@ public class ProvincePlates {
 	
 	@Column(name = "value")
 	private String value;
-	
-//	@Column(name = "vehicle_plates_id")
-//	private Long vehiclePlatesId;
-	
+		
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "vehicle_plates_id")
 	private VehicleRegistrationPlates vehicleRegistrationPlates;

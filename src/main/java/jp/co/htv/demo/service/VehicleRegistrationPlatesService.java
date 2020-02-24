@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.data.domain.Sort;
 
 import jp.co.htv.demo.dto.VehicleRegistrationPlateCreateDto;
+import jp.co.htv.demo.dto.VehicleRegistrationPlateUpdateDto;
 import jp.co.htv.demo.dto.VehicleRegistrationPlatesDto;
 import jp.co.htv.demo.entity.VehicleRegistrationPlates;
 
@@ -53,4 +54,17 @@ public interface VehicleRegistrationPlatesService {
 	 * @param plate
 	 */
 	void delete(VehicleRegistrationPlates plate);
+	
+	/**
+	 * Get plate information for update
+	 * @param id province plate id
+	 * @return
+	 */
+	VehicleRegistrationPlateUpdateDto getUpdateInfo(Long id);
+	
+	/**
+	 * Update plate
+	 * @param plateUpdateDto
+	 */
+	void update(VehicleRegistrationPlateUpdateDto plateUpdateDto);
 }

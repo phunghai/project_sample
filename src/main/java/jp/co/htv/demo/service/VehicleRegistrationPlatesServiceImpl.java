@@ -10,10 +10,12 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import jp.co.htv.demo.dto.VehicleRegistrationPlateCreateDto;
+import jp.co.htv.demo.dto.VehicleRegistrationPlateUpdateDto;
 import jp.co.htv.demo.dto.VehicleRegistrationPlatesDto;
 import jp.co.htv.demo.entity.Province;
 import jp.co.htv.demo.entity.ProvincePlates;
 import jp.co.htv.demo.entity.VehicleRegistrationPlates;
+import jp.co.htv.demo.repository.ProvincePlatesRepository;
 import jp.co.htv.demo.repository.ProvinceRepository;
 import jp.co.htv.demo.repository.VehicleRegistrationPlatesRepository;
 
@@ -31,6 +33,9 @@ public class VehicleRegistrationPlatesServiceImpl implements VehicleRegistration
 	
 	@Autowired
 	private ProvinceRepository provinceRepository;
+	
+	@Autowired
+	private ProvincePlatesRepository provincePlateRepository;
 	
 
 	@Override
@@ -102,6 +107,41 @@ public class VehicleRegistrationPlatesServiceImpl implements VehicleRegistration
 	@Override
 	public void delete(VehicleRegistrationPlates plate) {
 		vehicleRepository.delete(plate);
+	}
+
+
+	@Override
+	public VehicleRegistrationPlateUpdateDto getUpdateInfo(Long id) {
+		VehicleRegistrationPlateUpdateDto plateDto = new VehicleRegistrationPlateUpdateDto();
+		VehicleRegistrationPlates plate = vehicleRepository.findById(id).orElse(null);
+		
+		// if plate is not exists
+		if (plate == null) {
+			return null;
+		}
+		
+		Province province = provinceRepository.findById(plate.getProvinceCode()).orElse(new Province());
+		
+		// mapping data to return dto
+		plateDto.setId(plate.getId());
+		plateDto.setProvinceCode(province.getCode());
+		plateDto.setProvinceName(province.getName());
+		plateDto.setPublished(plate.getPublished());
+		plateDto.setProvincePlatesList(plate.getProvincePlates());
+		
+		return plateDto;
+	}
+
+	@Transactional
+	@Override
+	public void update(VehicleRegistrationPlateUpdateDto plateUpdateDto) {
+		// update published value
+		vehicleRepository.updatePlate(plateUpdateDto.getId(), plateUpdateDto.isPublished());
+		
+		// delete province plate
+		provincePlateRepository.deleteByVehicleRegistrationPlatesId(plateUpdateDto.getId());
+		
+		provincePlateRepository.saveAll(plateUpdateDto.getProvincePlatesList());
 	}
 
 }

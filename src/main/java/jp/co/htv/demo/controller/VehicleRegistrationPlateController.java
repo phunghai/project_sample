@@ -1,10 +1,12 @@
 package jp.co.htv.demo.controller;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.validation.Valid;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -12,16 +14,17 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import jp.co.htv.demo.dto.VehicleRegistrationPlateCreateDto;
+import jp.co.htv.demo.dto.VehicleRegistrationPlateUpdateDto;
 import jp.co.htv.demo.dto.VehicleRegistrationPlatesDto;
 import jp.co.htv.demo.entity.Province;
 import jp.co.htv.demo.entity.ProvincePlates;
 import jp.co.htv.demo.entity.VehicleRegistrationPlates;
 import jp.co.htv.demo.form.plate.PlateForm;
 import jp.co.htv.demo.form.plate.PlateListForm;
+import jp.co.htv.demo.form.plate.PlateUpdateForm;
 import jp.co.htv.demo.service.ProvinceService;
 import jp.co.htv.demo.service.VehicleRegistrationPlatesService;
 
@@ -109,7 +112,7 @@ public class VehicleRegistrationPlateController {
 		
 		// convert form plates to list of provice plates object
 		List<ProvincePlates> provincePlatesList = new ArrayList<ProvincePlates>();
-		String[] provincePlatesArray = plateForm.getPlates().split("\\r\\n");
+		String[] provincePlatesArray = plateForm.getPlates().split(System.lineSeparator());
 		for (String provincePlate : provincePlatesArray) {
 			ProvincePlates provincePlateObj = new ProvincePlates();
 			provincePlateObj.setValue(provincePlate);
@@ -126,11 +129,78 @@ public class VehicleRegistrationPlateController {
 		return model;
 	}
 
-	@PutMapping("/plate/update/{id}")
-	public ModelAndView updatePlate() {
-		return null;
+	/**
+	 * Show update form
+	 * @param id plate id
+	 * @return
+	 */
+	@GetMapping("/plate/update/{id}")
+	public ModelAndView showUpdateForm(@PathVariable("id") long id) {
+		ModelAndView model = new ModelAndView();
+		VehicleRegistrationPlateUpdateDto plateDto = plateService.getUpdateInfo(id);
+		
+		PlateUpdateForm updateForm = new PlateUpdateForm();
+		String plates = this.convertPlatesDisplay(plateDto.getProvincePlatesList());
+		updateForm.setId(plateDto.getId());
+		updateForm.setProvinceName(plateDto.getProvinceName());
+		updateForm.setPlates(plates);
+		updateForm.setPublished(plateDto.isPublished());
+		
+		model.addObject("updateForm", updateForm);
+		model.setViewName("/plate/update");
+		return model;
+	}
+	
+	/**
+	 * Update plate
+	 * @param id
+	 * @return
+	 */
+	@PostMapping("/plate/update/{id}")
+	public ModelAndView updatePlate(@PathVariable("id") long id, @Valid PlateUpdateForm updateForm, BindingResult result) {
+		ModelAndView model = new ModelAndView();
+	    
+		// validation
+		if (result.hasErrors()) {
+	        updateForm.setId(id);
+	        
+		    model.addObject("updateForm", updateForm);
+		    model.setViewName("/plate/update");
+		    return model;
+	    }
+		
+		// convert form to update data transfer object
+		VehicleRegistrationPlates plate = plateService.findById(id);
+		
+		VehicleRegistrationPlateUpdateDto updateDto = new VehicleRegistrationPlateUpdateDto();
+		updateDto.setId(updateForm.getId());
+		updateDto.setPublished(updateForm.isPublished());
+		
+		List<ProvincePlates> provincePlatesList = new ArrayList<ProvincePlates>();
+		String[] provincePlatesArray = updateForm.getPlates().split(System.lineSeparator());
+		for (String provincePlate : provincePlatesArray) {
+			ProvincePlates provincePlateObj = new ProvincePlates();
+			provincePlateObj.setVehicleRegistrationPlates(plate);
+			provincePlateObj.setValue(provincePlate);
+			provincePlateObj.setCreatedAt(LocalDateTime.now());
+			provincePlateObj.setUpdatedAt(LocalDateTime.now());
+			
+			provincePlatesList.add(provincePlateObj);
+		}
+		
+		updateDto.setProvincePlatesList(provincePlatesList);
+		plateService.update(updateDto);
+		
+		// go to search screen
+		model.setViewName("redirect:/plate/list");
+		return model;
 	}
 
+	/**
+	 * Delete plate
+	 * @param id
+	 * @return
+	 */
 	@GetMapping("/plate/delete/{id}")
 	public ModelAndView deletePlate(@PathVariable("id") long id) {
 		ModelAndView model = new ModelAndView();
@@ -139,13 +209,23 @@ public class VehicleRegistrationPlateController {
 		// delete plate
 		plateService.delete(plate);
 		
-//		// go to search screen
-//		PlateListForm plateListForm = new PlateListForm();		
-//		List<VehicleRegistrationPlatesDto> platesDtoList = plateService.findAllByOrderByProvinceCodeAsc();
-//		plateListForm.setPlatesList(platesDtoList);
-//		model.addObject("platesListForm", plateListForm);
+		// go to search screen
 		model.setViewName("redirect:/plate/list");
 		return model;
 	}
 
+	/**
+	 * Convert plate list to String
+	 * @param provincePlateList
+	 * @return
+	 */
+	private String convertPlatesDisplay(List<ProvincePlates> provincePlateList) {
+		List<String> platesValueList = new ArrayList<String>();
+		
+		for (ProvincePlates plate : provincePlateList) {
+			platesValueList.add(plate.getValue());
+		}
+		
+		return StringUtils.join(platesValueList, System.lineSeparator());
+	}
 }
