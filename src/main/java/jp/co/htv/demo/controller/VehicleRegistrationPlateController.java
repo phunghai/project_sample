@@ -27,6 +27,8 @@ import jp.co.htv.demo.form.plate.PlateListForm;
 import jp.co.htv.demo.form.plate.PlateUpdateForm;
 import jp.co.htv.demo.service.ProvinceService;
 import jp.co.htv.demo.service.VehicleRegistrationPlatesService;
+import jp.co.htv.demo.utils.Constants;
+import jp.co.htv.demo.utils.ValidationUtils;
 
 /**
  * Vehicle Registration Plate Controller.
@@ -117,7 +119,18 @@ public class VehicleRegistrationPlateController {
 
         // convert form plates to list of provice plates object
         List<ProvincePlates> provincePlatesList = new ArrayList<ProvincePlates>();
-        String[] provincePlatesArray = plateForm.getPlates().split(System.lineSeparator());
+        String[] provincePlatesArray = plateForm.getPlates().split(Constants.NEW_LINE);
+        
+//        //TODO
+//        boolean isInvalid = ValidationUtils.checkForDuplicates(provincePlatesArray);
+//        if (isInvalid) {
+//            bindingResult.rejectValue("plates", "error.plate.duplicate.exist", "Have duplication plates!");
+//            plateForm.setProvinceList(provinceService.findAllByOrderByCodeAsc());
+//            model.addObject("plateForm", plateForm);
+//            model.setViewName("/plate/create");
+//            return model;
+//        }
+        
         for (String provincePlate : provincePlatesArray) {
             ProvincePlates provincePlateObj = new ProvincePlates();
             provincePlateObj.setValue(provincePlate);
@@ -135,7 +148,7 @@ public class VehicleRegistrationPlateController {
     }
 
     /**
-     * Show update form
+     * Show update form.
      * 
      * @param id plate id
      * @return
@@ -158,18 +171,18 @@ public class VehicleRegistrationPlateController {
     }
 
     /**
-     * Update plate
+     * Update plate.
      * 
-     * @param id
+     * @param id plate id
      * @return
      */
     @PostMapping("/plate/update/{id}")
-    public ModelAndView updatePlate(@PathVariable("id") long id, @Valid PlateUpdateForm updateForm,
-            BindingResult result) {
+    public ModelAndView updatePlate(@PathVariable("id") long id, @Valid @ModelAttribute("updateForm") PlateUpdateForm updateForm,
+            BindingResult bindingResult) {
         ModelAndView model = new ModelAndView();
 
         // validation
-        if (result.hasErrors()) {
+        if (bindingResult.hasErrors()) {
             updateForm.setId(id);
 
             model.addObject("updateForm", updateForm);
@@ -205,7 +218,7 @@ public class VehicleRegistrationPlateController {
     }
 
     /**
-     * Delete plate
+     * Delete plate.
      * 
      * @param id plate id
      * @return

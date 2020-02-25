@@ -5,6 +5,7 @@ import java.util.List;
 import javax.validation.constraints.NotBlank;
 
 import jp.co.htv.demo.entity.Province;
+import jp.co.htv.demo.validation.DuplicationPlateCheck;
 
 /**
  * Plate Form Class
@@ -21,6 +22,7 @@ public class PlateForm {
 
     /** Plates property */
     @NotBlank
+    @DuplicationPlateCheck
     private String plates;
 
     /** Published property **/

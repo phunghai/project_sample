@@ -2,8 +2,10 @@ package jp.co.htv.demo.form.plate;
 
 import javax.validation.constraints.NotBlank;
 
+import jp.co.htv.demo.validation.DuplicationPlateCheck;
+
 /**
- * Plate Update Form Class
+ * Plate Update Form Class.
  * 
  * @author hainp
  *
@@ -17,6 +19,7 @@ public class PlateUpdateForm {
 
     /** Plates property */
     @NotBlank
+    @DuplicationPlateCheck
     private String plates;
 
     /** Published property **/

@@ -6,7 +6,6 @@
 	    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/4.3.1/css/bootstrap.min.css}" />
         <link rel="stylesheet" type="text/css" th:href="@{/webjars/font-awesome/5.12.0/css/all.css}" />
-        <link rel="stylesheet" type="text/css" th:href="@{../css/user.css}">
     </head>
     <body>
     <div th:replace="fragments/header :: header">&nbsp;</div>
@@ -80,29 +79,26 @@
 						<nav aria-label="Pagination" th:if="${userSearchForm.result.totalPages gt 0}">
 						    <ul class="pagination justify-content-center font-weight-medium">
 						        <li class="page-item" th:classappend="${userSearchForm.result.number eq 0} ? 'disabled'">
-						            <a class="page-link svg-icon"
+						            <a class="page-link"
 						               th:href="@{/users(name='', size=${userSearchForm.result.size}, page=${userSearchForm.result.number lt 2 ? 1 : userSearchForm.result.number})}"
 						               aria-label="Previous"
 						               title="Previous Page" rel="tooltip">
-						                <span aria-hidden="true" data-feather="chevrons-left"></span>
+						                <span aria-hidden="true">&laquo;</span>
+                                        <span class="sr-only">Previous</span>
 						            </a>
 						        </li>
-						        <li class="page-item" th:classappend="${i eq userSearchForm.result.number + 1} ? 'active'"
-						            th:each="i : ${#numbers.sequence( userSearchForm.result.number + 1, userSearchForm.result.totalPages > 10 + userSearchForm.result.number ? userSearchForm.result.number + 10 : userSearchForm.result.totalPages, 1)}">
+						        <li class="page-item" th:classappend="${i == userSearchForm.result.number + 1} ? 'active'"
+						            th:each="i : ${#numbers.sequence( 1, userSearchForm.result.totalPages, 1)}">
 						            <a class="page-link" th:href="@{/users(name='', size=${userSearchForm.result.size}, page=${i})}" th:text="${i}"
 						               th:title="${'Page '+ i}"
 						               rel="tooltip"></a>
 						        </li>
-						        <li class="page-item disabled" th:if="${userSearchForm.result.number + 10 < userSearchForm.result.totalPages}">
-						            <a class="page-link svg-icon" href="#">
-						                <span data-feather="more-horizontal"></span>
-						            </a>
-						        </li>
-						        <li class="page-item" th:classappend="${userSearchForm.result.number + 1 eq userSearchForm.result.totalPages} ? 'disabled'">
-						            <a class="page-link svg-icon" th:href="@{/users(name='', size=${userSearchForm.result.size}, page=${userSearchForm.result.number + 2})}"
+						        <li class="page-item" th:classappend="${userSearchForm.result.number + 1 == userSearchForm.result.totalPages} ? 'disabled'">
+						            <a class="page-link" th:href="@{/users(name='', size=${userSearchForm.result.size}, page=${userSearchForm.result.number + 2})}"
 						               aria-label="Next"
 						               title="Next Page" rel="tooltip">
-						                <span aria-hidden="true" data-feather="chevrons-right"></span>
+						               <span aria-hidden="true">&raquo;</span>
+                                        <span class="sr-only">Next</span>
 						            </a>
 						        </li>
 						    </ul>

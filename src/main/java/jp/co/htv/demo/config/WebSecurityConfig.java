@@ -34,9 +34,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(final HttpSecurity http) throws Exception {
         http.formLogin().loginPage("/login.html").failureUrl("/login-error.html").and().logout()
                 .logoutSuccessUrl("/index.html").and().authorizeRequests()
-                .antMatchers("/users", "/plate/create", "/plate/update/**", "/plate/delete/*")
+                .antMatchers("/users", "/plate/create", "/plate/update/**", "/plate/delete/*","/user/**")
                 .hasRole("ADMIN") // users list
-                .antMatchers("/user/**").hasRole("ADMIN").and().exceptionHandling()
+                .and().exceptionHandling()
                 .accessDeniedPage("/403.html");
 
     }
