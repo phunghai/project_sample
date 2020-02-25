@@ -1,15 +1,15 @@
-CREATE DATABASE  IF NOT EXISTS `demo_db` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */;
+CREATE DATABASE  IF NOT EXISTS `demo_db` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
 USE `demo_db`;
--- MySQL dump 10.13  Distrib 8.0.13, for Win64 (x86_64)
+-- MySQL dump 10.13  Distrib 8.0.19, for macos10.15 (x86_64)
 --
 -- Host: 127.0.0.1    Database: demo_db
 -- ------------------------------------------------------
--- Server version	8.0.13
+-- Server version	8.0.19
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
- SET NAMES utf8 ;
+/*!50503 SET NAMES utf8 */;
 /*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
 /*!40103 SET TIME_ZONE='+00:00' */;
 /*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
@@ -23,9 +23,9 @@ USE `demo_db`;
 
 DROP TABLE IF EXISTS `authorities`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
- SET character_set_client = utf8mb4 ;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `authorities` (
-  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `id` bigint unsigned NOT NULL AUTO_INCREMENT,
   `authority` varchar(50) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
@@ -47,10 +47,10 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `authorities_users`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
- SET character_set_client = utf8mb4 ;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `authorities_users` (
-  `user_id` bigint(20) unsigned NOT NULL,
-  `authority_id` bigint(20) unsigned NOT NULL,
+  `user_id` bigint unsigned NOT NULL,
+  `authority_id` bigint unsigned NOT NULL,
   UNIQUE KEY `authorities_unique` (`user_id`,`authority_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -61,7 +61,7 @@ CREATE TABLE `authorities_users` (
 
 LOCK TABLES `authorities_users` WRITE;
 /*!40000 ALTER TABLE `authorities_users` DISABLE KEYS */;
-INSERT INTO `authorities_users` VALUES (1,2),(2,1),(5,1),(6,1),(7,1),(8,1),(9,1);
+INSERT INTO `authorities_users` VALUES (1,2),(12,1),(13,1),(14,1),(15,1),(16,1);
 /*!40000 ALTER TABLE `authorities_users` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -71,7 +71,7 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `m_province`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
- SET character_set_client = utf8mb4 ;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `m_province` (
   `cd` varchar(10) NOT NULL,
   `type_cd` varchar(10) DEFAULT NULL,
@@ -102,7 +102,7 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `m_province_type`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
- SET character_set_client = utf8mb4 ;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `m_province_type` (
   `cd` varchar(10) NOT NULL,
   `name` varchar(100) DEFAULT NULL,
@@ -129,11 +129,11 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `province_plates`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
- SET character_set_client = utf8mb4 ;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `province_plates` (
-  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `id` bigint unsigned NOT NULL AUTO_INCREMENT,
   `value` varchar(20) NOT NULL,
-  `vehicle_plates_id` bigint(20) unsigned DEFAULT NULL,
+  `vehicle_plates_id` bigint unsigned DEFAULT NULL,
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL,
   PRIMARY KEY (`id`),
@@ -158,16 +158,16 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `users`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
- SET character_set_client = utf8mb4 ;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `users` (
-  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `id` bigint unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(50) NOT NULL,
   `email` varchar(50) NOT NULL,
   `password` varchar(100) NOT NULL,
-  `enabled` tinyint(4) NOT NULL DEFAULT '1',
+  `enabled` tinyint NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`),
   UNIQUE KEY `email_unique` (`email`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -176,7 +176,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (1,'user','user@email.com','$2a$04$oUXt9Rufs5s1v37Z/Qe2Su9QJyqnhwEpxxQEPoHNg41I9XNq0g0Bm',1),(2,'demo','demo@email.com','$2a$04$oUXt9Rufs5s1v37Z/Qe2Su9QJyqnhwEpxxQEPoHNg41I9XNq0g0Bm',1),(5,'Hai','hai@email.com','$2a$10$uYPHgA5MlkYNrGrpL176oe2alWxLPfiRE8.1G7EzYZSCgzlFQkVES',1),(6,'Hai','teo@email.com','$2a$10$mBNtBnNKQ5k3nM.EfnmKhOVXQAs7DkL2TFU4OIxm9ZcasUgX6o73W',1),(7,'Aeeee','ba@email.com','$2a$10$leDBiIqqmRiwYS/FKKYIYe9rYleNCKwy0s84dLEB5qqJ9ZAOSwn0O',1),(8,'Admin','admin@email.com','$2a$10$a8ogOA9kfCly3Tsheh/6KuhgsXNA4s0m7f/iGgkgubb.S35t3nIA2',1),(9,'Bon1','bon@email.com','$2a$10$hbnjeKz/wiLtckz.GEgFr.ftsX33ciGjEaBxWdmZFU5um4KG4vlQO',1);
+INSERT INTO `users` VALUES (1,'user','user@email.com','$2a$04$oUXt9Rufs5s1v37Z/Qe2Su9QJyqnhwEpxxQEPoHNg41I9XNq0g0Bm',1),(12,'Admin','admin@email.com','$2a$10$0UByGVTrmrz0mAMpj53p0OJhfFCnNHH0Ni2wemxsRwBySRXBOiGNy',1),(13,'test1','test1@email.com','$2a$10$0MSoW0xWys8ZFAsKc4xQUOFAXALKwBFnoejL.9DDxEhIK3wIE8OHe',1),(14,'test2','test2@email.com','$2a$10$M5pi.dgSTcqd1i4a8mxpbuiYXAU3fpM6GI8UsLeiv2Qc8IOVZ/aIO',1),(15,'test3','test3@email.com','$2a$10$eMBCogc4rjVBIBw08TWl.OyPEDioMNnnDJgB2ga2QgS0J7p2u5Dkq',1),(16,'test4','test4@email.com','$2a$10$TraJ8v7qeknKS8Rj2XSO0uQAhrPTyJQ384l8kTWMVb1QmqoSsqpNG',1);
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -186,11 +186,11 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `vehicle_registration_plates`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
- SET character_set_client = utf8mb4 ;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `vehicle_registration_plates` (
-  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `id` bigint unsigned NOT NULL AUTO_INCREMENT,
   `province_cd` varchar(10) NOT NULL,
-  `published` smallint(6) DEFAULT NULL,
+  `published` smallint DEFAULT NULL,
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL,
   PRIMARY KEY (`id`),
@@ -218,4 +218,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-02-24 16:09:07
+-- Dump completed on 2020-02-25  8:08:05
