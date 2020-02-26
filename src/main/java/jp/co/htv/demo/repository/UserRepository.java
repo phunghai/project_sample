@@ -3,6 +3,7 @@ package jp.co.htv.demo.repository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -18,7 +19,7 @@ import jp.co.htv.demo.entity.User;
  *
  */
 @Repository
-public interface UserRepository extends JpaRepository<User, Long> {
+public interface UserRepository extends JpaRepository<User, Long>, JpaSpecificationExecutor<User> {
     User findByEmail(String email);
 
     /**
@@ -32,14 +33,4 @@ public interface UserRepository extends JpaRepository<User, Long> {
     @Modifying
     @Query(value = "update User u set u.name = :name where u.id = :user_id ")
     int updateUserName(@Param("user_id") Long id, @Param("name") String name);
-
-    /**
-     * Paging with search name
-     * 
-     * @param name     user name
-     * @param email    email of user
-     * @param pageable Page object
-     * @return List of User
-     */
-    Page<User> findAllByNameContainingOrEmailContaining(String name, String email, Pageable pageable);
 }

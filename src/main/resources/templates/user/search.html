@@ -13,7 +13,7 @@
         <div class="row">
             <div class="col-lg-10 mx-auto bg-white">
                 <h5 class="card-title"><i class="fas fa-search"></i> Find User</h5>
-                   <form action="#" th:action="@{/users(name=${userSearchForm.name})}"
+                   <form action="#" th:action="@{/users}"
                     th:object="${userSearchForm}">
                     <div class="row">
                         <div class="form-group col-md-3">
@@ -30,7 +30,7 @@
                         </div>
                         <div class="form-group d-flex flex-column">
                             <label> </label>
-                            <button type="submit" class="btn btn-primary mt-auto">
+                            <button type="submit" class="btn btn-success mt-auto">
                                 <i class="fas fa-search"></i>&nbsp;Search
                             </button>
                         </div>
@@ -107,7 +107,7 @@
                                 <li class="page-item"
                                     th:classappend="${userSearchForm.result.number eq 0} ? 'disabled'">
                                     <a class="page-link"
-                                    th:href="@{/users(name='', size=${userSearchForm.result.size}, page=${userSearchForm.result.number lt 2 ? 1 : userSearchForm.result.number})}"
+                                    th:href="@{/users(name=${userSearchForm.name}, email=${userSearchForm.email}, size=${userSearchForm.result.size}, page=${userSearchForm.result.number lt 2 ? 1 : userSearchForm.result.number})}"
                                     aria-label="Previous" title="Previous Page" rel="tooltip"> <span
                                         aria-hidden="true">&laquo;</span> <span class="sr-only">Previous</span>
                                 </a>
@@ -116,13 +116,13 @@
                                     th:classappend="${i == userSearchForm.result.number + 1} ? 'active'"
                                     th:each="i : ${#numbers.sequence( 1, userSearchForm.result.totalPages, 1)}">
                                     <a class="page-link"
-                                    th:href="@{/users(name='', size=${userSearchForm.result.size}, page=${i})}"
+                                    th:href="@{/users(name=${userSearchForm.name}, email=${userSearchForm.email}, size=${userSearchForm.result.size}, page=${i})}"
                                     th:text="${i}" th:title="${'Page '+ i}" rel="tooltip"></a>
                                 </li>
                                 <li class="page-item"
                                     th:classappend="${userSearchForm.result.number + 1 == userSearchForm.result.totalPages} ? 'disabled'">
                                     <a class="page-link"
-                                    th:href="@{/users(name='', size=${userSearchForm.result.size}, page=${userSearchForm.result.number + 2})}"
+                                    th:href="@{/users(name=${userSearchForm.name}, email=${userSearchForm.email}, size=${userSearchForm.result.size}, page=${userSearchForm.result.number + 2})}"
                                     aria-label="Next" title="Next Page" rel="tooltip"> <span
                                         aria-hidden="true">&raquo;</span> <span class="sr-only">Next</span>
                                 </a>

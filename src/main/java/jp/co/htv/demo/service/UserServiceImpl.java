@@ -3,7 +3,6 @@ package jp.co.htv.demo.service;
 import java.util.Arrays;
 import java.util.HashSet;
 
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -14,6 +13,9 @@ import jp.co.htv.demo.entity.Authority;
 import jp.co.htv.demo.entity.User;
 import jp.co.htv.demo.repository.AuthorityResository;
 import jp.co.htv.demo.repository.UserRepository;
+import jp.co.htv.demo.repository.specs.SearchCriteria;
+import jp.co.htv.demo.repository.specs.SearchOperation;
+import jp.co.htv.demo.repository.specs.UserSpecification;
 
 /**
  * User Service Implement Class.
@@ -69,11 +71,11 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public Page<User> findPaginatedByNameOrEmail(String name, String email, Pageable pageable) {
-//        if (StringUtils.isEmpty(name)) {
-//            return userRepository.findAll(pageable);
-//        }
+        UserSpecification userSpecification = new UserSpecification();
+        userSpecification.add(new SearchCriteria("name", name, SearchOperation.MATCH));
+        userSpecification.add(new SearchCriteria("email", email, SearchOperation.MATCH));
         // search name like %a%
-        return userRepository.findAllByNameContainingOrEmailContaining(name, email, pageable);
+        return userRepository.findAll(userSpecification, pageable);
     }
 
 }
