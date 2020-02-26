@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+    xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary mb-4" th:fragment="header">
+        <a class="navbar-brand" href="/" th:href="@{/index.html}">DEMO</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarNavDropdown-1" aria-controls="navbarNavDropdown-1"
+            aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavDropdown-1">
+            <ul class="navbar-nav mr-auto">
+                <li
+                    th:classappend="${#httpServletRequest.getRequestURI() == '/index.html' ? 'active':''}"
+                    class="nav-item"><a class="nav-link" href="#" th:href="@{/}">Home <span
+                        class="sr-only">(current)</span>
+                </a></li>
+                <li
+                    th:classappend="${#httpServletRequest.getRequestURI() == '/plate/list' ? 'active':''}"
+                    class="nav-item"><a class="nav-link" href="#" th:href="@{/plate/list}">Vehicle
+                        Registration Plates</a></li>
+                <li
+                    th:classappend="${#httpServletRequest.getRequestURI() == '/users' ? 'active':''}"
+                    class="nav-item" sec:authorize="hasRole('ROLE_ADMIN')"><a class="nav-link"
+                    href="#" th:href="@{/users}">Users</a></li>
+            </ul>
+
+            <ul class="navbar-nav">
+                <li th:if="${#authorization.expression('!isAuthenticated()')}" class="nav-item">
+                    <a href="#" th:href="@{/login.html}" class="nav-link"> <i
+                        class="fas fa-sign-in-alt"></i> &nbsp;Log in
+                </a>
+                </li>
+                <li class="nav-item dropdown"
+                    th:if="${#authorization.expression('isAuthenticated()')}"><a
+                    class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink"
+                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <span
+                        sec:authentication="name"></span>
+                </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                        <a href="/logout" th:href="@{#}" onclick="$('#form').submit();"
+                            class="dropdown-item"> <i class="fas fa-sign-out-alt"></i>&nbsp;Logout
+                        </a>
+                        <form style="visibility: hidden" id="form" method="post" action="#"
+                            th:action="@{/logout}"></form>
+                    </div></li>
+            </ul>
+        </div>
+    </nav>
+</body>
+</html>

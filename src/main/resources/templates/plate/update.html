@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title th:text="#{plate.title}"></title>
+	    <meta charset="utf-8">
+	    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/4.3.1/css/bootstrap.min.css}" />
+        <link rel="stylesheet" type="text/css" th:href="@{/webjars/font-awesome/5.12.0/css/all.css}" />
+    </head>
+    <body>
+    <div th:replace="fragments/header :: header">&nbsp;</div>
+    <div class="container py-5">
+    	<div class="row">
+    	    <div class="col-lg-7 mx-auto bg-white rounded shadow">
+				<h5 class="mt-2">Update Vehicle Registration Plate</h5>
+		
+		        <!-- Form Controls: Simple Forms -->
+		        <div class="row mb-5">
+					<div class="col-md-12">
+		                 <form action="#" th:action="@{/plate/update/{id}(id=${updateForm.id})}" th:object="${updateForm}" method="post">
+		                 <div class="row">
+		                 	<div class="col-md-5 mb-3">
+			                    <label>Province</label>
+			                    <p th:text="${updateForm.provinceName}"></p>
+                                <input name="provinceName" th:field="*{provinceName}" type="text" id="provinceNameId" style="display: none">
+		                  </div>
+		                 </div>
+		                 <div class="row">
+		                   <div class="col-md-5 mb-3">
+		    					<label for="exampleFormControlTextarea1">Plates</label>
+		    					<textarea th:field="*{plates}" class="form-control" id="plates" rows="4"></textarea>
+		    					<span th:if="${#fields.hasErrors('plates')}" th:errors="*{plates}" class="text-danger"></span>
+		  					</div>
+		                 </div>
+		                 <div class="row">
+		                 	<div class="col-md-5 mb-3">
+		                 		<div class="custom-control custom-checkbox d-block my-2">
+		                    		<input name="published" th:field="*{published}" type="checkbox" class="custom-control-input" id="inputPublised">
+		                    		<label class="custom-control-label" for="inputPublised">Published</label>
+		                  		</div>
+		                 	</div>
+		                 </div>
+		                   <div class="row">
+		                       <div class="col-md-5 mb-2">
+									<a th:href="@{/plate/list}" class="btn btn-secondary" href="#">Back</a>
+		                           <input type="submit" class="btn btn-primary" value="Update">
+		                       </div>
+		                   </div>    
+		                 </form>
+					</div>
+				</div>
+			</div>
+    	</div>
+    </div>
+    	
+
+
+	<!-- Java script -->
+    <script type="text/javascript" th:src="@{/webjars/jquery/2.2.4/jquery.min.js/}"></script>
+    <script type="text/javascript" th:src="@{/webjars/jquery-ui/1.11.4/jquery-ui.min.js}"></script>
+	<script type="text/javascript" th:src="@{/webjars/bootstrap/4.3.1/js/bootstrap.min.js}"></script>
+	
+    </body>
+</html>

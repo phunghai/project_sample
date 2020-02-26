@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+<title th:text="#{plate.title}"></title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/4.3.1/css/bootstrap.min.css}" />
+<link rel="stylesheet" type="text/css" th:href="@{/webjars/font-awesome/5.12.0/css/all.css}" />
+<link rel="stylesheet" type="text/css" th:href="@{../css/plate.css}">
+</head>
+<body>
+    <div th:replace="fragments/header :: header">&nbsp;</div>
+    <div th:switch="${platesSearchForm}" class="container py-5">
+        <div class="row">
+            <div class="col-lg-10 mx-auto bg-white">
+                <h5 class="card-title"><i class="fas fa-search"></i> Find Province</h5>
+                   <form action="#" th:action="@{/plate/list}"
+                    th:object="${platesSearchForm}">
+                    <div class="row">
+                        <div class="form-group col-md-3">
+                            <label for="inputName">Province Name</label>
+                            <input type="text"
+                                th:field="*{provinceName}" class="form-control" id="inputName"
+                                placeholder="Province Name">
+                        </div>
+                        <div class="form-group d-flex flex-column">
+                            <label> </label>
+                            <button type="submit" class="btn btn-success mt-auto">
+                                <i class="fas fa-search"></i>&nbsp;Search
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-10 mx-auto bg-white rounded shadow">
+                <div class="float-left mb-2 mt-2">
+                    <h5>Vehicle Registration Plates List</h5>
+                </div>
+                <div sec:authorize="hasRole('ROLE_ADMIN')" class="float-right mb-2 mt-2">
+                    <a th:href="@{/plate/create}" class="btn btn-primary"><i class="fas fa-plus"></i>&nbsp;Add</a>
+                </div>
+                <!-- Fixed header table-->
+                <div class="table-responsive">
+                    <table class="table table-fixed table-striped table-hover">
+                        <thead>
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Province Name</th>
+                                <th scope="col">Plates</th>
+                                <th scope="col" sec:authorize="hasRole('ROLE_ADMIN')">Published</th>
+                                <th scope="col" sec:authorize="hasRole('ROLE_ADMIN')">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr th:each="plate, iterator : ${platesSearchForm.platesList}">
+                                <th scope="row" th:text="${iterator.index + 1}"></th>
+                                <td th:text="${plate.province.name}"></td>
+                                <td>
+                                    <dl th:each="provincePlate : ${plate.provincePlatesList}">
+                                        <dt th:text="${provincePlate.value}"></dt>
+                                    </dl>
+                                </td>
+                                <td sec:authorize="hasRole('ROLE_ADMIN')" th:text="${plate.published} ? 'PUBLISHED' : 'UNPUBLISHED'"></td>
+                                <td sec:authorize="hasRole('ROLE_ADMIN')"><a
+                                    th:href="@{/plate/update/{id}(id=${plate.id})}" href="#"><i
+                                        class="fas fa-edit mr-3"></i></a> <a data-toggle="modal"
+                                    th:attr="data-target='#modal-warning'+${plate.id }" href="#">
+                                        <i class="fas fa-trash" style="color: red"> </i>
+                                </a> <!-- Modal -->
+                                    <div class="modal fade" th:id="modal-warning+${plate.id }"
+                                        tabindex="-1" role="dialog"
+                                        aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                                        <div class="modal-dialog modal-dialog-centered"
+                                            role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title"
+                                                        id="exampleModalLongTitle">Delete
+                                                        Confirm</h5>
+                                                    <button type="button" class="close"
+                                                        data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body">Are you sure?</div>
+                                                <div class="modal-footer">
+                                                    <a href="#" role="button" aria-pressed="true"
+                                                        class="btn btn-secondary"
+                                                        data-dismiss="modal">Close</a> <a
+                                                        th:href="@{/plate/delete/{id}(id=${plate.id})}"
+                                                        class="btn btn-danger" href="#">Delete</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div></td>
+
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <!-- End -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Java script -->
+    <script type="text/javascript" th:src="@{/webjars/jquery/2.2.4/jquery.min.js/}"></script>
+    <script type="text/javascript" th:src="@{/webjars/jquery-ui/1.11.4/jquery-ui.min.js}"></script>
+    <script type="text/javascript" th:src="@{/webjars/bootstrap/4.3.1/js/bootstrap.min.js}"></script>
+
+</body>
+</html>
