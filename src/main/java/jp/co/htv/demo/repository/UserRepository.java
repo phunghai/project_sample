@@ -11,6 +11,12 @@ import org.springframework.transaction.annotation.Transactional;
 
 import jp.co.htv.demo.entity.User;
 
+/**
+ * User Repository Class.
+ * 
+ * @author hainp
+ *
+ */
 @Repository
 public interface UserRepository extends JpaRepository<User, Long> {
     User findByEmail(String email);
@@ -31,8 +37,9 @@ public interface UserRepository extends JpaRepository<User, Long> {
      * Paging with search name
      * 
      * @param name     user name
-     * @param pageable
+     * @param email    email of user
+     * @param pageable Page object
      * @return List of User
      */
-    Page<User> findAllByName(String name, Pageable pageable);
+    Page<User> findAllByNameContainingOrEmailContaining(String name, String email, Pageable pageable);
 }

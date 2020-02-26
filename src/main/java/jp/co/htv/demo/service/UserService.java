@@ -50,7 +50,7 @@ public interface UserService {
     void deleteUser(User user);
 
     /**
-     * Update user info
+     * Update user info.
      * 
      * @param id   user id
      * @param name user name
@@ -59,11 +59,12 @@ public interface UserService {
     int updateUser(Long id, String name);
 
     /**
-     * Paging user by name
+     * Paging user by name.
      * 
      * @param name     user name
+     * @param email email of user
      * @param pageable Pageable
      * @return number of user on one page
      */
-    Page<User> findPaginatedByName(String name, Pageable pageable);
+    Page<User> findPaginatedByNameOrEmail(String name, String email, Pageable pageable);
 }

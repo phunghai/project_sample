@@ -27,7 +27,7 @@
                                 <th scope="col">#</th>
                                 <th scope="col">Province Name</th>
                                 <th scope="col">Plates</th>
-                                <th scope="col">Published</th>
+                                <th scope="col" sec:authorize="hasRole('ROLE_ADMIN')">Published</th>
                                 <th scope="col" sec:authorize="hasRole('ROLE_ADMIN')">Action</th>
                             </tr>
                         </thead>
@@ -40,7 +40,7 @@
                                         <dt th:text="${provincePlate.value}"></dt>
                                     </dl>
                                 </td>
-                                <td th:text="${plate.published} ? 'PUBLISHED' : 'UNPUBLISHED'"></td>
+                                <td sec:authorize="hasRole('ROLE_ADMIN')" th:text="${plate.published} ? 'PUBLISHED' : 'UNPUBLISHED'"></td>
                                 <td sec:authorize="hasRole('ROLE_ADMIN')"><a
                                     th:href="@{/plate/update/{id}(id=${plate.id})}" href="#"><i
                                         class="fas fa-edit mr-3"></i></a> <a data-toggle="modal"

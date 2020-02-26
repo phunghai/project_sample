@@ -15,6 +15,11 @@ import jp.co.htv.demo.entity.User;
 import jp.co.htv.demo.repository.AuthorityResository;
 import jp.co.htv.demo.repository.UserRepository;
 
+/**
+ * User Service Implement Class.
+ * @author hainp
+ *
+ */
 @Service
 public class UserServiceImpl implements UserService {
     @Autowired
@@ -43,7 +48,6 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public Iterable<User> findAll() {
-        // TODO convert from entity to dto
         return userRepository.findAll();
     }
 
@@ -63,14 +67,13 @@ public class UserServiceImpl implements UserService {
         return 0;
     }
 
-    // -------------- improve area -----------
     @Override
-    public Page<User> findPaginatedByName(String name, Pageable pageable) {
-        if (StringUtils.isEmpty(name)) {
-            return userRepository.findAll(pageable);
-        }
-
-        return userRepository.findAllByName(name, pageable);
+    public Page<User> findPaginatedByNameOrEmail(String name, String email, Pageable pageable) {
+//        if (StringUtils.isEmpty(name)) {
+//            return userRepository.findAll(pageable);
+//        }
+        // search name like %a%
+        return userRepository.findAllByNameContainingOrEmailContaining(name, email, pageable);
     }
 
 }

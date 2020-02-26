@@ -13,6 +13,9 @@ import jp.co.htv.demo.entity.User;
 public class UserSearchForm {
     /** name on condition **/
     private String name;
+    
+    /** email property */
+    private String email;
 
     /** result **/
     private Page<User> result;
@@ -43,6 +46,20 @@ public class UserSearchForm {
      */
     public void setResult(Page<User> result) {
         this.result = result;
+    }
+
+    /**
+     * @return the email
+     */
+    public String getEmail() {
+        return email;
+    }
+
+    /**
+     * @param email the email to set
+     */
+    public void setEmail(String email) {
+        this.email = email;
     }
 
 }

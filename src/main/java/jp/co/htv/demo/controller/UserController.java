@@ -46,20 +46,23 @@ public class UserController {
      */
     @RequestMapping("/users")
     public ModelAndView searchUser(@RequestParam("name") Optional<String> name,
+            @RequestParam("email") Optional<String> email,
             @RequestParam("page") Optional<Integer> page, @RequestParam("size") Optional<Integer> size) {
         ModelAndView model = new ModelAndView();
         int currentPage = page.orElse(1);
         int pageSize = size.orElse(5);
 
         String searchName = name.orElse("");
+        String searchEmail = email.orElse("");
 
         // get user list from service
-        Page<User> userPage = userService.findPaginatedByName(searchName, PageRequest.of(currentPage - 1, pageSize));
+        Page<User> userPage = userService.findPaginatedByNameOrEmail(searchName, searchEmail, PageRequest.of(currentPage - 1, pageSize));
 
         // Form contain search condition and search result
         UserSearchForm form = new UserSearchForm();
         form.setResult(userPage);
         form.setName(searchName);
+        form.setEmail(searchEmail);
 
         model.addObject("userSearchForm", form);
 
