@@ -11,7 +11,7 @@ import jp.co.htv.demo.entity.ProvincePlates;
  * @author hainp
  *
  */
-public class VehicleRegistrationPlatesDto {
+public class VehicleRegistrationPlateDto {
     /** id property */
     private Long id;
 
@@ -27,7 +27,7 @@ public class VehicleRegistrationPlatesDto {
     /**
      * 
      */
-    public VehicleRegistrationPlatesDto() {
+    public VehicleRegistrationPlateDto() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -40,7 +40,7 @@ public class VehicleRegistrationPlatesDto {
      * @param provincePlatesList
      * @param published
      */
-    public VehicleRegistrationPlatesDto(Long id, Province province, List<ProvincePlates> provincePlatesList,
+    public VehicleRegistrationPlateDto(Long id, Province province, List<ProvincePlates> provincePlatesList,
             boolean published) {
         super();
         this.id = id;

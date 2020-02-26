@@ -12,7 +12,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import jp.co.htv.demo.service.UserDetailsServiceImpl;
 
 /**
- * Web security configuration class
+ * Web security configuration class.
  * 
  * @author Nguyen Phung Hai
  *
@@ -24,7 +24,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     UserDetailsServiceImpl userDetailsService;
 
     /**
-     * default constructor
+     * default constructor.
      */
     public WebSecurityConfig() {
         super();

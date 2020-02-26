@@ -6,7 +6,7 @@ import org.springframework.data.domain.Sort;
 
 import jp.co.htv.demo.dto.VehicleRegistrationPlateCreateDto;
 import jp.co.htv.demo.dto.VehicleRegistrationPlateUpdateDto;
-import jp.co.htv.demo.dto.VehicleRegistrationPlatesDto;
+import jp.co.htv.demo.dto.VehicleRegistrationPlateDto;
 import jp.co.htv.demo.entity.VehicleRegistrationPlates;
 
 /**
@@ -36,9 +36,11 @@ public interface VehicleRegistrationPlatesService {
     /**
      * Find all by province code asc
      * 
+     * @param provinceName Province Name
+     * @param isLogged user login or not
      * @return List of VehicleRegistrationPlates
      */
-    List<VehicleRegistrationPlatesDto> findAllByOrderByProvinceCodeAsc();
+    List<VehicleRegistrationPlateDto> findAll(String provinceName, boolean isLogged);
 
     /**
      * Find by province code

@@ -3,32 +3,35 @@ package jp.co.htv.demo.controller;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import javax.validation.Valid;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import jp.co.htv.demo.dto.VehicleRegistrationPlateCreateDto;
+import jp.co.htv.demo.dto.VehicleRegistrationPlateDto;
 import jp.co.htv.demo.dto.VehicleRegistrationPlateUpdateDto;
-import jp.co.htv.demo.dto.VehicleRegistrationPlatesDto;
 import jp.co.htv.demo.entity.Province;
 import jp.co.htv.demo.entity.ProvincePlates;
 import jp.co.htv.demo.entity.VehicleRegistrationPlates;
 import jp.co.htv.demo.form.plate.PlateForm;
-import jp.co.htv.demo.form.plate.PlateListForm;
+import jp.co.htv.demo.form.plate.PlateSearchForm;
 import jp.co.htv.demo.form.plate.PlateUpdateForm;
 import jp.co.htv.demo.service.ProvinceService;
 import jp.co.htv.demo.service.VehicleRegistrationPlatesService;
 import jp.co.htv.demo.utils.Constants;
-import jp.co.htv.demo.utils.ValidationUtils;
 
 /**
  * Vehicle Registration Plate Controller.
@@ -53,13 +56,17 @@ public class VehicleRegistrationPlateController {
      * @return
      */
     @GetMapping("/plate/list")
-    public ModelAndView searchPlates() {
+    public ModelAndView searchPlates(@RequestParam("provinceName") Optional<String> provinceName) {
         ModelAndView model = new ModelAndView();
+        String searchName = provinceName.orElse("");
+        
+        List<VehicleRegistrationPlateDto> platesDtoList = plateService.findAll(searchName, this.isLogged());
 
-        PlateListForm form = new PlateListForm();
-        List<VehicleRegistrationPlatesDto> platesDtoList = plateService.findAllByOrderByProvinceCodeAsc();
+        PlateSearchForm form = new PlateSearchForm();
         form.setPlatesList(platesDtoList);
-        model.addObject("platesListForm", form);
+        form.setProvinceName(searchName);
+        
+        model.addObject("platesSearchForm", form);
         model.setViewName("/plate/list");
 
         return model;
@@ -73,11 +80,14 @@ public class VehicleRegistrationPlateController {
     @GetMapping("/plate/create")
     public ModelAndView showCreateForm() {
         ModelAndView model = new ModelAndView();
-        PlateForm plateForm = new PlateForm();
-
+        
         // Get all province list
         List<Province> provinceList = provinceService.findAllByOrderByCodeAsc();
+        
+        // create plate form to view
+        PlateForm plateForm = new PlateForm();
         plateForm.setProvinceList(provinceList);
+        
         model.addObject("plateForm", plateForm);
         model.setViewName("/plate/create");
         return model;
@@ -117,19 +127,9 @@ public class VehicleRegistrationPlateController {
         VehicleRegistrationPlateCreateDto plateDto = new VehicleRegistrationPlateCreateDto();
         plateDto.setProvinceCode(plateForm.getProvinceCode());
 
-        // convert form plates to list of provice plates object
+        // convert form plates to list of province plates object
         List<ProvincePlates> provincePlatesList = new ArrayList<ProvincePlates>();
         String[] provincePlatesArray = plateForm.getPlates().split(Constants.NEW_LINE);
-        
-//        //TODO
-//        boolean isInvalid = ValidationUtils.checkForDuplicates(provincePlatesArray);
-//        if (isInvalid) {
-//            bindingResult.rejectValue("plates", "error.plate.duplicate.exist", "Have duplication plates!");
-//            plateForm.setProvinceList(provinceService.findAllByOrderByCodeAsc());
-//            model.addObject("plateForm", plateForm);
-//            model.setViewName("/plate/create");
-//            return model;
-//        }
         
         for (String provincePlate : provincePlatesArray) {
             ProvincePlates provincePlateObj = new ProvincePlates();
@@ -250,5 +250,14 @@ public class VehicleRegistrationPlateController {
         }
 
         return StringUtils.join(platesValueList, System.lineSeparator());
+    }
+    
+    /**
+     * Check user authentication
+     * @return
+     */
+    private boolean isLogged() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        return null != authentication && !("anonymousUser").equals(authentication.getName());
     }
 }

@@ -10,14 +10,14 @@ import javax.persistence.criteria.Root;
 
 import org.springframework.data.jpa.domain.Specification;
 
-import jp.co.htv.demo.entity.User;
+import jp.co.htv.demo.entity.VehicleRegistrationPlates;
 
 /**
- * User Specification Class.
+ * Vehicle Registration Plate Specification Class.
  * @author hainp
  *
  */
-public class UserSpecification implements Specification<User> {
+public class VehicleRegistrationPlateSpecification implements Specification<VehicleRegistrationPlates> {
     /** default serial version */
     private static final long serialVersionUID = 1L;
     
@@ -26,7 +26,7 @@ public class UserSpecification implements Specification<User> {
     /**
      * Constructor.
      */
-    public UserSpecification() {
+    public VehicleRegistrationPlateSpecification() {
         this.searchCriteriaList = new ArrayList<SearchCriteria>();
     }
 
@@ -35,7 +35,7 @@ public class UserSpecification implements Specification<User> {
     }
 
     @Override
-    public Predicate toPredicate(Root<User> root, CriteriaQuery<?> query, CriteriaBuilder criteriaBuilder) {
+    public Predicate toPredicate(Root<VehicleRegistrationPlates> root, CriteriaQuery<?> query, CriteriaBuilder criteriaBuilder) {
         //create a new predicate list
         List<Predicate> predicates = new ArrayList<>();
 

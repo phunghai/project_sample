@@ -7,6 +7,11 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+/**
+ * Province Entity Class.
+ * @author hainp
+ *
+ */
 @Entity
 @Table(name = "m_province")
 public class Province {

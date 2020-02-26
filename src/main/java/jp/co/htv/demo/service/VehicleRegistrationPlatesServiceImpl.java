@@ -11,7 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import jp.co.htv.demo.dto.VehicleRegistrationPlateCreateDto;
 import jp.co.htv.demo.dto.VehicleRegistrationPlateUpdateDto;
-import jp.co.htv.demo.dto.VehicleRegistrationPlatesDto;
+import jp.co.htv.demo.dto.VehicleRegistrationPlateDto;
 import jp.co.htv.demo.entity.Province;
 import jp.co.htv.demo.entity.ProvincePlates;
 import jp.co.htv.demo.entity.VehicleRegistrationPlates;
@@ -44,23 +44,32 @@ public class VehicleRegistrationPlatesServiceImpl implements VehicleRegistration
     }
 
     @Override
-    public List<VehicleRegistrationPlatesDto> findAllByOrderByProvinceCodeAsc() {
-        List<VehicleRegistrationPlatesDto> plateDtoList = new ArrayList<VehicleRegistrationPlatesDto>();
-        List<VehicleRegistrationPlates> plateList = vehicleRepository.findAllByOrderByProvinceCodeAsc();
-
-        for (VehicleRegistrationPlates plate : plateList) {
-            VehicleRegistrationPlatesDto plateDto = new VehicleRegistrationPlatesDto();
+    public List<VehicleRegistrationPlateDto> findAll(String provinceName, boolean isLogged) {
+        // returning list
+        List<VehicleRegistrationPlateDto> plateDtoList = new ArrayList<VehicleRegistrationPlateDto>();
+        
+        // get vehicle registration plates list from database and filter by province name.
+        List<Object[]> rawDataList = new ArrayList<Object[]>();
+        if (isLogged) {
+            rawDataList = vehicleRepository.findAllByProvinceName(provinceName);
+        } else {
+            rawDataList = vehicleRepository.findAllByProvinceNameAndUnPublished(provinceName);
+        }
+        
+        
+        for (Object[] rawData : rawDataList) {
+            VehicleRegistrationPlateDto plateDto = new VehicleRegistrationPlateDto();
+            VehicleRegistrationPlates plate = (VehicleRegistrationPlates)rawData[0];
+            Province province = (Province)rawData[1];
+            
             List<ProvincePlates> provinceList = plate.getProvincePlates();
             plateDto.setId(plate.getId());
-
-            Province province = provinceRepository.findById(plate.getProvinceCode())
-                    .orElseThrow(() -> new IllegalArgumentException("Invalid"));
-            ;
             plateDto.setProvince(province);
             plateDto.setProvincePlatesList(provinceList);
             plateDto.setPublished(plate.getPublished());
 
             plateDtoList.add(plateDto);
+            
         }
 
         return plateDtoList;
@@ -77,7 +86,7 @@ public class VehicleRegistrationPlatesServiceImpl implements VehicleRegistration
         VehicleRegistrationPlates plate = new VehicleRegistrationPlates();
 
         plate.setProvinceCode(plateDto.getProvinceCode());
-        plate.setPublished(plate.getPublished());
+        plate.setPublished(plateDto.isPublished());
 
         for (ProvincePlates provincePlate : plateDto.getProvincePlatesList()) {
 

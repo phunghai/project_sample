@@ -7,7 +7,7 @@ import jp.co.htv.demo.utils.Constants;
 import jp.co.htv.demo.utils.ValidationUtils;
 
 /**
- * Custom check plate duplicate
+ * Custom check plate duplicate.
  * @author hainp
  *
  */

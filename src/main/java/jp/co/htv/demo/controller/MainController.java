@@ -33,25 +33,11 @@ public class MainController {
         return "index";
     }
 
-    /** User zone index. */
-    @RequestMapping("/user/index.html")
-    public String userIndex() {
-        return "user/index";
-    }
 
-    /** Administration zone index. */
-    @RequestMapping("/admin/index.html")
-    public String adminIndex() {
-        return "admin/index";
-    }
-
-    /** Shared zone index. */
-    @RequestMapping("/shared/index.html")
-    public String sharedIndex() {
-        return "shared/index";
-    }
-
-    /** Login form. */
+    /**
+     * Login Screen
+     * @return
+     */
     @RequestMapping("/login.html")
     public String login() {
         return "login";
@@ -64,11 +50,6 @@ public class MainController {
         return "login";
     }
 
-    /** Simulation of an exception. */
-    @RequestMapping("/simulateError.html")
-    public void simulateError() {
-        throw new RuntimeException("This is a simulated error message");
-    }
 
     /** Error page. */
     @RequestMapping("/error.html")

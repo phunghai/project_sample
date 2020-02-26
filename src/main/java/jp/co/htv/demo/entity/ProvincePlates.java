@@ -13,7 +13,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 /**
- * Province palates entity
+ * Province palates entity.
  * 
  * @author hainp
  *

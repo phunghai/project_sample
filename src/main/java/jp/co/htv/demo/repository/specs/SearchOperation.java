@@ -1,5 +1,10 @@
 package jp.co.htv.demo.repository.specs;
 
+/**
+ * Search Operation Class.
+ * @author hainp
+ *
+ */
 public enum SearchOperation {
     GREATER_THAN,
     LESS_THAN,

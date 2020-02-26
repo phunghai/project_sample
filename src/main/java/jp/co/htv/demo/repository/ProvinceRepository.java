@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
 import jp.co.htv.demo.entity.Province;
 
 /**
- * Province Repository Class
+ * Province Repository Class.
  * 
  * @author hainp
  *

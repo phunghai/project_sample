@@ -2,6 +2,11 @@ package jp.co.htv.demo.utils;
 
 import java.util.stream.Stream;
 
+/**
+ * Validation Utility Class.
+ * @author hainp
+ *
+ */
 public class ValidationUtils {
     
     /**
