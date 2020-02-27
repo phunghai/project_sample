@@ -68,6 +68,8 @@ public class UserServiceImpl implements UserService {
         userRepository.updateUserName(id, name);
         return 0;
     }
+    
+    
 
     @Override
     public Page<User> findPaginatedByNameOrEmail(String name, String email, Pageable pageable) {
@@ -76,6 +78,13 @@ public class UserServiceImpl implements UserService {
         userSpecification.add(new SearchCriteria("email", email, SearchOperation.MATCH));
         // search name like %a%
         return userRepository.findAll(userSpecification, pageable);
+    }
+
+    @Override
+    public int updateUser(Long id, String name, String password) {
+        String encodePassword = bCryptPasswordEncoder.encode(password);
+        userRepository.updateUserNameAndPassword(id, name, encodePassword);
+        return 0;
     }
 
 }

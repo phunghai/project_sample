@@ -16,7 +16,7 @@
 		        <!-- Form Controls: Simple Forms -->
 		        <div class="row mb-5">
 					<div class="col-md-12">
-					    <form action="#" th:action="@{/user/update/{id}(id=${user.id})}" th:object="${user}" method="post">
+					    <form action="#" th:action="@{/user/update/{id}(id=${updateForm.id})}" th:object="${updateForm}" method="post">
 		                    <div class="row">
 		                        <div class="form-group col-md-6">
 		                            <label for="name" class="col-form-label">Name</label>
@@ -24,6 +24,13 @@
 		                            <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="text-danger"></span>
 		                        </div>
 		                    </div>
+                            <div class="row">
+                                <div class="form-group col-md-6">
+                                    <label for="passwordId" class="col-form-label">Input new password if you forgot it.</label>
+                                    <input type="password" th:field="*{password}" class="form-control" id="passwordId" placeholder="Password">
+                                    <span th:if="${#fields.hasErrors('password')}" th:errors="*{password}" class="text-danger"></span>
+                                </div>
+                            </div>
 		                    <div class="row">
 		                        <div class="col-md-6 mt-3">
 		                        	<a th:href="@{/users}" class="btn btn-secondary" href="#">Back</a>

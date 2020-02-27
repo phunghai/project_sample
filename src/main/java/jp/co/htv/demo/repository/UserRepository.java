@@ -7,7 +7,6 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
-
 import jp.co.htv.demo.entity.User;
 
 /**
@@ -21,7 +20,7 @@ public interface UserRepository extends JpaRepository<User, Long>, JpaSpecificat
     User findByEmail(String email);
 
     /**
-     * Using jsql for update user info
+     * Using jsql for update user info.
      * 
      * @param id   user id
      * @param name user name
@@ -31,4 +30,19 @@ public interface UserRepository extends JpaRepository<User, Long>, JpaSpecificat
     @Modifying
     @Query(value = "update User u set u.name = :name where u.id = :user_id ")
     int updateUserName(@Param("user_id") Long id, @Param("name") String name);
+    
+    /**
+     * Update user name and password.
+     * 
+     * @param id   user id
+     * @param name user name
+     * @param password Password.
+     * @return
+     */
+    @Transactional
+    @Modifying
+    @Query(value = "update User u set u.name = :name, "
+            + "u.password = :password where u.id = :user_id ")
+    int updateUserNameAndPassword(@Param("user_id") Long id, 
+            @Param("name") String name, @Param("password") String password);
 }

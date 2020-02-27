@@ -35,15 +35,15 @@ public interface UserService {
     Iterable<User> findAll();
 
     /**
-     * Find by id
+     * Find by id.
      * 
-     * @param id
+     * @param id user Id
      * @return
      */
     User findUserById(Long id);
 
     /**
-     * Delete user
+     * Delete user.
      * 
      * @param user User
      */
@@ -57,6 +57,15 @@ public interface UserService {
      * @return
      */
     int updateUser(Long id, String name);
+    
+    /**
+     * Update password for user.
+     * @param id user id
+     * @param name user name.
+     * @param password user password.
+     * @return
+     */
+    int updateUser(Long id, String name, String password);
 
     /**
      * Paging user by name.

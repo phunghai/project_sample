@@ -8,27 +8,27 @@ import jp.co.htv.demo.entity.Province;
 import jp.co.htv.demo.validation.DuplicationPlateCheck;
 
 /**
- * Plate Form Class
+ * Plate Form Class.
  * 
  * @author hainp
  *
  */
 public class PlateForm {
-    /** Province Code **/
+    /** Province Code. **/
     private String provinceCode;
 
-    /** Province Name */
+    /** Province Name. */
     private String provinceName;
 
-    /** Plates property */
-    @NotBlank
+    /** Plates property. */
+    @NotBlank(message = "The field cannot be blank")
     @DuplicationPlateCheck
     private String plates;
 
-    /** Published property **/
+    /** Published property. **/
     private boolean published;
 
-    /** Province Display List **/
+    /** Province Display List. **/
     private List<Province> provinceList;
 
     /**
