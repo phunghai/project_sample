@@ -1,6 +1,7 @@
 # Vietnam Vehicle Registration Plates
 
 project id: vn-vehicle-registration-plates
+This is project is created to demo the way use spring framework, spring boot stater,...
 
 ## Technical
 - Spring framework, spring security, thymeleaf, spring jpa.
