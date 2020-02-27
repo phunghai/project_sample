@@ -67,7 +67,7 @@ public class VehicleRegistrationPlateController {
         form.setProvinceName(searchName);
         
         model.addObject("platesSearchForm", form);
-        model.setViewName("/plate/list");
+        model.setViewName("plate/list");
 
         return model;
     }
@@ -89,7 +89,7 @@ public class VehicleRegistrationPlateController {
         plateForm.setProvinceList(provinceList);
         
         model.addObject("plateForm", plateForm);
-        model.setViewName("/plate/create");
+        model.setViewName("plate/create");
         return model;
 
     }
@@ -109,7 +109,7 @@ public class VehicleRegistrationPlateController {
         if (bindingResult.hasErrors()) {
             plateForm.setProvinceList(provinceService.findAllByOrderByCodeAsc());
             model.addObject("plateForm", plateForm);
-            model.setViewName("/plate/create");
+            model.setViewName("plate/create");
             return model;
         }
 
@@ -119,7 +119,7 @@ public class VehicleRegistrationPlateController {
             bindingResult.rejectValue("provinceCode", "error.province.plate.exist", "Province plates is exist!");
             plateForm.setProvinceList(provinceService.findAllByOrderByCodeAsc());
             model.addObject("plateForm", plateForm);
-            model.setViewName("/plate/create");
+            model.setViewName("plate/create");
             return model;
         }
 
@@ -166,7 +166,7 @@ public class VehicleRegistrationPlateController {
         updateForm.setPublished(plateDto.isPublished());
 
         model.addObject("updateForm", updateForm);
-        model.setViewName("/plate/update");
+        model.setViewName("plate/update");
         return model;
     }
 
@@ -186,7 +186,7 @@ public class VehicleRegistrationPlateController {
             updateForm.setId(id);
 
             model.addObject("updateForm", updateForm);
-            model.setViewName("/plate/update");
+            model.setViewName("plate/update");
             return model;
         }
 
