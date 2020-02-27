@@ -75,7 +75,7 @@ public class UserController {
         ModelAndView model = new ModelAndView();
         UserForm user = new UserForm();
         model.addObject("user", user);
-        model.setViewName("/user/registration");
+        model.setViewName("user/registration");
 
         return model;
     }
@@ -87,7 +87,7 @@ public class UserController {
         // validation
         if (bindingResult.hasErrors()) {
             model.addObject("user", userForm);
-            model.setViewName("/user/registration");
+            model.setViewName("user/registration");
             return model;
         }
 
@@ -95,7 +95,7 @@ public class UserController {
         if (userExists != null) {
             bindingResult.rejectValue("email", "error.user", "This email already exists!");
             model.addObject("user", userForm);
-            model.setViewName("/user/registration");
+            model.setViewName("user/registration");
             return model;
         }
 
@@ -128,7 +128,7 @@ public class UserController {
         User user = userService.findUserById(Long.valueOf(id));
 
         model.addObject("user", user);
-        model.setViewName("/user/update");
+        model.setViewName("user/update");
 
         return model;
     }
@@ -148,7 +148,7 @@ public class UserController {
             user.setId(id);
 
             model.addObject("user", user);
-            model.setViewName("/user/update");
+            model.setViewName("user/update");
             return model;
         }
 
