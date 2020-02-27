@@ -1,34 +1,35 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-    <head>
-        <title>Login page</title>
-        <meta charset="utf-8" />
-        <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/4.3.1/css/bootstrap.min.css}" />
-        <link rel="stylesheet" href="static/css/login.css" th:href="@{/css/login.css}" />
-        <script type="text/javascript" th:src="@{/webjars/jquery/2.2.4/jquery.min.js/}"></script>
-        <script type="text/javascript" th:src="@{/webjars/jquery-ui/1.11.4/jquery-ui.min.js}"></script>
- 		<script type="text/javascript" th:src="@{/webjars/bootstrap/4.3.1/js/bootstrap.min.js}"></script>
-	</head>
-    <body>
-		<div class="login-form">
-		    <form action="#" th:action="@{/login.html}" method="post" autocomplete="off">
-		        <h2 class="text-center">Log in</h2>
-		        <div th:if="${loginError}" class="alert alert-danger" role="alert" >Wrong user or password</div>       
-		        <div class="form-group">
-		            <input type="text" class="form-control" id="inputEmail" placeholder="Email" required="required" name="username" autofocus>
-		        </div>
-		        <div class="form-group">
-		            <input type="password" class="form-control"  id="inputPassword" placeholder="Password" required="required" name="password">
-		        </div>
-		        <div class="form-group">
-		            <button type="submit" class="btn btn-primary btn-block">Log in</button>
-		        </div>
-		    </form>
-		    <p><a href="../index.html" th:href="@{/index.html}">Back to home page</a></p>
-		</div>
-		
-<!--         <h1>Login page</h1>
-		<p><a href="../index.html" th:href="@{/index.html}">Back to home page</a></p>
- -->
-    </body>
+<head>
+<title>Login page</title>
+<meta charset="utf-8" />
+<link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/4.3.1/css/bootstrap.min.css}" />
+<link rel="stylesheet" href="static/css/login.css" th:href="@{/css/login.css}" />
+<script type="text/javascript" th:src="@{/webjars/jquery/2.2.4/jquery.min.js/}"></script>
+<script type="text/javascript" th:src="@{/webjars/jquery-ui/1.11.4/jquery-ui.min.js}"></script>
+<script type="text/javascript" th:src="@{/webjars/bootstrap/4.3.1/js/bootstrap.min.js}"></script>
+</head>
+<body>
+    <div class="login-form">
+        <form action="#" th:action="@{/login.html}" method="post" autocomplete="off">
+            <h2 class="text-center">Log in</h2>
+            <div th:if="${loginError}" class="alert alert-danger" role="alert">Wrong user or
+                password</div>
+            <div class="form-group">
+                <input type="text" class="form-control" id="inputEmail" placeholder="Email"
+                    required="required" name="username" autofocus>
+            </div>
+            <div class="form-group">
+                <input type="password" class="form-control" id="inputPassword"
+                    placeholder="Password" required="required" name="password">
+            </div>
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary btn-block">Log in</button>
+            </div>
+        </form>
+        <p>
+            <a href="#" th:href="@{/plate/list}">Back to home page</a>
+        </p>
+    </div>
+</body>
 </html>

@@ -13,18 +13,16 @@
     <div th:switch="${platesSearchForm}" class="container py-5">
         <div class="row">
             <div class="col-lg-10 mx-auto bg-white">
-                <h5 class="card-title"><i class="fas fa-search"></i> Find Province</h5>
+                <h5 class="card-title"><i class="fas fa-search"></i> Search for plates</h5>
                    <form action="#" th:action="@{/plate/list}"
                     th:object="${platesSearchForm}">
                     <div class="row">
                         <div class="form-group col-md-3">
-                            <label for="inputName">Province Name</label>
                             <input type="text"
                                 th:field="*{provinceName}" class="form-control" id="inputName"
                                 placeholder="Province Name">
                         </div>
-                        <div class="form-group d-flex flex-column">
-                            <label> </label>
+                        <div class="form-group">
                             <button type="submit" class="btn btn-success mt-auto">
                                 <i class="fas fa-search"></i>&nbsp;Search
                             </button>
