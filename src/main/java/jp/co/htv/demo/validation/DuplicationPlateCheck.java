@@ -11,10 +11,15 @@ import javax.validation.Payload;
 
 @Documented
 @Constraint(validatedBy = DuplicationPlateValidator.class)
-@Target( { ElementType.METHOD, ElementType.FIELD })
+@Target({ ElementType.METHOD, ElementType.FIELD })
 @Retention(RetentionPolicy.RUNTIME)
 public @interface DuplicationPlateCheck {
+    /** Message. */
     String message() default "Plate number is duplicate";
+
+    /** Groups. */
     Class<?>[] groups() default {};
+
+    /** Payload. */
     Class<? extends Payload>[] payload() default {};
 }

@@ -1,7 +1,6 @@
 package jp.co.htv.demo.entity;
 
 import java.util.Set;
-
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -40,21 +39,24 @@ public class User {
     private boolean enabled;
 
     @ManyToMany(fetch = FetchType.EAGER, cascade = { CascadeType.PERSIST, CascadeType.MERGE })
-    @JoinTable(name = "authorities_users", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "authority_id"))
+    @JoinTable(name = "authorities_users", joinColumns = @JoinColumn(name = "user_id"), 
+                inverseJoinColumns = @JoinColumn(name = "authority_id"))
     private Set<Authority> authority;
 
     /**
-     * Default constructor
+     * Default constructor.
      */
     public User() {
         super();
     }
 
     /**
-     * @param name
-     * @param email
-     * @param password
-     * @param enabled
+     * Custom constructor.
+     * 
+     * @param name     user name
+     * @param email    email of user
+     * @param password password of user
+     * @param enabled  user enable or not
      */
     public User(String name, String email, String password, boolean enabled) {
         super();
@@ -65,6 +67,8 @@ public class User {
     }
 
     /**
+     * Getter of id.
+     * 
      * @return the id
      */
     public Long getId() {
@@ -72,6 +76,8 @@ public class User {
     }
 
     /**
+     * Setter of id.
+     * 
      * @param id the id to set
      */
     public void setId(Long id) {
@@ -79,6 +85,8 @@ public class User {
     }
 
     /**
+     * Getter of name.
+     * 
      * @return the name
      */
     public String getName() {
@@ -86,6 +94,8 @@ public class User {
     }
 
     /**
+     * Setter of name.
+     * 
      * @param name the name to set
      */
     public void setName(String name) {
@@ -93,6 +103,8 @@ public class User {
     }
 
     /**
+     * Getter of email.
+     * 
      * @return the email
      */
     public String getEmail() {
@@ -100,6 +112,8 @@ public class User {
     }
 
     /**
+     * Setter of email.
+     * 
      * @param email the email to set
      */
     public void setEmail(String email) {
@@ -107,6 +121,8 @@ public class User {
     }
 
     /**
+     * Getter of password.
+     * 
      * @return the password
      */
     public String getPassword() {
@@ -114,6 +130,8 @@ public class User {
     }
 
     /**
+     * Setter of password.
+     * 
      * @param password the password to set
      */
     public void setPassword(String password) {
@@ -121,6 +139,8 @@ public class User {
     }
 
     /**
+     * Getter of enabled.
+     * 
      * @return the enabled
      */
     public boolean isEnabled() {
@@ -128,6 +148,8 @@ public class User {
     }
 
     /**
+     * Setter of enabled.
+     * 
      * @param enabled the enabled to set
      */
     public void setEnabled(boolean enabled) {
@@ -135,6 +157,8 @@ public class User {
     }
 
     /**
+     * Getter of authority.
+     * 
      * @return the authority
      */
     public Set<Authority> getAuthority() {
@@ -142,6 +166,8 @@ public class User {
     }
 
     /**
+     * Setter of authority.
+     * 
      * @param authority the authority to set
      */
     public void setAuthority(Set<Authority> authority) {

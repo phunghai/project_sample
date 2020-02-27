@@ -27,7 +27,7 @@ public interface ProvincePlatesRepository extends JpaRepository<ProvincePlates, 
 
     /**
      * Delete province plate.
-     * @param id
+     * @param id vehicle registration plate id
      */
     @Modifying
     @Query(value = "delete from ProvincePlates p where p.vehicleRegistrationPlates.id = :id ")

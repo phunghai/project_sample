@@ -34,10 +34,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(final HttpSecurity http) throws Exception {
         http.formLogin().loginPage("/login.html").failureUrl("/login-error.html").and().logout()
                 .logoutSuccessUrl("/index.html").and().authorizeRequests()
-                .antMatchers("/users", "/plate/create", "/plate/update/**", "/plate/delete/*","/user/**")
+                .antMatchers("/users", "/plate/create", "/plate/update/**",
+                                "/plate/delete/*", "/user/**")
                 .hasRole("ADMIN") // users list
-                .and().exceptionHandling()
-                .accessDeniedPage("/403.html");
+                .and().exceptionHandling().accessDeniedPage("/403.html");
 
     }
 
@@ -48,7 +48,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Bean
     public BCryptPasswordEncoder passwordEncoder() {
-        BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
-        return bCryptPasswordEncoder;
+        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        return passwordEncoder;
     }
 }

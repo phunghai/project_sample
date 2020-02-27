@@ -4,9 +4,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-
 import javax.validation.Valid;
-
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -19,7 +17,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
-
 import jp.co.htv.demo.dto.VehicleRegistrationPlateCreateDto;
 import jp.co.htv.demo.dto.VehicleRegistrationPlateDto;
 import jp.co.htv.demo.dto.VehicleRegistrationPlateUpdateDto;
@@ -59,13 +56,13 @@ public class VehicleRegistrationPlateController {
     public ModelAndView searchPlates(@RequestParam("provinceName") Optional<String> provinceName) {
         ModelAndView model = new ModelAndView();
         String searchName = provinceName.orElse("");
-        
+
         List<VehicleRegistrationPlateDto> platesDtoList = plateService.findAll(searchName, this.isLogged());
 
         PlateSearchForm form = new PlateSearchForm();
         form.setPlatesList(platesDtoList);
         form.setProvinceName(searchName);
-        
+
         model.addObject("platesSearchForm", form);
         model.setViewName("plate/list");
 
@@ -80,14 +77,14 @@ public class VehicleRegistrationPlateController {
     @GetMapping("/plate/create")
     public ModelAndView showCreateForm() {
         ModelAndView model = new ModelAndView();
-        
+
         // Get all province list
         List<Province> provinceList = provinceService.findAllByOrderByCodeAsc();
-        
+
         // create plate form to view
         PlateForm plateForm = new PlateForm();
         plateForm.setProvinceList(provinceList);
-        
+
         model.addObject("plateForm", plateForm);
         model.setViewName("plate/create");
         return model;
@@ -97,7 +94,7 @@ public class VehicleRegistrationPlateController {
     /**
      * Create new province plate.
      * 
-     * @param plateForm PlateForm
+     * @param plateForm     PlateForm
      * @param bindingResult BindingResult
      * @return
      */
@@ -130,7 +127,7 @@ public class VehicleRegistrationPlateController {
         // convert form plates to list of province plates object
         List<ProvincePlates> provincePlatesList = new ArrayList<ProvincePlates>();
         String[] provincePlatesArray = plateForm.getPlates().split(Constants.NEW_LINE);
-        
+
         for (String provincePlate : provincePlatesArray) {
             ProvincePlates provincePlateObj = new ProvincePlates();
             provincePlateObj.setValue(provincePlate);
@@ -155,7 +152,6 @@ public class VehicleRegistrationPlateController {
      */
     @GetMapping("/plate/update/{id}")
     public ModelAndView showUpdateForm(@PathVariable("id") long id) {
-        ModelAndView model = new ModelAndView();
         VehicleRegistrationPlateUpdateDto plateDto = plateService.getUpdateInfo(id);
 
         PlateUpdateForm updateForm = new PlateUpdateForm();
@@ -165,6 +161,7 @@ public class VehicleRegistrationPlateController {
         updateForm.setPlates(plates);
         updateForm.setPublished(plateDto.isPublished());
 
+        ModelAndView model = new ModelAndView();
         model.addObject("updateForm", updateForm);
         model.setViewName("plate/update");
         return model;
@@ -177,7 +174,8 @@ public class VehicleRegistrationPlateController {
      * @return
      */
     @PostMapping("/plate/update/{id}")
-    public ModelAndView updatePlate(@PathVariable("id") long id, @Valid @ModelAttribute("updateForm") PlateUpdateForm updateForm,
+    public ModelAndView updatePlate(@PathVariable("id") long id, 
+            @Valid @ModelAttribute("updateForm") PlateUpdateForm updateForm,
             BindingResult bindingResult) {
         ModelAndView model = new ModelAndView();
 
@@ -251,9 +249,10 @@ public class VehicleRegistrationPlateController {
 
         return StringUtils.join(platesValueList, System.lineSeparator());
     }
-    
+
     /**
      * Check user authentication
+     * 
      * @return
      */
     private boolean isLogged() {

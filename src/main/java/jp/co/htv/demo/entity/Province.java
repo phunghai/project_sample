@@ -9,6 +9,7 @@ import javax.persistence.Table;
 
 /**
  * Province Entity Class.
+ * 
  * @author hainp
  *
  */
@@ -36,23 +37,23 @@ public class Province {
     private LocalDateTime updatedAt;
 
     /**
-     * 
+     * Default constructor.
      */
     public Province() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
     /**
-     * @param code
-     * @param typeCode
-     * @param name
-     * @param nameEn
-     * @param createdAt
-     * @param updatedAt
+     * Custom constructor.
+     * @param code province code
+     * @param typeCode type of province
+     * @param name province name
+     * @param nameEn province name english
+     * @param createdAt created date
+     * @param updatedAt updated date
      */
-    public Province(String code, String typeCode, String name, String nameEn, LocalDateTime createdAt,
-            LocalDateTime updatedAt) {
+    public Province(String code, String typeCode, String name, String nameEn, 
+            LocalDateTime createdAt, LocalDateTime updatedAt) {
         super();
         this.code = code;
         this.typeCode = typeCode;
@@ -63,6 +64,7 @@ public class Province {
     }
 
     /**
+     * Getter of code.
      * @return the code
      */
     public String getCode() {
@@ -70,6 +72,7 @@ public class Province {
     }
 
     /**
+     * Setter of code.
      * @param code the code to set
      */
     public void setCode(String code) {
@@ -77,6 +80,7 @@ public class Province {
     }
 
     /**
+     * Getter of typeCode.
      * @return the typeCode
      */
     public String getTypeCode() {
@@ -84,6 +88,7 @@ public class Province {
     }
 
     /**
+     * Getter of typeCode.
      * @param typeCode the typeCode to set
      */
     public void setTypeCode(String typeCode) {
@@ -91,6 +96,7 @@ public class Province {
     }
 
     /**
+     * Getter of name.
      * @return the name
      */
     public String getName() {
@@ -98,6 +104,7 @@ public class Province {
     }
 
     /**
+     * Setter of name.
      * @param name the name to set
      */
     public void setName(String name) {
@@ -105,6 +112,7 @@ public class Province {
     }
 
     /**
+     * Getter of name en.
      * @return the nameEn
      */
     public String getNameEn() {
@@ -112,6 +120,7 @@ public class Province {
     }
 
     /**
+     * Setter of name en.
      * @param nameEn the nameEn to set
      */
     public void setNameEn(String nameEn) {
@@ -119,6 +128,7 @@ public class Province {
     }
 
     /**
+     * Getter of create date.
      * @return the createdAt
      */
     public LocalDateTime getCreatedAt() {
@@ -126,6 +136,7 @@ public class Province {
     }
 
     /**
+     * Setter of create date.
      * @param createdAt the createdAt to set
      */
     public void setCreatedAt(LocalDateTime createdAt) {
@@ -133,6 +144,7 @@ public class Province {
     }
 
     /**
+     * Getter of update date.
      * @return the updatedAt
      */
     public LocalDateTime getUpdatedAt() {
@@ -140,6 +152,7 @@ public class Province {
     }
 
     /**
+     * Setter of update date.
      * @param updatedAt the updatedAt to set
      */
     public void setUpdatedAt(LocalDateTime updatedAt) {

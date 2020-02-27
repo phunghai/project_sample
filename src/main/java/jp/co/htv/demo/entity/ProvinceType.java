@@ -1,14 +1,13 @@
 package jp.co.htv.demo.entity;
 
 import java.time.LocalDateTime;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
 /**
- * Province Type Entity Class
+ * Province Type Entity Class.
  * 
  * @author hainp
  *
@@ -30,7 +29,7 @@ public class ProvinceType {
     private LocalDateTime updatedAt;
 
     /**
-     * 
+     * Default constructor.
      */
     public ProvinceType() {
         super();
@@ -38,10 +37,12 @@ public class ProvinceType {
     }
 
     /**
-     * @param code
-     * @param name
-     * @param createdAt
-     * @param updatedAt
+     * Customize constructor.
+     * 
+     * @param code      province type code
+     * @param name      province type name
+     * @param createdAt create date
+     * @param updatedAt update date
      */
     public ProvinceType(String code, String name, LocalDateTime createdAt, LocalDateTime updatedAt) {
         super();
@@ -52,6 +53,8 @@ public class ProvinceType {
     }
 
     /**
+     * Getter of code.
+     * 
      * @return the code
      */
     public String getCode() {
@@ -59,6 +62,8 @@ public class ProvinceType {
     }
 
     /**
+     * Setter of code.
+     * 
      * @param code the code to set
      */
     public void setCode(String code) {
@@ -66,6 +71,8 @@ public class ProvinceType {
     }
 
     /**
+     * Getter of name.
+     * 
      * @return the name
      */
     public String getName() {
@@ -73,6 +80,8 @@ public class ProvinceType {
     }
 
     /**
+     * Setter of name.
+     * 
      * @param name the name to set
      */
     public void setName(String name) {
@@ -80,6 +89,8 @@ public class ProvinceType {
     }
 
     /**
+     * Getter of create date.
+     * 
      * @return the createdAt
      */
     public LocalDateTime getCreatedAt() {
@@ -87,6 +98,8 @@ public class ProvinceType {
     }
 
     /**
+     * Setter of create date.
+     * 
      * @param createdAt the createdAt to set
      */
     public void setCreatedAt(LocalDateTime createdAt) {
@@ -94,6 +107,8 @@ public class ProvinceType {
     }
 
     /**
+     * Getter of update date.
+     * 
      * @return the updatedAt
      */
     public LocalDateTime getUpdatedAt() {
@@ -101,6 +116,8 @@ public class ProvinceType {
     }
 
     /**
+     * Getter of update date.
+     * 
      * @param updatedAt the updatedAt to set
      */
     public void setUpdatedAt(LocalDateTime updatedAt) {

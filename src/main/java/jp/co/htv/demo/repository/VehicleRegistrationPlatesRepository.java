@@ -20,21 +20,23 @@ import jp.co.htv.demo.entity.VehicleRegistrationPlates;
  *
  */
 @Repository
-public interface VehicleRegistrationPlatesRepository extends JpaRepository<VehicleRegistrationPlates, Long>, JpaSpecificationExecutor<VehicleRegistrationPlates>  {
+public interface VehicleRegistrationPlatesRepository
+        extends JpaRepository<VehicleRegistrationPlates, Long>, 
+                    JpaSpecificationExecutor<VehicleRegistrationPlates> {
     /**
-     * Find all with sort
+     * Find all with sort.
      */
     List<VehicleRegistrationPlates> findAll(Sort sort);
 
     /**
-     * Order by province Code
+     * Order by province Code.
      * 
      * @return
      */
     List<VehicleRegistrationPlates> findAllByOrderByProvinceCodeAsc();
 
     /**
-     * Find by Province Code
+     * Find by Province Code.
      * 
      * @param provinceCode Province Code
      * @return
@@ -43,22 +45,27 @@ public interface VehicleRegistrationPlatesRepository extends JpaRepository<Vehic
 
     @Transactional
     @Modifying
-    @Query(value = "update VehicleRegistrationPlates v set v.published = :published where v.id = :id ")
+    @Query(value = "update VehicleRegistrationPlates v "
+            + "set v.published = :published where v.id = :id")
     int updatePlate(@Param("id") Long id, @Param("published") boolean published);
-    
+
     /**
      * Find all vehicle plates by province name.
-     * @param provinceName
+     * 
+     * @param provinceName Province Name
      * @return
      */
-    @Query(value = "select v,p from VehicleRegistrationPlates v, Province p where v.provinceCode = p.code and p.name like %:name%" )
+    @Query(value = "select v,p from VehicleRegistrationPlates v, Province p "
+            + "where v.provinceCode = p.code and p.name like %:name%")
     List<Object[]> findAllByProvinceName(@Param("name") String provinceName);
-    
+
     /**
      * Find all vehicle plates by province name.
-     * @param provinceName
+     * 
+     * @param provinceName Province Name
      * @return
      */
-    @Query(value = "select v,p from VehicleRegistrationPlates v, Province p where v.provinceCode = p.code and p.name like %:name% and v.published = 1" )
+    @Query(value = "select v,p from VehicleRegistrationPlates v, Province p "
+            + "where v.provinceCode = p.code and p.name like %:name% and v.published = 1")
     List<Object[]> findAllByProvinceNameAndUnPublished(@Param("name") String provinceName);
 }

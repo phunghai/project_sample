@@ -22,18 +22,18 @@ public class UserForm {
     private String password;
 
     /**
-     * Default constructor
+     * Default constructor.
      */
     public UserForm() {
         super();
     }
 
     /**
-     * Custom constructor
+     * Custom constructor.
      * 
-     * @param name
-     * @param email
-     * @param password
+     * @param name user name
+     * @param email email of user
+     * @param password password of users
      */
     public UserForm(@NotNull String name, @NotNull String email, @NotNull String password) {
         super();
@@ -43,6 +43,7 @@ public class UserForm {
     }
 
     /**
+     * Getter of name.
      * @return the name
      */
     public String getName() {
@@ -50,6 +51,7 @@ public class UserForm {
     }
 
     /**
+     * Setter of name.
      * @param name the name to set
      */
     public void setName(String name) {
@@ -57,6 +59,7 @@ public class UserForm {
     }
 
     /**
+     * Getter of email.
      * @return the email
      */
     public String getEmail() {
@@ -64,6 +67,7 @@ public class UserForm {
     }
 
     /**
+     * Setter of email.
      * @param email the email to set
      */
     public void setEmail(String email) {
@@ -71,6 +75,7 @@ public class UserForm {
     }
 
     /**
+     * Getter of password.
      * @return the password
      */
     public String getPassword() {
@@ -78,6 +83,7 @@ public class UserForm {
     }
 
     /**
+     * Setter of password.
      * @param password the password to set
      */
     public void setPassword(String password) {
