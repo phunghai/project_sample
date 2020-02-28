@@ -2,13 +2,11 @@ package jp.co.htv.demo.service;
 
 import java.util.Arrays;
 import java.util.HashSet;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
-
 import jp.co.htv.demo.entity.Authority;
 import jp.co.htv.demo.entity.User;
 import jp.co.htv.demo.repository.AuthorityResository;
@@ -31,7 +29,7 @@ public class UserServiceImpl implements UserService {
     private AuthorityResository authorityRespository;
 
     @Autowired
-    private BCryptPasswordEncoder bCryptPasswordEncoder;
+    private BCryptPasswordEncoder encoder;
 
     @Override
     public User findUserByEmail(String email) {
@@ -40,7 +38,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void saveUser(User user) {
-        user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
+        user.setPassword(encoder.encode(user.getPassword()));
         user.setEnabled(true);
 
         Authority userAuthority = authorityRespository.findByAuthority("ROLE_ADMIN");
@@ -55,20 +53,15 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User findUserById(Long id) {
-        return userRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Invalid user Id:" + id));
+        return userRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Invalid user Id:" + id));
     }
 
     @Override
     public void deleteUser(User user) {
         userRepository.delete(user);
     }
-
-    @Override
-    public int updateUser(Long id, String name) {
-        userRepository.updateUserName(id, name);
-        return 0;
-    }
-
+    
     @Override
     public Page<User> findPaginatedByNameOrEmail(String name, String email, Pageable pageable) {
         UserSpecification userSpecification = new UserSpecification();
@@ -76,6 +69,17 @@ public class UserServiceImpl implements UserService {
         userSpecification.add(new SearchCriteria("email", email, SearchOperation.MATCH));
         // search name like %a%
         return userRepository.findAll(userSpecification, pageable);
+    }
+
+    @Override
+    public int updateUser(Long id, String name, String password) {
+        if (password != null) {
+            String encodePassword = encoder.encode(password);
+            userRepository.updateUserNameAndPassword(id, name, encodePassword);
+        } else {
+            userRepository.updateUserName(id, name);
+        }
+        return 0;
     }
 
 }

@@ -1,7 +1,6 @@
 package jp.co.htv.demo.form.plate;
 
 import java.util.List;
-
 import jp.co.htv.demo.dto.VehicleRegistrationPlateDto;
 
 /**
@@ -20,6 +19,7 @@ public class PlateSearchForm {
     private List<VehicleRegistrationPlateDto> platesList;
 
     /**
+     * Getter of plates list.
      * @return the platesList
      */
     public List<VehicleRegistrationPlateDto> getPlatesList() {
@@ -27,6 +27,7 @@ public class PlateSearchForm {
     }
 
     /**
+     * Setter of plate list.
      * @param platesList the platesList to set
      */
     public void setPlatesList(List<VehicleRegistrationPlateDto> platesList) {
@@ -34,6 +35,7 @@ public class PlateSearchForm {
     }
 
     /**
+     * Getter of province nam.e
      * @return the provinceName
      */
     public String getProvinceName() {
@@ -41,6 +43,7 @@ public class PlateSearchForm {
     }
 
     /**
+     * Setter of province name.
      * @param provinceName the provinceName to set
      */
     public void setProvinceName(String provinceName) {
@@ -48,6 +51,7 @@ public class PlateSearchForm {
     }
 
     /**
+     * Getter of plate.
      * @return the plate
      */
     public String getPlate() {
@@ -55,6 +59,7 @@ public class PlateSearchForm {
     }
 
     /**
+     * Setter of plate.
      * @param plate the plate to set
      */
     public void setPlate(String plate) {

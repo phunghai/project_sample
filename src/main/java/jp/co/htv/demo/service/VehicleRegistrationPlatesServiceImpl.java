@@ -3,15 +3,13 @@ package jp.co.htv.demo.service;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import jp.co.htv.demo.dto.VehicleRegistrationPlateCreateDto;
-import jp.co.htv.demo.dto.VehicleRegistrationPlateUpdateDto;
 import jp.co.htv.demo.dto.VehicleRegistrationPlateDto;
+import jp.co.htv.demo.dto.VehicleRegistrationPlateUpdateDto;
 import jp.co.htv.demo.entity.Province;
 import jp.co.htv.demo.entity.ProvincePlates;
 import jp.co.htv.demo.entity.VehicleRegistrationPlates;
@@ -20,7 +18,7 @@ import jp.co.htv.demo.repository.ProvinceRepository;
 import jp.co.htv.demo.repository.VehicleRegistrationPlatesRepository;
 
 /**
- * Vehicle Registration Plates Service Class
+ * Vehicle Registration Plates Service Class.
  * 
  * @author hainp
  *
@@ -28,7 +26,7 @@ import jp.co.htv.demo.repository.VehicleRegistrationPlatesRepository;
 @Service
 public class VehicleRegistrationPlatesServiceImpl implements VehicleRegistrationPlatesService {
 
-    /** Vehicle Registration Plates Repository property */
+    /** Vehicle Registration Plates Repository property. */
     @Autowired
     private VehicleRegistrationPlatesRepository vehicleRepository;
 
@@ -46,7 +44,8 @@ public class VehicleRegistrationPlatesServiceImpl implements VehicleRegistration
     @Override
     public List<VehicleRegistrationPlateDto> findAll(String provinceName, boolean isLogged) {
         // returning list
-        List<VehicleRegistrationPlateDto> plateDtoList = new ArrayList<VehicleRegistrationPlateDto>();
+        List<VehicleRegistrationPlateDto> plateDtoList 
+                                            = new ArrayList<VehicleRegistrationPlateDto>();
         
         // get vehicle registration plates list from database and filter by province name.
         List<Object[]> rawDataList = new ArrayList<Object[]>();
@@ -126,7 +125,8 @@ public class VehicleRegistrationPlatesServiceImpl implements VehicleRegistration
             return null;
         }
 
-        Province province = provinceRepository.findById(plate.getProvinceCode()).orElse(new Province());
+        Province province = provinceRepository.findById(plate.getProvinceCode())
+                .orElse(new Province());
 
         // mapping data to return dto
         plateDto.setId(plate.getId());

@@ -1,7 +1,6 @@
 package jp.co.htv.demo.form;
 
 import org.springframework.data.domain.Page;
-
 import jp.co.htv.demo.entity.User;
 
 /**
@@ -11,16 +10,17 @@ import jp.co.htv.demo.entity.User;
  *
  */
 public class UserSearchForm {
-    /** name on condition **/
+    /** name on condition. **/
     private String name;
     
-    /** email property */
+    /** email property. */
     private String email;
 
-    /** result **/
+    /** resul.t **/
     private Page<User> result;
 
     /**
+     * Getter of name.
      * @return the name
      */
     public String getName() {
@@ -28,6 +28,7 @@ public class UserSearchForm {
     }
 
     /**
+     * Setter of name.
      * @param name the name to set
      */
     public void setName(String name) {
@@ -35,6 +36,7 @@ public class UserSearchForm {
     }
 
     /**
+     * Getter of result.
      * @return the result
      */
     public Page<User> getResult() {
@@ -42,6 +44,7 @@ public class UserSearchForm {
     }
 
     /**
+     * Setter of result.
      * @param result the result to set
      */
     public void setResult(Page<User> result) {
@@ -49,6 +52,7 @@ public class UserSearchForm {
     }
 
     /**
+     * Getter of email.
      * @return the email
      */
     public String getEmail() {
@@ -56,6 +60,7 @@ public class UserSearchForm {
     }
 
     /**
+     * Setter of email.
      * @param email the email to set
      */
     public void setEmail(String email) {

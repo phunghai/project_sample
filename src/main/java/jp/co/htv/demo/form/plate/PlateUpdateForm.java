@@ -1,7 +1,6 @@
 package jp.co.htv.demo.form.plate;
 
 import javax.validation.constraints.NotBlank;
-
 import jp.co.htv.demo.validation.DuplicationPlateCheck;
 
 /**
@@ -11,21 +10,22 @@ import jp.co.htv.demo.validation.DuplicationPlateCheck;
  *
  */
 public class PlateUpdateForm {
-    /** plate id */
+    /** plate id. */
     private Long id;
 
-    /** Province Name */
+    /** Province Name. */
     private String provinceName;
 
-    /** Plates property */
+    /** Plates property. */
     @NotBlank
     @DuplicationPlateCheck
     private String plates;
 
-    /** Published property **/
+    /** Published property. **/
     private boolean published;
 
     /**
+     * Getter of plate id.
      * @return the id
      */
     public Long getId() {
@@ -33,6 +33,7 @@ public class PlateUpdateForm {
     }
 
     /**
+     * Setter of plate id.
      * @param id the id to set
      */
     public void setId(Long id) {
@@ -40,6 +41,7 @@ public class PlateUpdateForm {
     }
 
     /**
+     * Getter of province name.
      * @return the provinceName
      */
     public String getProvinceName() {
@@ -47,6 +49,7 @@ public class PlateUpdateForm {
     }
 
     /**
+     * Setter of province name.
      * @param provinceName the provinceName to set
      */
     public void setProvinceName(String provinceName) {
@@ -54,6 +57,7 @@ public class PlateUpdateForm {
     }
 
     /**
+     * Getter of plate list.
      * @return the plates
      */
     public String getPlates() {
@@ -61,6 +65,7 @@ public class PlateUpdateForm {
     }
 
     /**
+     * Setter of plate list.
      * @param plates the plates to set
      */
     public void setPlates(String plates) {
@@ -68,6 +73,7 @@ public class PlateUpdateForm {
     }
 
     /**
+     * Getter of published.
      * @return the published
      */
     public boolean isPublished() {
@@ -75,6 +81,7 @@ public class PlateUpdateForm {
     }
 
     /**
+     * Setter of published.
      * @param published the published to set
      */
     public void setPublished(boolean published) {

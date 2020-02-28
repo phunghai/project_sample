@@ -1,30 +1,30 @@
 package jp.co.htv.demo.form;
 
-import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 /**
- * User Form class.
+ * User Update Form class.
  * 
  * @author Nguyen Phung Hai
  *
  */
-public class UserForm {
+public class UserUpdateForm {
+    /** user id. */
+    private Long id;
+    
     @NotBlank(message = "The field cannot be blank")
     private String name;
 
-    @NotBlank(message = "The field cannot be blank")
-    @Email
-    private String email;
-
-    @NotBlank(message = "The field cannot be blank")
     private String password;
+    
+    /** Stored old password. */
+    private String oldPassword;
 
     /**
      * Default constructor.
      */
-    public UserForm() {
+    public UserUpdateForm() {
         super();
     }
 
@@ -32,13 +32,11 @@ public class UserForm {
      * Custom constructor.
      * 
      * @param name user name
-     * @param email email of user
      * @param password password of users
      */
-    public UserForm(@NotNull String name, @NotNull String email, @NotNull String password) {
+    public UserUpdateForm(@NotNull String name, @NotNull String password) {
         super();
         this.name = name;
-        this.email = email;
         this.password = password;
     }
 
@@ -58,21 +56,6 @@ public class UserForm {
         this.name = name;
     }
 
-    /**
-     * Getter of email.
-     * @return the email
-     */
-    public String getEmail() {
-        return email;
-    }
-
-    /**
-     * Setter of email.
-     * @param email the email to set
-     */
-    public void setEmail(String email) {
-        this.email = email;
-    }
 
     /**
      * Getter of password.
@@ -90,4 +73,36 @@ public class UserForm {
         this.password = password;
     }
 
+    /**
+     * Getter of id.
+     * @return the id
+     */
+    public Long getId() {
+        return id;
+    }
+
+    /**
+     * Setter of id.
+     * @param id the id to set
+     */
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    /**
+     * Getter of old password.
+     * @return the oldPassword
+     */
+    public String getOldPassword() {
+        return oldPassword;
+    }
+
+    /**
+     * Setter of old password.
+     * @param oldPassword the oldPassword to set
+     */
+    public void setOldPassword(String oldPassword) {
+        this.oldPassword = oldPassword;
+    }
+    
 }

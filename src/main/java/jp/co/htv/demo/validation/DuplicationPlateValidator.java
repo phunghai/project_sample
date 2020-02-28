@@ -2,7 +2,6 @@ package jp.co.htv.demo.validation;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
-
 import jp.co.htv.demo.utils.Constants;
 import jp.co.htv.demo.utils.ValidationUtils;
 

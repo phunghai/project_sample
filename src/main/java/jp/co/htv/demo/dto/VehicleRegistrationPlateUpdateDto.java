@@ -1,7 +1,6 @@
 package jp.co.htv.demo.dto;
 
 import java.util.List;
-
 import jp.co.htv.demo.entity.ProvincePlates;
 
 /**
@@ -11,22 +10,23 @@ import jp.co.htv.demo.entity.ProvincePlates;
  *
  */
 public class VehicleRegistrationPlateUpdateDto {
-    /** id property */
+    /** id property. */
     private Long id;
 
-    /** province code property */
+    /** province code property. */
     private String provinceCode;
 
-    /** province name property */
+    /** province name property. */
     private String provinceName;
 
-    /** published property */
+    /** published property. */
     private boolean published;
 
-    /** province plates list */
+    /** province plates list. */
     private List<ProvincePlates> provincePlatesList;
 
     /**
+     * Gets the value of the id property.
      * @return the id
      */
     public Long getId() {
@@ -34,6 +34,7 @@ public class VehicleRegistrationPlateUpdateDto {
     }
 
     /**
+     * Gets the value of the id property.
      * @param id the id to set
      */
     public void setId(Long id) {
@@ -41,6 +42,7 @@ public class VehicleRegistrationPlateUpdateDto {
     }
 
     /**
+     * Gets the value of the provinceCode property.
      * @return the provinceCode
      */
     public String getProvinceCode() {
@@ -48,6 +50,7 @@ public class VehicleRegistrationPlateUpdateDto {
     }
 
     /**
+     * Gets the value of the provinceCode property.
      * @param provinceCode the provinceCode to set
      */
     public void setProvinceCode(String provinceCode) {
@@ -55,6 +58,7 @@ public class VehicleRegistrationPlateUpdateDto {
     }
 
     /**
+     * Gets the value of the provinceName property.
      * @return the provinceName
      */
     public String getProvinceName() {
@@ -62,6 +66,7 @@ public class VehicleRegistrationPlateUpdateDto {
     }
 
     /**
+     * Gets the value of the provinceName property.
      * @param provinceName the provinceName to set
      */
     public void setProvinceName(String provinceName) {
@@ -69,6 +74,7 @@ public class VehicleRegistrationPlateUpdateDto {
     }
 
     /**
+     * Gets the value of the published property.
      * @return the published
      */
     public boolean isPublished() {
@@ -76,6 +82,7 @@ public class VehicleRegistrationPlateUpdateDto {
     }
 
     /**
+     * Gets the value of the published property.
      * @param published the published to set
      */
     public void setPublished(boolean published) {
@@ -83,6 +90,7 @@ public class VehicleRegistrationPlateUpdateDto {
     }
 
     /**
+     * Gets the value of the provincePlatesList property.
      * @return the provincePlatesList
      */
     public List<ProvincePlates> getProvincePlatesList() {
@@ -90,6 +98,7 @@ public class VehicleRegistrationPlateUpdateDto {
     }
 
     /**
+     * Gets the value of the provincePlatesList property.
      * @param provincePlatesList the provincePlatesList to set
      */
     public void setProvincePlatesList(List<ProvincePlates> provincePlatesList) {

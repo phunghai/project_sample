@@ -1,9 +1,7 @@
 package jp.co.htv.demo.controller;
 
 import java.util.Locale;
-
 import javax.servlet.http.HttpServletRequest;
-
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,22 +18,11 @@ public class MainController {
 
     @RequestMapping("/")
     public String root(Locale locale) {
-        return "redirect:/index.html";
+        return "redirect:/plate/list";
     }
 
     /**
-     * Home page
-     * 
-     * @return
-     */
-    @RequestMapping("/index.html")
-    public String index() {
-        return "index";
-    }
-
-
-    /**
-     * Login Screen
+     * Login Screen.
      * @return
      */
     @RequestMapping("/login.html")

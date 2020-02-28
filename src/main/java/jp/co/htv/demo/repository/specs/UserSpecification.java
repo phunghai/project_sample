@@ -2,14 +2,11 @@ package jp.co.htv.demo.repository.specs;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
-
 import org.springframework.data.jpa.domain.Specification;
-
 import jp.co.htv.demo.entity.User;
 
 /**
@@ -18,7 +15,7 @@ import jp.co.htv.demo.entity.User;
  *
  */
 public class UserSpecification implements Specification<User> {
-    /** default serial version */
+    /** default serial version. */
     private static final long serialVersionUID = 1L;
     
     private List<SearchCriteria> searchCriteriaList;
@@ -35,7 +32,8 @@ public class UserSpecification implements Specification<User> {
     }
 
     @Override
-    public Predicate toPredicate(Root<User> root, CriteriaQuery<?> query, CriteriaBuilder criteriaBuilder) {
+    public Predicate toPredicate(Root<User> root, CriteriaQuery<?> query, 
+                                    CriteriaBuilder criteriaBuilder) {
         //create a new predicate list
         List<Predicate> predicates = new ArrayList<>();
 
@@ -72,9 +70,11 @@ public class UserSpecification implements Specification<User> {
                         criteriaBuilder.lower(root.get(criteria.getKey())),
                         "%" + criteria.getValue().toString().toLowerCase()));
             } else if (criteria.getOperation().equals(SearchOperation.IN)) {
-                predicates.add(criteriaBuilder.in(root.get(criteria.getKey())).value(criteria.getValue()));
+                predicates.add(criteriaBuilder.in(root.get(criteria.getKey()))
+                        .value(criteria.getValue()));
             } else if (criteria.getOperation().equals(SearchOperation.NOT_IN)) {
-                predicates.add(criteriaBuilder.not(root.get(criteria.getKey())).in(criteria.getValue()));
+                predicates.add(criteriaBuilder.not(root.get(criteria.getKey()))
+                        .in(criteria.getValue()));
             }
         }
 

@@ -6,7 +6,7 @@
 </head>
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary mb-4" th:fragment="header">
-        <a class="navbar-brand" href="/" th:href="@{/index.html}">DEMO</a>
+        <a class="navbar-brand" href="/" th:href="@{/plate/list}">DEMO</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse"
             data-target="#navbarNavDropdown-1" aria-controls="navbarNavDropdown-1"
             aria-expanded="false" aria-label="Toggle navigation">
@@ -15,14 +15,10 @@
         <div class="collapse navbar-collapse" id="navbarNavDropdown-1">
             <ul class="navbar-nav mr-auto">
                 <li
-                    th:classappend="${#httpServletRequest.getRequestURI() == '/index.html' ? 'active':''}"
-                    class="nav-item"><a class="nav-link" href="#" th:href="@{/}">Home <span
-                        class="sr-only">(current)</span>
-                </a></li>
-                <li
                     th:classappend="${#httpServletRequest.getRequestURI() == '/plate/list' ? 'active':''}"
                     class="nav-item"><a class="nav-link" href="#" th:href="@{/plate/list}">Vehicle
-                        Registration Plates</a></li>
+                        Registration Plates</a><span
+                        class="sr-only">(current)</span></li>
                 <li
                     th:classappend="${#httpServletRequest.getRequestURI() == '/users' ? 'active':''}"
                     class="nav-item" sec:authorize="hasRole('ROLE_ADMIN')"><a class="nav-link"
