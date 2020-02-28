@@ -1,16 +1,14 @@
 package jp.co.htv.demo.service;
 
 import java.util.List;
-
 import org.springframework.data.domain.Sort;
-
 import jp.co.htv.demo.dto.VehicleRegistrationPlateCreateDto;
-import jp.co.htv.demo.dto.VehicleRegistrationPlateUpdateDto;
 import jp.co.htv.demo.dto.VehicleRegistrationPlateDto;
+import jp.co.htv.demo.dto.VehicleRegistrationPlateUpdateDto;
 import jp.co.htv.demo.entity.VehicleRegistrationPlates;
 
 /**
- * Vehicle Registration Plates Service
+ * Vehicle Registration Plates Service Class.
  * 
  * @author hainp
  *
@@ -18,15 +16,15 @@ import jp.co.htv.demo.entity.VehicleRegistrationPlates;
 public interface VehicleRegistrationPlatesService {
 
     /**
-     * Find object by id
+     * Find object by id.
      * 
-     * @param id
+     * @param id plate id.
      * @return
      */
     VehicleRegistrationPlates findById(Long id);
 
     /**
-     * Find all
+     * Find all.
      * 
      * @param sort Sort
      * @return
@@ -34,7 +32,7 @@ public interface VehicleRegistrationPlatesService {
     List<VehicleRegistrationPlates> findAll(Sort sort);
 
     /**
-     * Find all by province code asc
+     * Find all by province code asc.
      * 
      * @param provinceName Province Name
      * @param isLogged user login or not
@@ -43,7 +41,7 @@ public interface VehicleRegistrationPlatesService {
     List<VehicleRegistrationPlateDto> findAll(String provinceName, boolean isLogged);
 
     /**
-     * Find by province code
+     * Find by province code.
      * 
      * @param provinceCode Province Code
      * @return
@@ -51,21 +49,21 @@ public interface VehicleRegistrationPlatesService {
     VehicleRegistrationPlates findByProvinceCode(String provinceCode);
 
     /**
-     * Save new plate
+     * Save new plate.
      * 
-     * @param plateDto
+     * @param plateDto plate dto.
      */
     void save(VehicleRegistrationPlateCreateDto plateDto);
 
     /**
-     * Delete plate
+     * Delete plate.
      * 
-     * @param plate
+     * @param plate vehicle registration plate.
      */
     void delete(VehicleRegistrationPlates plate);
 
     /**
-     * Get plate information for update
+     * Get plate information for update.
      * 
      * @param id province plate id
      * @return
@@ -73,9 +71,9 @@ public interface VehicleRegistrationPlatesService {
     VehicleRegistrationPlateUpdateDto getUpdateInfo(Long id);
 
     /**
-     * Update plate
+     * Update plate.
      * 
-     * @param plateUpdateDto
+     * @param plateUpdateDto plate update dto.
      */
     void update(VehicleRegistrationPlateUpdateDto plateUpdateDto);
 }

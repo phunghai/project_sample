@@ -7,7 +7,6 @@ import org.apache.commons.beanutils.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,19 +24,19 @@ import jp.co.htv.demo.form.UserUpdateForm;
 import jp.co.htv.demo.service.UserService;
 
 /**
- * User Controller class Provide CRUD method for User
+ * User Controller class Provide CRUD method for User.
  * 
  * @author Nguyen Phung Hai
  *
  */
 @Controller
 public class UserController {
-    /** User Service */
+    /** User Service. */
     @Autowired
     private UserService userService;
 
     /**
-     * Search user with paging controller
+     * Search user with paging controller.
      * 
      * @param name user name
      * @param page specify page number
@@ -47,8 +46,9 @@ public class UserController {
     @RequestMapping("/users")
     public ModelAndView searchUser(@RequestParam("name") Optional<String> name,
             @RequestParam("email") Optional<String> email,
-            @RequestParam("page") Optional<Integer> page, @RequestParam("size") Optional<Integer> size) {
-        ModelAndView model = new ModelAndView();
+            @RequestParam("page") Optional<Integer> page, 
+            @RequestParam("size") Optional<Integer> size) {
+        
         int currentPage = page.orElse(1);
         int pageSize = size.orElse(5);
 
@@ -56,7 +56,8 @@ public class UserController {
         String searchEmail = email.orElse("");
 
         // get user list from service
-        Page<User> userPage = userService.findPaginatedByNameOrEmail(searchName, searchEmail, PageRequest.of(currentPage - 1, pageSize));
+        Page<User> userPage = userService.findPaginatedByNameOrEmail(searchName, searchEmail, 
+                                                        PageRequest.of(currentPage - 1, pageSize));
 
         // Form contain search condition and search result
         UserSearchForm form = new UserSearchForm();
@@ -64,12 +65,17 @@ public class UserController {
         form.setName(searchName);
         form.setEmail(searchEmail);
 
+        ModelAndView model = new ModelAndView();
         model.addObject("userSearchForm", form);
 
         model.setViewName("user/search");
         return model;
     }
 
+    /**
+     * Action for initialize new user.
+     * @return
+     */
     @GetMapping("/user/registration")
     public ModelAndView showCreateForm() {
         ModelAndView model = new ModelAndView();
@@ -80,8 +86,15 @@ public class UserController {
         return model;
     }
 
+    /**
+     * Action for register user.
+     * @param userForm User Form
+     * @param bindingResult Binding for validation.
+     * @return
+     */
     @PostMapping("/user/registration")
-    public ModelAndView registerUser(@Valid @ModelAttribute("user") UserForm userForm, BindingResult bindingResult) {
+    public ModelAndView registerUser(@Valid @ModelAttribute("user") UserForm userForm, 
+                                        BindingResult bindingResult) {
         ModelAndView model = new ModelAndView();
 
         // validation
@@ -90,7 +103,8 @@ public class UserController {
             model.setViewName("user/registration");
             return model;
         }
-
+        
+        // check user exists or not
         User userExists = userService.findUserByEmail(userForm.getEmail());
         if (userExists != null) {
             bindingResult.rejectValue("email", "error.user", "This email already exists!");
@@ -103,17 +117,19 @@ public class UserController {
         // copy form to entity
         try {
             BeanUtils.copyProperties(user, userForm);
-        } catch (IllegalAccessException e) {
+            userService.saveUser(user);
+
+            // redirect to search user
+            model.setViewName("redirect:/users");
+            return model;
+        } catch (IllegalAccessException | InvocationTargetException e) {
             e.printStackTrace();
-        } catch (InvocationTargetException e) {
-            e.printStackTrace();
+            // if have exception then stay in current page.
+            model.addObject("user", userForm);
+            model.setViewName("user/registration");
+            return model;
         }
 
-        userService.saveUser(user);
-
-        // redirect to search user
-        model.setViewName("redirect:/users");
-        return model;
     }
 
     /**
@@ -160,7 +176,7 @@ public class UserController {
         }
         //check input password
         if (StringUtils.isEmpty(updateForm.getPassword())) {
-            userService.updateUser(id, updateForm.getName());
+            userService.updateUser(id, updateForm.getName(), null);
         } else {
             userService.updateUser(id, updateForm.getName(), updateForm.getPassword());
         }

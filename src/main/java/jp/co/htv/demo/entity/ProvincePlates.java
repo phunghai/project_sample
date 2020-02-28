@@ -1,7 +1,6 @@
 package jp.co.htv.demo.entity;
 
 import java.time.LocalDateTime;
-
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -40,6 +39,7 @@ public class ProvincePlates {
     private LocalDateTime updatedAt;
 
     /**
+     * Getter of province plate id.
      * @return the id
      */
     public Long getId() {
@@ -47,6 +47,7 @@ public class ProvincePlates {
     }
 
     /**
+     * Setter of province plate id.
      * @param id the id to set
      */
     public void setId(Long id) {
@@ -54,6 +55,7 @@ public class ProvincePlates {
     }
 
     /**
+     * Getter of value.
      * @return the value
      */
     public String getValue() {
@@ -61,6 +63,7 @@ public class ProvincePlates {
     }
 
     /**
+     * Setter of value.
      * @param value the value to set
      */
     public void setValue(String value) {
@@ -68,6 +71,7 @@ public class ProvincePlates {
     }
 
     /**
+     * Getter of plate list.
      * @return the vehicleRegistrationPlates
      */
     public VehicleRegistrationPlates getVehicleRegistrationPlates() {
@@ -75,6 +79,7 @@ public class ProvincePlates {
     }
 
     /**
+     * Setter of plate list.
      * @param vehicleRegistrationPlates the vehicleRegistrationPlates to set
      */
     public void setVehicleRegistrationPlates(VehicleRegistrationPlates vehicleRegistrationPlates) {
@@ -82,6 +87,7 @@ public class ProvincePlates {
     }
 
     /**
+     * Getter of created at.
      * @return the createdAt
      */
     public LocalDateTime getCreatedAt() {
@@ -89,6 +95,7 @@ public class ProvincePlates {
     }
 
     /**
+     * Setter of created at.
      * @param createdAt the createdAt to set
      */
     public void setCreatedAt(LocalDateTime createdAt) {
@@ -96,6 +103,7 @@ public class ProvincePlates {
     }
 
     /**
+     * Getter of updated at.
      * @return the updatedAt
      */
     public LocalDateTime getUpdatedAt() {
@@ -103,6 +111,7 @@ public class ProvincePlates {
     }
 
     /**
+     * Setter of updated at.
      * @param updatedAt the updatedAt to set
      */
     public void setUpdatedAt(LocalDateTime updatedAt) {

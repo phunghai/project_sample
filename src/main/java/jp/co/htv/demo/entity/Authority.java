@@ -8,7 +8,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 /**
- * Authority Entity
+ * Authority Entity Class.
  * 
  * @author Nguyen Phung Hai
  *
@@ -24,14 +24,14 @@ public class Authority {
     private String authority;
 
     /**
-     * Default constructor
+     * Default constructor.
      */
     public Authority() {
         super();
     }
 
     /**
-     * Custom constructor
+     * Custom constructor.
      * 
      * @param authority Authority
      */
@@ -41,6 +41,7 @@ public class Authority {
     }
 
     /**
+     * Getter of id.
      * @return the id
      */
     public Long getId() {
@@ -48,6 +49,7 @@ public class Authority {
     }
 
     /**
+     * Setter of id.
      * @param id the id to set
      */
     public void setId(Long id) {
@@ -55,6 +57,7 @@ public class Authority {
     }
 
     /**
+     * Getter of Authority.
      * @return the authority
      */
     public String getAuthority() {
@@ -62,6 +65,7 @@ public class Authority {
     }
 
     /**
+     * Setter of authority.
      * @param authority the authority to set
      */
     public void setAuthority(String authority) {

@@ -57,7 +57,8 @@ public class VehicleRegistrationPlateController {
         ModelAndView model = new ModelAndView();
         String searchName = provinceName.orElse("");
 
-        List<VehicleRegistrationPlateDto> platesDtoList = plateService.findAll(searchName, this.isLogged());
+        List<VehicleRegistrationPlateDto> platesDtoList 
+                                                = plateService.findAll(searchName, this.isLogged());
 
         PlateSearchForm form = new PlateSearchForm();
         form.setPlatesList(platesDtoList);
@@ -111,9 +112,11 @@ public class VehicleRegistrationPlateController {
         }
 
         // check exist before add new
-        VehicleRegistrationPlates plateExists = plateService.findByProvinceCode(plateForm.getProvinceCode());
+        VehicleRegistrationPlates plateExists 
+                                    = plateService.findByProvinceCode(plateForm.getProvinceCode());
         if (plateExists != null) {
-            bindingResult.rejectValue("provinceCode", "error.province.plate.exist", "Province plates is exist!");
+            bindingResult.rejectValue("provinceCode", 
+                                        "error.province.plate.exist", "Province plates is exist!");
             plateForm.setProvinceList(provinceService.findAllByOrderByCodeAsc());
             model.addObject("plateForm", plateForm);
             model.setViewName("plate/create");
@@ -251,7 +254,7 @@ public class VehicleRegistrationPlateController {
     }
 
     /**
-     * Check user authentication
+     * Check user authentication.
      * 
      * @return
      */

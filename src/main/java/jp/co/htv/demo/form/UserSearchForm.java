@@ -1,7 +1,6 @@
 package jp.co.htv.demo.form;
 
 import org.springframework.data.domain.Page;
-
 import jp.co.htv.demo.entity.User;
 
 /**

@@ -1,9 +1,7 @@
 package jp.co.htv.demo.form.plate;
 
 import java.util.List;
-
 import javax.validation.constraints.NotBlank;
-
 import jp.co.htv.demo.entity.Province;
 import jp.co.htv.demo.validation.DuplicationPlateCheck;
 
@@ -32,6 +30,7 @@ public class PlateForm {
     private List<Province> provinceList;
 
     /**
+     * Getter of province code.
      * @return the provinceCode
      */
     public String getProvinceCode() {
@@ -39,6 +38,7 @@ public class PlateForm {
     }
 
     /**
+     * Setter of province code.
      * @param provinceCode the provinceCode to set
      */
     public void setProvinceCode(String provinceCode) {
@@ -46,6 +46,7 @@ public class PlateForm {
     }
 
     /**
+     * Getter of plates.
      * @return the plates
      */
     public String getPlates() {
@@ -53,6 +54,7 @@ public class PlateForm {
     }
 
     /**
+     * Setter of plates.
      * @param plates the plates to set
      */
     public void setPlates(String plates) {
@@ -60,6 +62,7 @@ public class PlateForm {
     }
 
     /**
+     * Getter of published.
      * @return the published
      */
     public boolean isPublished() {
@@ -67,6 +70,7 @@ public class PlateForm {
     }
 
     /**
+     * Setter of published.
      * @param published the published to set
      */
     public void setPublished(boolean published) {
@@ -74,6 +78,7 @@ public class PlateForm {
     }
 
     /**
+     * Getter of province list.
      * @return the provinceList
      */
     public List<Province> getProvinceList() {
@@ -81,6 +86,7 @@ public class PlateForm {
     }
 
     /**
+     * Setter of province list.
      * @param provinceList the provinceList to set
      */
     public void setProvinceList(List<Province> provinceList) {
@@ -88,6 +94,7 @@ public class PlateForm {
     }
 
     /**
+     * Getter of province name.
      * @return the provinceName
      */
     public String getProvinceName() {
@@ -95,6 +102,7 @@ public class PlateForm {
     }
 
     /**
+     * Setter of province name.
      * @param provinceName the provinceName to set
      */
     public void setProvinceName(String provinceName) {

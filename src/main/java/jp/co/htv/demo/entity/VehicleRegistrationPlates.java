@@ -3,7 +3,6 @@ package jp.co.htv.demo.entity;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -42,14 +41,15 @@ public class VehicleRegistrationPlates {
     private List<ProvincePlates> provincePlates = new ArrayList<ProvincePlates>();
 
     /**
-     * @param id
-     * @param provinceCode
-     * @param published
-     * @param createdAt
-     * @param updatedAt
+     * Custom constructor.
+     * @param id plate id
+     * @param provinceCode province code
+     * @param published published
+     * @param createdAt created date
+     * @param updatedAt updated date
      */
-    public VehicleRegistrationPlates(Long id, String provinceCode, Boolean published, LocalDateTime createdAt,
-            LocalDateTime updatedAt) {
+    public VehicleRegistrationPlates(Long id, String provinceCode, Boolean published, 
+            LocalDateTime createdAt, LocalDateTime updatedAt) {
         super();
         this.id = id;
         this.provinceCode = provinceCode;
@@ -59,13 +59,14 @@ public class VehicleRegistrationPlates {
     }
 
     /**
-     * 
+     * Default constructor.
      */
     public VehicleRegistrationPlates() {
         super();
     }
 
     /**
+     * Gets the value of the id property.
      * @return the id
      */
     public Long getId() {
@@ -73,6 +74,7 @@ public class VehicleRegistrationPlates {
     }
 
     /**
+     * Sets the value of the id property.
      * @param id the id to set
      */
     public void setId(Long id) {
@@ -80,6 +82,7 @@ public class VehicleRegistrationPlates {
     }
 
     /**
+     * Gets the value of the provinceCode property.
      * @return the provinceCode
      */
     public String getProvinceCode() {
@@ -87,6 +90,7 @@ public class VehicleRegistrationPlates {
     }
 
     /**
+     * Sets the value of the provinceCode property.
      * @param provinceCode the provinceCode to set
      */
     public void setProvinceCode(String provinceCode) {
@@ -94,6 +98,7 @@ public class VehicleRegistrationPlates {
     }
 
     /**
+     * Gets the value of the published property.
      * @return the published
      */
     public Boolean getPublished() {
@@ -101,6 +106,7 @@ public class VehicleRegistrationPlates {
     }
 
     /**
+     * Sets the value of the published property.
      * @param published the published to set
      */
     public void setPublished(Boolean published) {
@@ -108,6 +114,7 @@ public class VehicleRegistrationPlates {
     }
 
     /**
+     * Gets the value of the createdAt property.
      * @return the createdAt
      */
     public LocalDateTime getCreatedAt() {
@@ -115,6 +122,7 @@ public class VehicleRegistrationPlates {
     }
 
     /**
+     * Sets the value of the createdAt property.
      * @param createdAt the createdAt to set
      */
     public void setCreatedAt(LocalDateTime createdAt) {
@@ -122,6 +130,7 @@ public class VehicleRegistrationPlates {
     }
 
     /**
+     * Gets the value of the updatedAt property.
      * @return the updatedAt
      */
     public LocalDateTime getUpdatedAt() {
@@ -129,6 +138,7 @@ public class VehicleRegistrationPlates {
     }
 
     /**
+     * Sets the value of the updatedAt property.
      * @param updatedAt the updatedAt to set
      */
     public void setUpdatedAt(LocalDateTime updatedAt) {
@@ -136,6 +146,7 @@ public class VehicleRegistrationPlates {
     }
 
     /**
+     * Gets the value of the provincePlates property.
      * @return the provincePlates
      */
     public List<ProvincePlates> getProvincePlates() {
@@ -143,6 +154,7 @@ public class VehicleRegistrationPlates {
     }
 
     /**
+     * Sets the value of the provincePlates property.
      * @param provincePlates the provincePlates to set
      */
     public void setProvincePlates(List<ProvincePlates> provincePlates) {

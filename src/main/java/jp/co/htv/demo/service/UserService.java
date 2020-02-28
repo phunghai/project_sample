@@ -2,33 +2,32 @@ package jp.co.htv.demo.service;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-
 import jp.co.htv.demo.entity.User;
 
 /**
- * User Service Interface
+ * User Service Interface Class.
  * 
  * @author Nguyen Phung Hai
  *
  */
 public interface UserService {
     /**
-     * Get user by email
+     * Get user by email.
      * 
-     * @param email
+     * @param email Email
      * @return
      */
     User findUserByEmail(String email);
 
     /**
-     * Save new user
+     * Save new user.
      * 
-     * @param user
+     * @param user User
      */
     void saveUser(User user);
 
     /**
-     * Get all users
+     * Get all users.
      * 
      * @return
      */
@@ -48,15 +47,6 @@ public interface UserService {
      * @param user User
      */
     void deleteUser(User user);
-
-    /**
-     * Update user info.
-     * 
-     * @param id   user id
-     * @param name user name
-     * @return
-     */
-    int updateUser(Long id, String name);
     
     /**
      * Update password for user.
