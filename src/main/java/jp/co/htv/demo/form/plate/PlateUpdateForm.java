@@ -17,7 +17,7 @@ public class PlateUpdateForm {
     private String provinceName;
 
     /** Plates property. */
-    @NotBlank
+    @NotBlank(message = "{item.required}")
     @DuplicationPlateCheck
     private String plates;
 

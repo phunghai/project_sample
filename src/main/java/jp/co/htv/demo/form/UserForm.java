@@ -11,14 +11,14 @@ import javax.validation.constraints.NotNull;
  *
  */
 public class UserForm {
-    @NotBlank(message = "The field cannot be blank")
+    @NotBlank(message = "{item.required}")
     private String name;
 
-    @NotBlank(message = "The field cannot be blank")
+    @NotBlank(message = "{item.required}")
     @Email
     private String email;
 
-    @NotBlank(message = "The field cannot be blank")
+    @NotBlank(message = "{item.required}")
     private String password;
 
     /**

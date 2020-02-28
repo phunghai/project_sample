@@ -19,7 +19,7 @@ public class PlateForm {
     private String provinceName;
 
     /** Plates property. */
-    @NotBlank(message = "The field cannot be blank")
+    @NotBlank(message = "{item.required}")
     @DuplicationPlateCheck
     private String plates;
 

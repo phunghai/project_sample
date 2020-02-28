@@ -13,7 +13,7 @@ public class UserUpdateForm {
     /** user id. */
     private Long id;
     
-    @NotBlank(message = "The field cannot be blank")
+    @NotBlank(message = "{item.required}")
     private String name;
 
     private String password;
