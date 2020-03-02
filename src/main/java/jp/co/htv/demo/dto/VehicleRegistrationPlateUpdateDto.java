@@ -4,7 +4,7 @@ import java.util.List;
 import jp.co.htv.demo.entity.ProvincePlates;
 
 /**
- * Vehicle Registration Plate Update Dto.
+ * Vehicle Registration Plate Update DTO Class.
  * 
  * @author hainp
  *
@@ -34,7 +34,7 @@ public class VehicleRegistrationPlateUpdateDto {
     }
 
     /**
-     * Gets the value of the id property.
+     * Sets the value of the id property.
      * @param id the id to set
      */
     public void setId(Long id) {
@@ -50,7 +50,7 @@ public class VehicleRegistrationPlateUpdateDto {
     }
 
     /**
-     * Gets the value of the provinceCode property.
+     * Sets the value of the provinceCode property.
      * @param provinceCode the provinceCode to set
      */
     public void setProvinceCode(String provinceCode) {
@@ -66,7 +66,7 @@ public class VehicleRegistrationPlateUpdateDto {
     }
 
     /**
-     * Gets the value of the provinceName property.
+     * Sets the value of the provinceName property.
      * @param provinceName the provinceName to set
      */
     public void setProvinceName(String provinceName) {
@@ -82,7 +82,7 @@ public class VehicleRegistrationPlateUpdateDto {
     }
 
     /**
-     * Gets the value of the published property.
+     * Sets the value of the published property.
      * @param published the published to set
      */
     public void setPublished(boolean published) {
@@ -98,11 +98,11 @@ public class VehicleRegistrationPlateUpdateDto {
     }
 
     /**
-     * Gets the value of the provincePlatesList property.
+     * Sets the value of the provincePlatesList property.
      * @param provincePlatesList the provincePlatesList to set
      */
     public void setProvincePlatesList(List<ProvincePlates> provincePlatesList) {
         this.provincePlatesList = provincePlatesList;
     }
-
+    
 }
