@@ -7,8 +7,6 @@ import java.util.Optional;
 import javax.validation.Valid;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -28,6 +26,7 @@ import jp.co.htv.demo.form.plate.PlateSearchForm;
 import jp.co.htv.demo.form.plate.PlateUpdateForm;
 import jp.co.htv.demo.service.ProvinceService;
 import jp.co.htv.demo.service.VehicleRegistrationPlatesService;
+import jp.co.htv.demo.utils.AuthenticationUtils;
 import jp.co.htv.demo.utils.Constants;
 
 /**
@@ -58,7 +57,7 @@ public class VehicleRegistrationPlateController {
         String searchName = provinceName.orElse("");
 
         List<VehicleRegistrationPlateDto> platesDtoList 
-                                                = plateService.findAll(searchName, this.isLogged());
+                                                = plateService.findAll(searchName, AuthenticationUtils.isLogged());
 
         PlateSearchForm form = new PlateSearchForm();
         form.setPlatesList(platesDtoList);
@@ -253,13 +252,4 @@ public class VehicleRegistrationPlateController {
         return StringUtils.join(platesValueList, System.lineSeparator());
     }
 
-    /**
-     * Check user authentication.
-     * 
-     * @return
-     */
-    private boolean isLogged() {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        return null != authentication && !("anonymousUser").equals(authentication.getName());
-    }
 }
