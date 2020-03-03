@@ -1,4 +1,4 @@
-package jp.co.htv.demo.form;
+package jp.co.htv.demo.form.user;
 
 import org.springframework.data.domain.Page;
 import jp.co.htv.demo.entity.User;

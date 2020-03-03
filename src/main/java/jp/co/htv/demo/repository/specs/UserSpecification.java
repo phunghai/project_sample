@@ -18,7 +18,7 @@ public class UserSpecification implements Specification<User> {
     /** default serial version. */
     private static final long serialVersionUID = 1L;
     
-    private List<SearchCriteria> searchCriteriaList;
+    private final List<SearchCriteria> searchCriteriaList;
     
     /**
      * Constructor.

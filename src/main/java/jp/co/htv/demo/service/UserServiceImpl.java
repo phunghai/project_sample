@@ -7,6 +7,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import jp.co.htv.demo.dto.user.UserCreateDto;
+import jp.co.htv.demo.dto.user.UserUpdateDto;
 import jp.co.htv.demo.entity.Authority;
 import jp.co.htv.demo.entity.User;
 import jp.co.htv.demo.repository.AuthorityResository;
@@ -37,18 +39,16 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void saveUser(User user) {
-        user.setPassword(encoder.encode(user.getPassword()));
-        user.setEnabled(true);
+    public void saveUser(UserCreateDto userDto) {
+        User userEntity = new User();
+        userEntity.setPassword(encoder.encode(userDto.getPassword()));
+        userEntity.setEnabled(true);
+        userEntity.setName(userDto.getName());
+        userEntity.setEmail(userDto.getEmail());
 
         Authority userAuthority = authorityRespository.findByAuthority("ROLE_ADMIN");
-        user.setAuthority(new HashSet<Authority>(Arrays.asList(userAuthority)));
-        userRepository.save(user);
-    }
-
-    @Override
-    public Iterable<User> findAll() {
-        return userRepository.findAll();
+        userEntity.setAuthority(new HashSet<Authority>(Arrays.asList(userAuthority)));
+        userRepository.save(userEntity);
     }
 
     @Override
@@ -72,12 +72,13 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public int updateUser(Long id, String name, String password) {
-        if (password != null) {
-            String encodePassword = encoder.encode(password);
-            userRepository.updateUserNameAndPassword(id, name, encodePassword);
+    public int updateUser(UserUpdateDto userDto) {
+        if (userDto.getPassword() != null) {
+            String encodePassword = encoder.encode(userDto.getPassword());
+            userRepository.updateUserNameAndPassword(userDto.getId(), 
+                    userDto.getName(), encodePassword);
         } else {
-            userRepository.updateUserName(id, name);
+            userRepository.updateUserName(userDto.getId(), userDto.getName());
         }
         return 0;
     }

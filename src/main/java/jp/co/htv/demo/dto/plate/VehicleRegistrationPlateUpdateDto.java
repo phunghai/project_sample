@@ -1,4 +1,4 @@
-package jp.co.htv.demo.dto;
+package jp.co.htv.demo.dto.plate;
 
 import java.util.List;
 import jp.co.htv.demo.entity.ProvincePlates;

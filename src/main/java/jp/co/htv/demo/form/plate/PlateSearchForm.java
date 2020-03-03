@@ -1,7 +1,7 @@
 package jp.co.htv.demo.form.plate;
 
 import java.util.List;
-import jp.co.htv.demo.dto.VehicleRegistrationPlateDto;
+import jp.co.htv.demo.dto.plate.VehicleRegistrationPlateDto;
 
 /**
  * Plate Search Form Class.

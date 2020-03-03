@@ -4,6 +4,8 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.Optional;
 import javax.validation.Valid;
 import org.apache.commons.beanutils.BeanUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -16,11 +18,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
-import org.thymeleaf.util.StringUtils;
+import jp.co.htv.demo.dto.user.UserCreateDto;
+import jp.co.htv.demo.dto.user.UserUpdateDto;
 import jp.co.htv.demo.entity.User;
-import jp.co.htv.demo.form.UserForm;
-import jp.co.htv.demo.form.UserSearchForm;
-import jp.co.htv.demo.form.UserUpdateForm;
+import jp.co.htv.demo.form.user.UserForm;
+import jp.co.htv.demo.form.user.UserSearchForm;
+import jp.co.htv.demo.form.user.UserUpdateForm;
 import jp.co.htv.demo.service.UserService;
 
 /**
@@ -31,6 +34,8 @@ import jp.co.htv.demo.service.UserService;
  */
 @Controller
 public class UserController {
+    /**  Logger. */
+    private static Logger logger = LoggerFactory.getLogger(UserController.class);
     /** User Service. */
     @Autowired
     private UserService userService;
@@ -113,7 +118,7 @@ public class UserController {
             return model;
         }
 
-        User user = new User();
+        UserCreateDto user = new UserCreateDto();
         // copy form to entity
         try {
             BeanUtils.copyProperties(user, userForm);
@@ -123,7 +128,7 @@ public class UserController {
             model.setViewName("redirect:/users");
             return model;
         } catch (IllegalAccessException | InvocationTargetException e) {
-            e.printStackTrace();
+            logger.error("Error parsing from form to enitity.");
             // if have exception then stay in current page.
             model.addObject("user", userForm);
             model.setViewName("user/registration");
@@ -141,7 +146,7 @@ public class UserController {
     @GetMapping("/user/edit/{id}")
     public ModelAndView showUpdateForm(@PathVariable("id") long id) {
         // get stored user information
-        User user = userService.findUserById(Long.valueOf(id));
+        User user = userService.findUserById(id);
         
         // create updating form.
         UserUpdateForm updateForm = new UserUpdateForm();
@@ -174,13 +179,13 @@ public class UserController {
             model.setViewName("user/update");
             return model;
         }
-        //check input password
-        if (StringUtils.isEmpty(updateForm.getPassword())) {
-            userService.updateUser(id, updateForm.getName(), null);
-        } else {
-            userService.updateUser(id, updateForm.getName(), updateForm.getPassword());
-        }
         
+        UserUpdateDto userDto = new UserUpdateDto();
+        userDto.setId(id);
+        userDto.setName(updateForm.getName());
+        userDto.setPassword(updateForm.getPassword());
+        //check input password
+        userService.updateUser(userDto);
         // redirect to search user
         model.setViewName("redirect:/users");
         return model;

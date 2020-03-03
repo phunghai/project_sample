@@ -2,9 +2,9 @@ package jp.co.htv.demo.service;
 
 import java.util.List;
 import org.springframework.data.domain.Sort;
-import jp.co.htv.demo.dto.VehicleRegistrationPlateCreateDto;
-import jp.co.htv.demo.dto.VehicleRegistrationPlateDto;
-import jp.co.htv.demo.dto.VehicleRegistrationPlateUpdateDto;
+import jp.co.htv.demo.dto.plate.VehicleRegistrationPlateCreateDto;
+import jp.co.htv.demo.dto.plate.VehicleRegistrationPlateDto;
+import jp.co.htv.demo.dto.plate.VehicleRegistrationPlateUpdateDto;
 import jp.co.htv.demo.entity.VehicleRegistrationPlates;
 
 /**
