@@ -1,4 +1,4 @@
-package jp.co.htv.demo.form;
+package jp.co.htv.demo.form.user;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;

@@ -2,6 +2,8 @@ package jp.co.htv.demo.service;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import jp.co.htv.demo.dto.user.UserCreateDto;
+import jp.co.htv.demo.dto.user.UserUpdateDto;
 import jp.co.htv.demo.entity.User;
 
 /**
@@ -24,14 +26,7 @@ public interface UserService {
      * 
      * @param user User
      */
-    void saveUser(User user);
-
-    /**
-     * Get all users.
-     * 
-     * @return
-     */
-    Iterable<User> findAll();
+    void saveUser(UserCreateDto user);
 
     /**
      * Find by id.
@@ -47,21 +42,19 @@ public interface UserService {
      * @param user User
      */
     void deleteUser(User user);
-    
+
     /**
      * Update password for user.
-     * @param id user id
-     * @param name user name.
-     * @param password user password.
+     * 
      * @return
      */
-    int updateUser(Long id, String name, String password);
+    int updateUser(UserUpdateDto userUpdateDto);
 
     /**
      * Paging user by name.
      * 
      * @param name     user name
-     * @param email email of user
+     * @param email    email of user
      * @param pageable Pageable
      * @return number of user on one page
      */

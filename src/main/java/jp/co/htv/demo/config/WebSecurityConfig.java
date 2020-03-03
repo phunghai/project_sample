@@ -19,15 +19,12 @@ import jp.co.htv.demo.service.UserDetailsServiceImpl;
 @Configuration
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
+    /**
+     * User detail service.
+     */
     @Autowired
     UserDetailsServiceImpl userDetailsService;
 
-    /**
-     * default constructor.
-     */
-    public WebSecurityConfig() {
-        super();
-    }
 
     @Override
     protected void configure(final HttpSecurity http) throws Exception {
