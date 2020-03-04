@@ -24,7 +24,7 @@ public class UserSpecification implements Specification<User> {
      * Constructor.
      */
     public UserSpecification() {
-        this.searchCriteriaList = new ArrayList<SearchCriteria>();
+        this.searchCriteriaList = new ArrayList<>();
     }
 
     public void add(SearchCriteria criteria) {

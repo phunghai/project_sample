@@ -37,6 +37,14 @@ import jp.co.htv.demo.utils.Constants;
  */
 @Controller
 public class VehicleRegistrationPlateController {
+    /** redirect plate list view. */
+    private static final String REDIRECT_PLATE_LIST_VIEW = "redirect:/plate/list";
+
+    /** plate create view. */
+    private static final String PLATE_CREATE_VIEW = "plate/create";
+
+    /** plate form object key. */
+    private static final String PLATE_FORM_KEY = "plateForm";
 
     /** Vehicle Registration Plates Service. */
     @Autowired
@@ -85,8 +93,8 @@ public class VehicleRegistrationPlateController {
         PlateForm plateForm = new PlateForm();
         plateForm.setProvinceList(provinceList);
 
-        model.addObject("plateForm", plateForm);
-        model.setViewName("plate/create");
+        model.addObject(PLATE_FORM_KEY, plateForm);
+        model.setViewName(PLATE_CREATE_VIEW);
         return model;
 
     }
@@ -99,14 +107,14 @@ public class VehicleRegistrationPlateController {
      * @return
      */
     @PostMapping("/plate/create")
-    public ModelAndView createPlate(@Valid @ModelAttribute("plateForm") PlateForm plateForm,
+    public ModelAndView createPlate(@Valid @ModelAttribute(PLATE_FORM_KEY) PlateForm plateForm,
             BindingResult bindingResult) {
         ModelAndView model = new ModelAndView();
         // validation
         if (bindingResult.hasErrors()) {
             plateForm.setProvinceList(provinceService.findAllByOrderByCodeAsc());
-            model.addObject("plateForm", plateForm);
-            model.setViewName("plate/create");
+            model.addObject(PLATE_FORM_KEY, plateForm);
+            model.setViewName(PLATE_CREATE_VIEW);
             return model;
         }
 
@@ -117,8 +125,8 @@ public class VehicleRegistrationPlateController {
             bindingResult.rejectValue("provinceCode", 
                                         "error.province.plate.exist", "Province plates is exist!");
             plateForm.setProvinceList(provinceService.findAllByOrderByCodeAsc());
-            model.addObject("plateForm", plateForm);
-            model.setViewName("plate/create");
+            model.addObject(PLATE_FORM_KEY, plateForm);
+            model.setViewName(PLATE_CREATE_VIEW);
             return model;
         }
 
@@ -127,7 +135,7 @@ public class VehicleRegistrationPlateController {
         plateDto.setProvinceCode(plateForm.getProvinceCode());
 
         // convert form plates to list of province plates object
-        List<ProvincePlates> provincePlatesList = new ArrayList<ProvincePlates>();
+        List<ProvincePlates> provincePlatesList = new ArrayList<>();
         String[] provincePlatesArray = plateForm.getPlates().split(Constants.NEW_LINE);
 
         for (String provincePlate : provincePlatesArray) {
@@ -141,7 +149,7 @@ public class VehicleRegistrationPlateController {
         plateService.save(plateDto);
 
         // go to search screen
-        model.setViewName("redirect:/plate/list");
+        model.setViewName(REDIRECT_PLATE_LIST_VIEW);
 
         return model;
     }
@@ -197,7 +205,7 @@ public class VehicleRegistrationPlateController {
         updateDto.setId(updateForm.getId());
         updateDto.setPublished(updateForm.isPublished());
 
-        List<ProvincePlates> provincePlatesList = new ArrayList<ProvincePlates>();
+        List<ProvincePlates> provincePlatesList = new ArrayList<>();
         String[] provincePlatesArray = updateForm.getPlates().split(System.lineSeparator());
         for (String provincePlate : provincePlatesArray) {
             ProvincePlates provincePlateObj = new ProvincePlates();
@@ -213,7 +221,7 @@ public class VehicleRegistrationPlateController {
         plateService.update(updateDto);
 
         // go to search screen
-        model.setViewName("redirect:/plate/list");
+        model.setViewName(REDIRECT_PLATE_LIST_VIEW);
         return model;
     }
 
@@ -232,7 +240,7 @@ public class VehicleRegistrationPlateController {
         plateService.delete(plate);
 
         // go to search screen
-        model.setViewName("redirect:/plate/list");
+        model.setViewName(REDIRECT_PLATE_LIST_VIEW);
         return model;
     }
 
@@ -243,7 +251,7 @@ public class VehicleRegistrationPlateController {
      * @return
      */
     private String convertPlatesDisplay(List<ProvincePlates> provincePlateList) {
-        List<String> platesValueList = new ArrayList<String>();
+        List<String> platesValueList = new ArrayList<>();
 
         for (ProvincePlates plate : provincePlateList) {
             platesValueList.add(plate.getValue());

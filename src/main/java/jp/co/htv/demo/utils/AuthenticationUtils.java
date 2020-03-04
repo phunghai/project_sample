@@ -5,10 +5,18 @@ import org.springframework.security.core.context.SecurityContextHolder;
 
 /**
  * Authentication Utility class.
+ * 
  * @author hainp
  *
  */
 public class AuthenticationUtils {
+
+    /**
+     * Private constructor.
+     */
+    private AuthenticationUtils() {
+        throw new IllegalStateException("Utility class");
+    }
 
     /**
      * Check user authentication.

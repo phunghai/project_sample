@@ -4,7 +4,7 @@ import java.util.Locale;
 import javax.servlet.http.HttpServletRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.unbescape.html.HtmlEscape;
 
 /**
@@ -16,7 +16,7 @@ import org.unbescape.html.HtmlEscape;
 @Controller
 public class MainController {
 
-    @RequestMapping("/")
+    @GetMapping("/")
     public String root(Locale locale) {
         return "redirect:/plate/list";
     }
@@ -25,13 +25,13 @@ public class MainController {
      * Login Screen.
      * @return
      */
-    @RequestMapping("/login.html")
+    @GetMapping("/login.html")
     public String login() {
         return "login";
     }
 
     /** Login form with error. */
-    @RequestMapping("/login-error.html")
+    @GetMapping("/login-error.html")
     public String loginError(Model model) {
         model.addAttribute("loginError", true);
         return "login";
@@ -39,7 +39,7 @@ public class MainController {
 
 
     /** Error page. */
-    @RequestMapping("/error.html")
+    @GetMapping("/error.html")
     public String error(HttpServletRequest request, Model model) {
         model.addAttribute("errorCode", "Error " + request.getAttribute("javax.servlet.error.status_code"));
         Throwable throwable = (Throwable) request.getAttribute("javax.servlet.error.exception");
@@ -55,7 +55,7 @@ public class MainController {
     }
 
     /** Error page. */
-    @RequestMapping("/403.html")
+    @GetMapping("/403.html")
     public String forbidden() {
         return "403";
     }

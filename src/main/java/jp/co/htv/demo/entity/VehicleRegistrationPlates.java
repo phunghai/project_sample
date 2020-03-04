@@ -38,7 +38,7 @@ public class VehicleRegistrationPlates {
     private LocalDateTime updatedAt;
 
     @OneToMany(mappedBy = "vehicleRegistrationPlates", cascade = { CascadeType.ALL })
-    private List<ProvincePlates> provincePlates = new ArrayList<ProvincePlates>();
+    private List<ProvincePlates> provincePlates = new ArrayList<>();
 
     /**
      * Custom constructor.

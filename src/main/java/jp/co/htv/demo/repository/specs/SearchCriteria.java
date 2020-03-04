@@ -1,12 +1,19 @@
 package jp.co.htv.demo.repository.specs;
 
+import java.io.Serializable;
+
 /**
  * Search Criteria Class.
  * 
  * @author hainp
  *
  */
-public class SearchCriteria {
+public class SearchCriteria implements Serializable {
+    /**
+     * serialVersionUID property. 
+     */
+    private static final long serialVersionUID = -2103687549171908775L;
+    
     private String key;
     private Object value;
     private SearchOperation operation;

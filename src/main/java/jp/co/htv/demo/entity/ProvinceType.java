@@ -33,7 +33,6 @@ public class ProvinceType {
      */
     public ProvinceType() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
     /**

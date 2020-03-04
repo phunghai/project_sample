@@ -24,7 +24,7 @@ public class VehicleRegistrationPlateSpecification implements Specification<Vehi
      * Constructor.
      */
     public VehicleRegistrationPlateSpecification() {
-        this.searchCriteriaList = new ArrayList<SearchCriteria>();
+        this.searchCriteriaList = new ArrayList<>();
     }
 
     public void add(SearchCriteria criteria) {

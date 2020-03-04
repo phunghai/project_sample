@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import jp.co.htv.demo.dto.user.UserCreateDto;
@@ -34,6 +33,10 @@ import jp.co.htv.demo.service.UserService;
  */
 @Controller
 public class UserController {
+    /** user list view. */
+    private static final String REDIRECT_USERS_LIST_VIEW = "redirect:/users";
+    /** user registration view. */
+    private static final String USER_REGISTRATION_VIEW = "user/registration";
     /**  Logger. */
     private static Logger logger = LoggerFactory.getLogger(UserController.class);
     /** User Service. */
@@ -48,7 +51,7 @@ public class UserController {
      * @param size page size
      * @return
      */
-    @RequestMapping("/users")
+    @GetMapping("/users")
     public ModelAndView searchUser(@RequestParam("name") Optional<String> name,
             @RequestParam("email") Optional<String> email,
             @RequestParam("page") Optional<Integer> page, 
@@ -86,7 +89,7 @@ public class UserController {
         ModelAndView model = new ModelAndView();
         UserForm user = new UserForm();
         model.addObject("user", user);
-        model.setViewName("user/registration");
+        model.setViewName(USER_REGISTRATION_VIEW);
 
         return model;
     }
@@ -105,7 +108,7 @@ public class UserController {
         // validation
         if (bindingResult.hasErrors()) {
             model.addObject("user", userForm);
-            model.setViewName("user/registration");
+            model.setViewName(USER_REGISTRATION_VIEW);
             return model;
         }
         
@@ -114,7 +117,7 @@ public class UserController {
         if (userExists != null) {
             bindingResult.rejectValue("email", "error.user", "This email already exists!");
             model.addObject("user", userForm);
-            model.setViewName("user/registration");
+            model.setViewName(USER_REGISTRATION_VIEW);
             return model;
         }
 
@@ -125,13 +128,13 @@ public class UserController {
             userService.saveUser(user);
 
             // redirect to search user
-            model.setViewName("redirect:/users");
+            model.setViewName(REDIRECT_USERS_LIST_VIEW);
             return model;
         } catch (IllegalAccessException | InvocationTargetException e) {
             logger.error("Error parsing from form to enitity.");
             // if have exception then stay in current page.
             model.addObject("user", userForm);
-            model.setViewName("user/registration");
+            model.setViewName(USER_REGISTRATION_VIEW);
             return model;
         }
 
@@ -187,7 +190,7 @@ public class UserController {
         //check input password
         userService.updateUser(userDto);
         // redirect to search user
-        model.setViewName("redirect:/users");
+        model.setViewName(REDIRECT_USERS_LIST_VIEW);
         return model;
     }
 
@@ -205,7 +208,7 @@ public class UserController {
 
         userService.deleteUser(user);
         // redirect to search user
-        model.setViewName("redirect:/users");
+        model.setViewName(REDIRECT_USERS_LIST_VIEW);
         return model;
     }
 }

@@ -8,7 +8,6 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import jp.co.htv.demo.entity.Authority;
 import jp.co.htv.demo.repository.UserRepository;
@@ -25,20 +24,18 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     UserRepository userRepository;
 
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+    public UserDetails loadUserByUsername(String username) {
 
         jp.co.htv.demo.entity.User appUser = userRepository.findByEmail(username);
 
-        List<GrantedAuthority> grantList = new ArrayList<GrantedAuthority>();
+        List<GrantedAuthority> grantList = new ArrayList<>();
         for (Authority authority : appUser.getAuthority()) {
             GrantedAuthority grantedAuthority 
                                             = new SimpleGrantedAuthority(authority.getAuthority());
             grantList.add(grantedAuthority);
         }
 
-        UserDetails user = (UserDetails) new User(appUser.getEmail(), 
-                                                    appUser.getPassword(), grantList);
-        return user;
+        return new User(appUser.getEmail(), appUser.getPassword(), grantList);
     }
 
 }

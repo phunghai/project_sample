@@ -11,6 +11,13 @@ import java.util.stream.Stream;
 public class ValidationUtils {
 
     /**
+     * Utility classes should not have public constructors.
+     */
+    private ValidationUtils() {
+        throw new IllegalStateException("Utility class");
+    }
+    
+    /**
      * Check for duplicate in array.
      * 
      * @param <T> boolean

@@ -11,11 +11,7 @@ import jp.co.htv.demo.utils.ValidationUtils;
  *
  */
 public class DuplicationPlateValidator implements ConstraintValidator<DuplicationPlateCheck, String> {
- 
-    @Override
-    public void initialize(DuplicationPlateCheck plateNumber) {
-    }
- 
+
     @Override
     public boolean isValid(String plateField, ConstraintValidatorContext cxt) {
         String[] platesArray = plateField.split(Constants.NEW_LINE);

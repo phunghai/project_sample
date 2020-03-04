@@ -45,10 +45,10 @@ public class VehicleRegistrationPlatesServiceImpl implements VehicleRegistration
     public List<VehicleRegistrationPlateDto> findAll(String provinceName, boolean isLogged) {
         // returning list
         List<VehicleRegistrationPlateDto> plateDtoList 
-                                            = new ArrayList<VehicleRegistrationPlateDto>();
+                                            = new ArrayList<>();
         
         // get vehicle registration plates list from database and filter by province name.
-        List<Object[]> rawDataList = new ArrayList<Object[]>();
+        List<Object[]> rawDataList;
         if (isLogged) {
             rawDataList = vehicleRepository.findAllByProvinceName(provinceName);
         } else {
