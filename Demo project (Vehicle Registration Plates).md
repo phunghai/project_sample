@@ -2,7 +2,9 @@
 
 1. Overview:
 
-   - abcddd
+   -	A function that allows users to search for vehicle registration plates of a province of Vietnam
+   -	A function that allows logged-in users to create/edit/delete a province with its vehicle registration plates
+   -	A function that allows logged in users to create/edit/delete a user
 
 2. Screen List:
 
