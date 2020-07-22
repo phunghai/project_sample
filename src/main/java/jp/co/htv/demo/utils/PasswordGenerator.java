@@ -13,6 +13,7 @@ public class PasswordGenerator {
     public static void main(String[] args) {
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder(4);
         System.out.println(encoder.encode("123456"));
+        //update test comment
     }
 
 }
