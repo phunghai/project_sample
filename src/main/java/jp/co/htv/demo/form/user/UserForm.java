@@ -3,6 +3,7 @@ package jp.co.htv.demo.form.user;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import jp.co.htv.demo.validation.ValidPassword;
 
 /**
  * User Form class.
@@ -19,6 +20,7 @@ public class UserForm {
     private String email;
 
     @NotBlank(message = "{item.required}")
+    @ValidPassword
     private String password;
 
     /**
