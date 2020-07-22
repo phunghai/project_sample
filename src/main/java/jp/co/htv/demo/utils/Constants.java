@@ -17,4 +17,5 @@ public class Constants {
     /** New line regex. */
     public static final String NEW_LINE = "\\r?\\n";
     // update some comment
+    // update test rebase
 }
